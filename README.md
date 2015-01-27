@@ -1,4 +1,4 @@
-# Steam-item-search-between-friends
+# Steam item search between friends
 This extension allows to find items you looking for in all friends inventories on the same time.(On steam friends page e.g. http://steamcommunity.com/my/friends)
 
 **Extension allows filtering results like:**
