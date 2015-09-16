@@ -51,4 +51,6 @@ In my opinion, steam trading system lack of such a functionality.
  * Version 1.1.2 changes:
   * Fixed Slot filters not showing
  * Version 1.1.3 changes:
-  * increased steam calls timeout due to steam updates
+  * increased steam calls timeout due to steam updates (2100)
+ * Version 1.1.4 changes:
+  * increased steam calls timeout due to steam updates (4300)
