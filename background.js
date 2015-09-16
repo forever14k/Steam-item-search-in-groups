@@ -12,7 +12,7 @@ if (typeof($.cookie('strInventoryLastContext')) == "undefined")
 {
 	$.cookie('strInventoryLastContext', steam.appid+'_'+steam.contextid, { expires: 7, path: '/' });
 }
-else 
+else
 {
 	settings = $.cookie('strInventoryLastContext').split('_');
 	steam.appid = settings[0];
@@ -53,7 +53,7 @@ function capitaliseFirstLetter(string)
 }
 function ShowUi() {
 		if ($('.backpack_tooltip').length < 1)
-		{			
+		{
 		$('head').append(
 		'<style>'+
 			'#backpackscontent { margin-bottom:20px; }'+
@@ -65,7 +65,7 @@ function ShowUi() {
 			'.backpack_tooltip { position:absolute; top:-1000px;left:-1000px; background:#3a3a3a;padding:10px;border:1px solid #BFBFBF;border-radius:3px;max-width:500px }'+
 			'.backpack_tooltip .left { width:75px;float:left;overflow:hidden;}'+
 			'.backpack_tooltip .right { float:left; }'+
-			'.friendBlock { transition: background 500ms;}'+			
+			'.friendBlock { transition: background 500ms;}'+
 			'.item_name { width:250px; }.filters {line-height:13px;font-size:10px;padding:3px;color:white;border-radius:2px;background: linear-gradient(to bottom, #8bb006 5%,#6b8805 95%);display:inline-block;}.uifilters {width:586px;}.uifilters_selectors,.ui_left,.ui_right {display:inline-block;}.ui_left {text-align:right;padding-right:7px;}.uifilters_selectors {vertical-align: top;margin-left:10px;margin-bottom:20px; }.ui_left {width:60px;}.ui_filter {display:block;margin-top:10px;}.uifilters select {width:200px;} '+
 			'.select2-search-choice-close {background: url('+chrome.extension.getURL("select/select2.png")+') right top no-repeat;}.select2-container .select2-choice abbr { background: url('+chrome.extension.getURL("select/select2.png")+') right top no-repeat;}.select2-container .select2-choice .select2-arrow b {background: url('+chrome.extension.getURL("select/select2.png")+') no-repeat 0 1px;}.select2-search input {background: #fff url('+chrome.extension.getURL("select/select2.png")+') no-repeat 100% -22px; background: url('+chrome.extension.getURL("select/select2.png")+') no-repeat 100% -22px, -webkit-gradient(linear, left bottom, left top, color-stop(0.85, #fff), color-stop(0.99, #eee));  background: url('+chrome.extension.getURL("select/select2.png")+') no-repeat 100% -22px, -webkit-linear-gradient(center bottom, #fff 85%, #eee 99%);background: url('+chrome.extension.getURL("select/select2.png")+') no-repeat 100% -22px, -moz-linear-gradient(center bottom, #fff 85%, #eee 99%); background: url('+chrome.extension.getURL("select/select2.png")+') no-repeat 100% -22px, linear-gradient(top, #fff 85%, #eee 99%);  }.select2-search input.select2-active { background: #fff url('+chrome.extension.getURL("select/select2-spinner.gif")+') no-repeat 100%; background: url('+chrome.extension.getURL("select/select2-spinner.gif")+') no-repeat 100%, -webkit-gradient(linear, left bottom, left top, color-stop(0.85, #fff), color-stop(0.99, #eee));background: url('+chrome.extension.getURL("select/select2-spinner.gif")+') no-repeat 100%, -webkit-linear-gradient(center bottom, #fff 85%, #eee 99%); background: url('+chrome.extension.getURL("select/select2-spinner.gif")+') no-repeat 100%, -moz-linear-gradient(center bottom, #fff 85%, #eee 99%);background: url('+chrome.extension.getURL("select/select2-spinner.gif")+') no-repeat 100%, linear-gradient(top, #fff 85%, #eee 99%);}.select2-more-results.select2-active { background: #f4f4f4 url('+chrome.extension.getURL("select/select2-spinner.gif")+') no-repeat 100%;}.select2-container-multi .select2-choices .select2-search-field input.select2-active { background: #fff url('+chrome.extension.getURL("select/select2-spinner.gif")+') no-repeat 100% !important;}'+
 		'</style>'
@@ -119,7 +119,7 @@ function SettingsChanged() {
 	$('#load_inventories span').text('Load inventories (0/0)');
 	$('#search_selected').removeClass('btn_blue_white_innerfade').removeClass('btn_green_white_innerfade').addClass('btn_darkblue_white_innerfade');
 	backpacks = {};
-	results = {}; 
+	results = {};
 	steamids = {};
 	UiFilters = CloneObject(UiFiltersClear);
 }
@@ -195,7 +195,7 @@ function ShowResult(account_id,item_uid,desc) {
 			'<a href="http://steamcommunity.com/profiles/'+steamids[account_id]+'/inventory/#'+steam.appid+'_'+steam.contextid+'_'+item_uid+'" target="_blank">'+
 				'<img '+item_tooltip+' '+item_border+' src="http://cdn.steamcommunity.com/economy/image/'+desc.icon_url+'/73fx49f">'+
 			'</a>'
-		);		
+		);
 	}
 }
 function BuildTooltipStrange(descriptions,callback) {
@@ -372,7 +372,7 @@ function BuildTooltip(desc,callback) {
 		}
 	}
 	if (steam.appid == 570)
-	{	
+	{
 		$.each(desc.tags,function(tag_id,tag){
 		switch(tag.category) {
 			case "Quality":
@@ -438,7 +438,7 @@ debug = false;
 //blocked = false;
 //var invCurrent = 0, invAll = 0;
 var GetInventoryTimeout = 1;
-var GetInventoryIncrement = 2100;
+var GetInventoryIncrement = 4300;
 function GetInventory(node,account_id,steam_id,delay,callback) {
 	var timeout = setTimeout(function(){
 			$.ajax({
@@ -585,7 +585,7 @@ UiFilters = {
 		class:		[],
 		slot: []
 	},
-	counts: {		
+	counts: {
 		quality:	0,
 		rarity:		0,
 		hero:		0,
@@ -597,7 +597,7 @@ UiFilters = {
 		class:		0,
 		slot: 0
 	},
-	select: {		
+	select: {
 		quality:	1,
 		rarity:		1,
 		hero:		1,
@@ -629,7 +629,7 @@ function FillUiFilters() { //ui builder for filters
 		if (tags.length > 0)
 		{
 			if ($('#uifilters_'+filter_name+':visible').length == 0)
-			{	
+			{
 				ui.append('<div id="uifilters_'+filter_name+'" class="uifilters_selectors"></div>');
 				$('#uifilters_'+filter_name).append('<div class=ui_filter><div class=ui_left>'+capitaliseFirstLetter(filter_name)+': </div><div class=ui_right><input id="select_'+filter_name+'_0" data-filter='+filter_name+' style="width:200px;"></div></div>');
 				MakeSelect2($('#select_'+filter_name+'_0'));
@@ -642,7 +642,7 @@ function Select2FormatResult(item) {
 	{
 		return '<div style="width:15px;height:15px;background:#'+item.color+';float:left;border-radius:5px;margin-right:5px;"></div> '+item.text;
 	}
-	else { 
+	else {
 		return item.text;
 	}
 }
@@ -651,7 +651,7 @@ function Select2FormatSelection(item) {
 	{
 		return '<div style="width:15px;height:15px;background:#'+item.color+';float:left;border-radius:5px;margin-right:5px;margin-top:5px;"></div> '+item.text;
 	}
-	else { 
+	else {
 		return item.text;
 	}
 }
@@ -714,7 +714,7 @@ function Filter(desc) {
 						}
 					}
 					break;
-				case "Slot":					
+				case "Slot":
 					if (tag.category == "Slot")
 					{
 						if (UiFilters.can.slot.length > 0)
@@ -789,7 +789,7 @@ function Filter(desc) {
 					if ($.inArray(decription_entry.value,UiFilters.can.collection) > -1) {
 						filters.collection = true;
 					}
-					
+
 				}
 			}
 		});
@@ -881,7 +881,7 @@ function UpdateUiFilters(data) { //fill up main array with possible filters
 					if ($.inArray(tag.name,UiFilters.names.class) == -1) {
 						UiFilters.names.class.push(tag.name);
 						UiFilters.tags.class.push(tag);
-					}	
+					}
 				}
 			});
 		}
@@ -929,7 +929,7 @@ function CheckUiFilters(){
 			UiFilters.counts[filter] = 1;
 			UiFiltersAddToCan(data,filter);
 		}
-		else { 
+		else {
 			UiFilters.counts[filter] = 0;
 		}
 	});
@@ -978,7 +978,7 @@ function MakeSelect2(selector) {
 	}).on("select2-removed",function (e){
 		target = $(e.target);
 		parent = target.parent().parent();
-		CurrentFilter = target.attr('data-filter');	
+		CurrentFilter = target.attr('data-filter');
 		if (parent.index() == 0)
 		{
 			$('#uifilters_'+CurrentFilter+' .ui_filter:nth-child(2) .ui_left').text(capitaliseFirstLetter(CurrentFilter)+': ');
