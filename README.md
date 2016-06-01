@@ -54,3 +54,5 @@ In my opinion, steam trading system lack of such a functionality.
   * increased steam calls timeout due to steam updates (2100)
  * Version 1.1.4 changes:
   * increased steam calls timeout due to steam updates (4300)
+ * Version 1.1.5 changes:
+  * using https protocol (if requested over https)
