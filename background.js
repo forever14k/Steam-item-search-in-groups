@@ -192,8 +192,8 @@ function ShowResult(account_id,item_uid,desc) {
 			item_border = border;
 		});
 		$('.items[account_id='+account_id+']').append(
-			'<a href="http://steamcommunity.com/profiles/'+steamids[account_id]+'/inventory/#'+steam.appid+'_'+steam.contextid+'_'+item_uid+'" target="_blank">'+
-				'<img '+item_tooltip+' '+item_border+' src="http://cdn.steamcommunity.com/economy/image/'+desc.icon_url+'/73fx49f">'+
+			'<a href="//steamcommunity.com/profiles/'+steamids[account_id]+'/inventory/#'+steam.appid+'_'+steam.contextid+'_'+item_uid+'" target="_blank">'+
+				'<img '+item_tooltip+' '+item_border+' src="//steamcommunity-a.akamaihd.net/economy/image/'+desc.icon_url+'/73fx49f">'+
 			'</a>'
 		);
 	}
@@ -445,7 +445,7 @@ function GetInventory(node,account_id,steam_id,delay,callback) {
 				blockNode: $(node),
 				blockSteamId: steam_id,
 				blockAccountId: account_id,
-				url: "http://steamcommunity.com/profiles/"+steam_id+"/inventory/json/"+steam.appid+"/"+steam.contextid+"/?l=english",
+				url: "//steamcommunity.com/profiles/"+steam_id+"/inventory/json/"+steam.appid+"/"+steam.contextid+"/?l=english",
 				success: function(data) {
 					callback(this,data);
 //					blocked = false;

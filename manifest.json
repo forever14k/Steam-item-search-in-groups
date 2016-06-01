@@ -2,7 +2,7 @@
    "content_scripts": [ {
       "css": [ "select/select2.css" ],
       "js": [ "jquery-1.10.2.min.js", "jquery.cookie.js", "biginteger.js", "select/select2.min.js", "background.js" ],
-      "matches": [ "http://steamcommunity.com/*/friends*" ]
+      "matches": [ "http://steamcommunity.com/*/friends*", "https://steamcommunity.com/*/friends*" ]
    } ],
    "icons": {
       "128": "icon128.png",
@@ -11,8 +11,8 @@
    },
    "manifest_version": 2,
    "name": "Steam item search between friends.",
-   "permissions": [ "tabs", "http://steamcommunity.com/*", "http://api.steampowered.com/*" ],
+   "permissions": [ "tabs", "http://steamcommunity.com/*", "https://steamcommunity.com/*", "http://api.steampowered.com/*" ],
    "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "1.1.4",
+   "version": "1.1.5",
    "web_accessible_resources": [ "jquery-1.10.2.min.map", "select/select2-spinner.gif", "select/select2.png" ]
 }
