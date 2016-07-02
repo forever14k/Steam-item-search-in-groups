@@ -56,3 +56,5 @@ In my opinion, steam trading system lack of such a functionality.
   * increased steam calls timeout due to steam updates (4300)
  * Version 1.1.5 changes:
   * using https protocol (if requested over https)
+ * Version 1.1.6 changes:
+  * fixed crash if items don't have description
