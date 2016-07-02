@@ -832,6 +832,10 @@ function Filter(desc) {
 			}
 		});
 	}
+	filters.havedescription = false;
+	if (desc.market_name != undefined) {
+			filters.havedescription = true;
+	}
 	/////
 	filters.string = StringContains(desc.name,input);
 	$.each(filters,function(id,key){
