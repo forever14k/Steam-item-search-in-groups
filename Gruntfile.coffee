@@ -13,6 +13,8 @@ module.exports = (grunt)->
           'manifest.json'
         ]
     clean:
+      options:
+        force: true
       app: [
         "build/*"
         "temp/*"
@@ -30,6 +32,8 @@ module.exports = (grunt)->
           'temp/js/libs/jquery.js': 'node_modules/jquery/dist/jquery.min.js'
           'temp/js/libs/jquery.cookie.js': 'node_modules/jquery.cookie/jquery.cookie.js'
           'temp/js/libs/biginteger.js': 'node_modules/biginteger/biginteger.js'
+          'temp/js/libs/lodash.js': 'node_modules/lodash/lodash.min.js'
+          'temp/js/libs/jade.js': 'node_modules/jade/runtime.js'
           'temp/js/libs/select2.js': 'node_modules/select2/dist/js/select2.min.js'
           'temp/css/libs/select2.css': 'node_modules/select2/dist/css/select2.min.css'
       app:
@@ -50,7 +54,7 @@ module.exports = (grunt)->
           dest: "temp/js/scripts"
           ext: ".js"
         }]
-    pug:
+    jade:
       app:
         options:
           amd: false
@@ -58,11 +62,11 @@ module.exports = (grunt)->
           compileDebug: false
           namespace: 'sisbf'
           processName: ( name ) ->
-            name.replace /(.*)\/(\w+)\.pug/, '$2'
+            name.replace /(.*)\/(\w+)\.jade/, '$2'
         files: [{
           expand: true
-          cwd: 'source/pug/'
-          src: [ "**/*.pug" ]
+          cwd: 'source/jade/'
+          src: [ "**/*.jade" ]
           dest: 'temp/js/templates'
           ext: ".js"
         }]
@@ -87,6 +91,7 @@ module.exports = (grunt)->
             'temp/js/libs/*.js',
             'temp/js/templates/*.js',
             'temp/js/scripts/*.js'
+            '!temp/js/scripts/index.js', 'temp/js/scripts/index.js'
           ]
     cssmin:
       app:
@@ -123,7 +128,7 @@ module.exports = (grunt)->
   grunt.loadNpmTasks 'grunt-mkdir'
   grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
-  grunt.loadNpmTasks 'grunt-contrib-pug'
+  grunt.loadNpmTasks 'grunt-contrib-jade'
   grunt.loadNpmTasks 'grunt-contrib-stylus'
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
@@ -133,7 +138,7 @@ module.exports = (grunt)->
 
   # build
   grunt.registerTask 'prepare', [ 'clean', 'mkdir' ]
-  grunt.registerTask 'compile', [ 'copy:temp', 'coffee', 'pug', 'stylus', 'concat', 'cssmin', 'uglify' ]
+  grunt.registerTask 'compile', [ 'copy:temp', 'coffee', 'jade', 'stylus', 'concat', 'cssmin', 'uglify' ]
   grunt.registerTask 'output', [ 'copy:app' , 'update_json' ]
 
   grunt.registerTask 'build', [ 'prepare', 'compile', 'output' ]

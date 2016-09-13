@@ -1,0 +1,15 @@
+.settings
+  .gray_bevel.for_text_input
+    input#backpack_search(size='40', name='search_string', placeholder='Enter name of items you searching', value='')
+  .gray_bevel.for_text_input.input_space
+    | Appid:&nbsp;
+    input#appid(size='4', name='search_string', placeholder='Appid', value=appid)
+  .gray_bevel.for_text_input.input_space
+    | Context:&nbsp;
+    input#contextid(size='4', name='search_string', placeholder='Context', value=contextid)
+  button#search_selected.btn_darkblue_white_innerfade.btn_medium.input_space(type='submit')
+    span Search
+  button#load_inventories.btn_green_white_innerfade.btn_medium.input_space(type='submit')
+    span Load inventories (#{inventories.current}/#{inventories.total})
+  #uifilters.uifilters
+.backpacks
