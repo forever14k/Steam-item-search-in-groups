@@ -34,6 +34,8 @@ module.exports = (grunt)->
           'temp/js/libs/biginteger.js': 'node_modules/biginteger/biginteger.js'
           'temp/js/libs/lodash.js': 'node_modules/lodash/lodash.min.js'
           'temp/js/libs/jade.js': 'node_modules/jade/runtime.js'
+          'temp/js/libs/redux.js': 'node_modules/redux/dist/redux.min.js'
+          'temp/js/libs/async.js': 'node_modules/async/dist/async.js'
           'temp/js/libs/select2.js': 'node_modules/select2/dist/js/select2.min.js'
           'temp/css/libs/select2.css': 'node_modules/select2/dist/css/select2.min.css'
       app:
@@ -42,6 +44,11 @@ module.exports = (grunt)->
           { 'build/css/app.css': 'temp/css/app.min.css' }
           { 'build/': 'static/**' }
           { 'build/manifest.json': 'manifest.json' }
+        ]
+      min:
+        files:[
+          'temp/css/app.min.css': 'temp/css/app.css'
+          'temp/js/app.min.js': 'temp/js/app.js'
         ]
     coffee:
       app:
@@ -91,6 +98,9 @@ module.exports = (grunt)->
             'temp/js/libs/*.js',
             'temp/js/templates/*.js',
             'temp/js/scripts/*.js'
+            'temp/js/scripts/views/*.js'
+            'temp/js/scripts/reducers/*.js'
+            '!temp/js/scripts/state.js', 'temp/js/scripts/state.js'
             '!temp/js/scripts/index.js', 'temp/js/scripts/index.js'
           ]
     cssmin:
@@ -104,7 +114,7 @@ module.exports = (grunt)->
     watch:
       app:
         files: [ 'source/**', 'static/**' ]
-        tasks: [ 'build' ]
+        tasks: [ 'build-dev' ]
     update_json:
       options:
         indent: '\t'
@@ -139,10 +149,12 @@ module.exports = (grunt)->
   # build
   grunt.registerTask 'prepare', [ 'clean', 'mkdir' ]
   grunt.registerTask 'compile', [ 'copy:temp', 'coffee', 'jade', 'stylus', 'concat', 'cssmin', 'uglify' ]
+  grunt.registerTask 'compile-dev', [ 'copy:temp', 'coffee', 'jade', 'stylus', 'concat', 'copy:min' ]
   grunt.registerTask 'output', [ 'copy:app' , 'update_json' ]
 
   grunt.registerTask 'build', [ 'prepare', 'compile', 'output' ]
-  grunt.registerTask 'develop', [ 'build', 'watch' ]
+  grunt.registerTask 'build-dev', [ 'prepare', 'compile-dev', 'output' ]
+  grunt.registerTask 'develop', [ 'build-dev', 'watch' ]
 
   # default
   grunt.registerTask 'default', [ 'build' ]

@@ -1,5 +1,7 @@
-console.log 'hello world!'
+tooltip = new Tooltip State
+menu = new Menu State
+backpacks = new Persons State
+# console.log Backpacks
 
-settings = new Settings
-tooltip = new Tooltip
-menu = new Menu
+State.dispatch
+  type: 'STATE_INIT'

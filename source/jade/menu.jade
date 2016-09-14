@@ -3,13 +3,13 @@
     input#backpack_search(size='40', name='search_string', placeholder='Enter name of items you searching', value='')
   .gray_bevel.for_text_input.input_space
     | Appid:&nbsp;
-    input#appid(size='4', name='search_string', placeholder='Appid', value=appid)
+    input#appid(size='4', name='search_string', placeholder='Appid', value=Settings.appid)
   .gray_bevel.for_text_input.input_space
     | Context:&nbsp;
-    input#contextid(size='4', name='search_string', placeholder='Context', value=contextid)
+    input#contextid(size='4', name='search_string', placeholder='Context', value=Settings.contextid)
   button#search_selected.btn_darkblue_white_innerfade.btn_medium.input_space(type='submit')
     span Search
   button#load_inventories.btn_green_white_innerfade.btn_medium.input_space(type='submit')
-    span Load inventories (#{inventories.current}/#{inventories.total})
+    span Load inventories (#{Backpacks.current}/#{Backpacks.total})
   #uifilters.uifilters
 .backpacks
