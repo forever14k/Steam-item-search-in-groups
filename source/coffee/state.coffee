@@ -5,5 +5,6 @@ StateReducers = Redux.combineReducers
 
 State = Redux.createStore StateReducers
 
-State.subscribe () ->
-  console.log 'STATE', State.getState()
+if State.getState().Debug
+  State.subscribe () ->
+    console.log 'STATE', State.getState()

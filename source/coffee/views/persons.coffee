@@ -7,15 +7,14 @@ class Persons
     @state.subscribe @onStateChange.bind @
 
   onStateChange: () ->
-    @highLight()
-
-  highLight: () ->
     persons = @state.getState().Backpacks.persons
     _.each persons, ( person, index ) =>
       $person = @$persons.filter("[data-miniprofile=#{person.steamId32}]")
       switch person.state
         when 'PERSON_QUEUE'
           $person.css 'background', 'none'
+        when 'PERSON_LOADING'
+          $person.css 'background', 'black'
         when 'PERSON_IDLE', 'PERSON_LOADED'
           $person.css 'background', ''
 
@@ -27,7 +26,6 @@ class Persons
   render: () ->
     @delegateEvents()
 
-  constructor: ( state ) ->
-    @state = state if state?
+  constructor: ( @state ) ->
     @append()
     @render()

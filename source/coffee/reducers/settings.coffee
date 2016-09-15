@@ -3,7 +3,6 @@ Settings =
   initialState:
     appid: 570
     contextid: 2
-    interval: 4300
     cookie: 'strInventoryLastContext'
 
   setCookie: ( state ) ->
