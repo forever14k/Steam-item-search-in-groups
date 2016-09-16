@@ -1,5 +1,5 @@
 class Queue
-  
+
   state: null
   queue: null
 
@@ -15,15 +15,24 @@ class Queue
         @pause()
 
   process: ( data ) ->
+    state = @state.getState().Settings
     @state.dispatch
       type: 'PERSON_LOADING'
       data: data
 
+    # console.log "//steamcommunity.com/profiles/#{data.steamId64}/inventory/json/#{state.appid}/#{state.contextid}/?l=english"
+
     setTimeout (()=>
-      @state.dispatch
-        type: 'PERSON_LOADED'
-        data: data
-    ), 10
+      if Math.random().toFixed() > 0.5
+        @state.dispatch
+          type: 'PERSON_LOADED'
+          data: data
+      else
+        @queue.unshift data
+        @state.dispatch
+          type: 'PERSON_ERROR'
+          data: data
+    ), 100
 
   setup: () ->
     @queue = async.queue ( ( data, callback )=>

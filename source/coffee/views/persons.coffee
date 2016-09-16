@@ -1,5 +1,5 @@
 class PersonsView
-  
+
   $el: null
   $persons: null
   state: null
@@ -16,6 +16,8 @@ class PersonsView
           $person.css 'background', 'none'
         when 'PERSON_LOADING'
           $person.css 'background', 'black'
+        when 'PERSON_ERROR'
+          $person.css 'background', 'red'
         when 'PERSON_IDLE', 'PERSON_LOADED'
           $person.css 'background', ''
 

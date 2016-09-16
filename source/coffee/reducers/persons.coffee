@@ -3,7 +3,7 @@ class PersonsReducer
   initialState:
     current: 0
     total: 0
-    delay: 1
+    delay: 100
     state: 'PERSONSCLUB_IDLE'
     personClass: '.friendBlock'
     persons: []
@@ -52,7 +52,7 @@ class PersonsReducer
         @queue state
       when 'PERSONSCLUB_PROCESS', 'PERSONSCLUB_PAUSE', 'PERSONSCLUB_RESUME', 'PERSONSCLUB_DRAIN'
         @state state, action
-      when 'PERSON_LOADING'
+      when 'PERSON_LOADING', 'PERSON_ERROR'
         @statePerson state, action
       when 'PERSON_LOADED'
         @increment state
