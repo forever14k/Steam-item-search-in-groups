@@ -6,13 +6,13 @@ class Queue
     @state.subscribe @onStateChange.bind @
 
   onStateChange: () ->
-    state = @state.getState().Backpacks.state
+    state = @state.getState().Persons.state
     switch state
-      when 'BACKPACKS_QUEUE'
+      when 'PERSONSCLUB_QUEUE'
         @populate()
-      when 'BACKPACKS_PAUSE'
+      when 'PERSONSCLUB_PAUSE'
         @pause()
-      when 'BACKPACKS_RESUME'
+      when 'PERSONSCLUB_RESUME'
         @resume()
 
   process: ( data ) ->
@@ -29,18 +29,18 @@ class Queue
   setup: () ->
     @queue = async.queue ( ( data, callback )=>
       @process data
-      data._timeout = setTimeout callback, @state.getState().Backpacks.delay
+      data._timeout = setTimeout callback, @state.getState().Persons.delay
     ), 1
     @queue.drain = () =>
       @state.dispatch
-        type: 'BACKPACKS_DRAIN'
+        type: 'PERSONSCLUB_DRAIN'
 
   populate: () ->
-    persons = @state.getState().Backpacks.persons
+    persons = @state.getState().Persons.persons
     queue = _.filter persons, state: 'PERSON_QUEUE'
     @queue.push queue
     @state.dispatch
-      type: 'BACKPACKS_PROCESS'
+      type: 'PERSONSCLUB_PROCESS'
 
   pause: () ->
     @queue.pause()

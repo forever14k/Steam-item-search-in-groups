@@ -1,4 +1,4 @@
-class Persons
+class PersonsView
   $el: null
   $persons: null
   state: null
@@ -7,7 +7,7 @@ class Persons
     @state.subscribe @onStateChange.bind @
 
   onStateChange: () ->
-    persons = @state.getState().Backpacks.persons
+    persons = @state.getState().Persons.persons
     _.each persons, ( person, index ) =>
       $person = @$persons.filter("[data-miniprofile=#{person.steamId32}]")
       switch person.state
@@ -19,9 +19,9 @@ class Persons
           $person.css 'background', ''
 
   append: () ->
-    @$el = $ @state.getState().Backpacks.personClass
+    @$el = $ @state.getState().Persons.personClass
       .parent()
-    @$persons = $ @state.getState().Backpacks.personClass
+    @$persons = $ @state.getState().Persons.personClass
 
   render: () ->
     @delegateEvents()

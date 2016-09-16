@@ -1,4 +1,4 @@
-class Menu
+class MenuView
   $el: null
   state: null
 
@@ -32,16 +32,16 @@ class Menu
       data: data
 
   onLoadInventories: ( event ) ->
-    switch @state.getState().Backpacks.state
-      when 'BACKPACKS_IDLE'
+    switch @state.getState().Persons.state
+      when 'PERSONSCLUB_IDLE'
         @state.dispatch
-          type: 'BACKPACKS_QUEUE'
-      when 'BACKPACKS_QUEUE', 'BACKPACKS_RESUME', 'BACKPACKS_PROCESS'
+          type: 'PERSONSCLUB_QUEUE'
+      when 'PERSONSCLUB_QUEUE', 'PERSONSCLUB_RESUME', 'PERSONSCLUB_PROCESS'
         @state.dispatch
-          type: 'BACKPACKS_PAUSE'
-      when 'BACKPACKS_PAUSE'
+          type: 'PERSONSCLUB_PAUSE'
+      when 'PERSONSCLUB_PAUSE'
         @state.dispatch
-          type: 'BACKPACKS_RESUME'
+          type: 'PERSONSCLUB_RESUME'
 
   onSearchSelected: ( event ) ->
     data =

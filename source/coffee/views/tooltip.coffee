@@ -1,4 +1,4 @@
-class Tooltip
+class TooltipView
   $el: null
 
   append: () ->

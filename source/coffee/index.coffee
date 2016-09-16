@@ -1,6 +1,6 @@
-tooltip = new Tooltip State
-menu = new Menu State
-backpacks = new Persons State
+tooltip = new TooltipView State
+menu = new MenuView State
+backpacks = new PersonsView State
 queue = new Queue State
 render = new Render State
 

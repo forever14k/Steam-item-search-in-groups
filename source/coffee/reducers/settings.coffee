@@ -1,4 +1,4 @@
-Settings =
+class SettingsReducer
 
   initialState:
     appid: 570
@@ -18,22 +18,25 @@ Settings =
     return state
 
   checkCookie: ( state ) ->
-    Settings.getCookie state
-    Settings.setCookie state
+    @getCookie state
+    @setCookie state
     return state
 
-  reducer: ( state = Settings.initialState, action ) ->
+  reducer: ( state = @initialState, action ) ->
     switch action.type
       when '@@redux/INIT'
-        Settings.checkCookie state
+        @checkCookie state
       when 'SETTINGS_CHANGED'
         state.appid = action.data.appid if action.data?.appid?
         state.contextid = action.data.contextid if action.data?.contextid?
-        Settings.setCookie state
+        @setCookie state
       when 'APPID_CHANGED'
         state.appid = action.data.appid if action.data?.appid?
-        Settings.setCookie state
+        @setCookie state
       when 'CONTEXTID_CHANGED'
         state.contextid = action.data.contextid if action.data?.contextid?
-        Settings.setCookie state
+        @setCookie state
     return state
+
+  constructor: () ->
+    return @reducer.bind @

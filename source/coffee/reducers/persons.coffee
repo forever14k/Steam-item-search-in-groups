@@ -1,13 +1,12 @@
-Backpacks =
+class PersonsReducer
 
   initialState:
     current: 0
     total: 0
     delay: 1
-    state: 'BACKPACKS_IDLE'
+    state: 'PERSONSCLUB_IDLE'
     personClass: '.friendBlock'
     persons: []
-    backpacks: []
 
   populate: ( state ) ->
     state.persons = []
@@ -26,31 +25,31 @@ Backpacks =
     return state
 
   reset: ( state ) ->
-    state.state = 'BACKPACKS_IDLE'
+    state.state = 'PERSONSCLUB_IDLE'
     _.each state.persons, ( person, index ) =>
       person.state = 'PERSON_IDLE'
     return state
 
   queueStart: ( state ) ->
-    state.state = 'BACKPACKS_QUEUE'
+    state.state = 'PERSONSCLUB_QUEUE'
     _.each state.persons, ( person, index ) =>
       person.state = 'PERSON_QUEUE' if person.state is 'PERSON_IDLE'
     return state
 
   queueProcess: ( state ) ->
-    state.state = 'BACKPACKS_PROCESS'
+    state.state = 'PERSONSCLUB_PROCESS'
     return state
 
   queuePause: ( state ) ->
-    state.state = 'BACKPACKS_PAUSE'
+    state.state = 'PERSONSCLUB_PAUSE'
     return state
 
   queueDrain: ( state ) ->
-    state.state = 'BACKPACKS_DRAIN'
+    state.state = 'PERSONSCLUB_DRAIN'
     return state
 
   queueResume: ( state ) ->
-    state.state = 'BACKPACKS_RESUME'
+    state.state = 'PERSONSCLUB_RESUME'
     return state
 
   personLoaded: ( state, action ) ->
@@ -64,25 +63,28 @@ Backpacks =
     person.state = 'PERSON_LOADING'
     return state
 
-  reducer: ( state = Backpacks.initialState, action ) ->
+  reducer: ( state = @initialState, action ) ->
     switch action.type
       when '@@redux/INIT'
-        Backpacks.populate state
+        @populate state
       when 'SETTINGS_CHANGED'
-        Backpacks.reset state
-        Backpacks.populate state
-      when 'BACKPACKS_QUEUE'
-        Backpacks.queueStart state
-      when 'BACKPACKS_PROCESS'
-        Backpacks.queueProcess state
-      when 'BACKPACKS_PAUSE'
-        Backpacks.queuePause state
-      when 'BACKPACKS_RESUME'
-        Backpacks.queueResume state
-      when 'BACKPACKS_DRAIN'
-        Backpacks.queueDrain state
+        @reset state
+        @populate state
+      when 'PERSONSCLUB_QUEUE'
+        @queueStart state
+      when 'PERSONSCLUB_PROCESS'
+        @queueProcess state
+      when 'PERSONSCLUB_PAUSE'
+        @queuePause state
+      when 'PERSONSCLUB_RESUME'
+        @queueResume state
+      when 'PERSONSCLUB_DRAIN'
+        @queueDrain state
       when 'PERSON_LOADING'
-        Backpacks.personLoading state, action
+        @personLoading state, action
       when 'PERSON_LOADED'
-        Backpacks.personLoaded state, action
+        @personLoaded state, action
     return state
+
+  constructor: () ->
+    return @reducer.bind @

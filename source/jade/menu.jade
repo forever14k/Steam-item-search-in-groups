@@ -1,34 +1,46 @@
-mixin search_button( search_button_class )
-  button#search_selected.btn_medium.input_space(type='submit', class=search_button_class)
+mixin button_search( addClassName )
+  button#search_selected.btn_medium.input_space(type='submit', class=addClassName)
     span Search
-mixin load_button( load_button_class )
-  button#load_inventories.btn_medium.input_space(type='submit', class=load_button_class)
-    span Load inventories (#{Backpacks.current}/#{Backpacks.total})
+mixin button_load( addClassName )
+  button#load_inventories.btn_medium.input_space(type='submit', class=addClassName)
+    span Load inventories (#{Persons.current}/#{Persons.total})
+mixin input_appid( inputDisabled )
+  .gray_bevel.for_text_input.input_space
+    | Appid:&nbsp;
+    input#appid(size='4', name='search_string', placeholder='Appid', value=Settings.appid, disabled=inputDisabled)
+mixin input_contextid( inputDisabled )
+  .gray_bevel.for_text_input.input_space
+    | Context:&nbsp;
+    input#contextid(size='4', name='search_string', placeholder='Context', value=Settings.contextid, disabled=inputDisabled)
 
 .settings
   .gray_bevel.for_text_input
     input#backpack_search(size='40', name='search_string', placeholder='Enter name of items you searching', value='')
-  .gray_bevel.for_text_input.input_space
-    | Appid:&nbsp;
-    input#appid(size='4', name='search_string', placeholder='Appid', value=Settings.appid)
-  .gray_bevel.for_text_input.input_space
-    | Context:&nbsp;
-    input#contextid(size='4', name='search_string', placeholder='Context', value=Settings.contextid)
-  case Backpacks.state
-    when 'BACKPACKS_IDLE'
-      +search_button('btn_darkblue_white_innerfade')
-      +load_button('btn_green_white_innerfade')
-    when 'BACKPACKS_PROCESS'
-    when 'BACKPACKS_RESUME'
-      +search_button('btn_blue_white_innerfade')
-      +load_button('btn_blue_white_innerfade')
-    when 'BACKPACKS_PAUSE'
-      +search_button('btn_blue_white_innerfade')
-      +load_button('btn_green_white_innerfade')
-    when 'BACKPACKS_DRAIN'
-      +search_button('btn_green_white_innerfade')
-      +load_button('btn_darkblue_white_innerfade')
+  case Persons.state
+    when 'PERSONSCLUB_IDLE'
+      +input_appid(false)
+      +input_contextid(false)
+      +button_search('btn_darkblue_white_innerfade')
+      +button_load('btn_green_white_innerfade')
+    when 'PERSONSCLUB_PROCESS'
+    when 'PERSONSCLUB_RESUME'
+      +input_appid(true)
+      +input_contextid(true)
+      +button_search('btn_blue_white_innerfade')
+      +button_load('btn_blue_white_innerfade')
+    when 'PERSONSCLUB_PAUSE'
+      +input_appid(false)
+      +input_contextid(false)
+      +button_search('btn_blue_white_innerfade')
+      +button_load('btn_green_white_innerfade')
+    when 'PERSONSCLUB_DRAIN'
+      +input_appid(false)
+      +input_contextid(false)
+      +button_search('btn_green_white_innerfade')
+      +button_load('btn_darkblue_white_innerfade')
     default
-      +search_button('btn_darkblue_white_innerfade')
-      +load_button('btn_green_white_innerfade')
+      +input_appid(false)
+      +input_contextid(false)
+      +button_search('btn_darkblue_white_innerfade')
+      +button_load('btn_green_white_innerfade')
   #uifilters.uifilters
