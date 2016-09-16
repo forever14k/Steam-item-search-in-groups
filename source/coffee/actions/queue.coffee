@@ -1,4 +1,5 @@
 class Queue
+  
   state: null
   queue: null
 
@@ -8,12 +9,10 @@ class Queue
   onStateChange: () ->
     state = @state.getState().Persons.state
     switch state
-      when 'PERSONSCLUB_QUEUE'
-        @populate()
+      when 'PERSONSCLUB_QUEUE', 'PERSONSCLUB_RESUME'
+        @start()
       when 'PERSONSCLUB_PAUSE'
         @pause()
-      when 'PERSONSCLUB_RESUME'
-        @resume()
 
   process: ( data ) ->
     @state.dispatch
@@ -35,18 +34,17 @@ class Queue
       @state.dispatch
         type: 'PERSONSCLUB_DRAIN'
 
-  populate: () ->
+  start: () ->
     persons = @state.getState().Persons.persons
     queue = _.filter persons, state: 'PERSON_QUEUE'
+    @queue._tasks.empty()
     @queue.push queue
+    @queue.resume()
     @state.dispatch
       type: 'PERSONSCLUB_PROCESS'
 
   pause: () ->
     @queue.pause()
-
-  resume: () ->
-    @queue.resume()
 
   constructor: ( @state ) ->
     @setup()

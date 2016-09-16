@@ -8,7 +8,8 @@ class PersonsReducer
     personClass: '.friendBlock'
     persons: []
 
-  populate: ( state ) ->
+  reset: ( state ) ->
+    state.state = 'PERSONSCLUB_IDLE'
     state.persons = []
     state.current = state.persons.length
     $persons = $ state.personClass
@@ -24,66 +25,38 @@ class PersonsReducer
     state.total = state.persons.length
     return state
 
-  reset: ( state ) ->
-    state.state = 'PERSONSCLUB_IDLE'
-    _.each state.persons, ( person, index ) =>
-      person.state = 'PERSON_IDLE'
-    return state
-
-  queueStart: ( state ) ->
+  queue: ( state ) ->
     state.state = 'PERSONSCLUB_QUEUE'
     _.each state.persons, ( person, index ) =>
-      person.state = 'PERSON_QUEUE' if person.state is 'PERSON_IDLE'
+      person.state = 'PERSON_QUEUE'
     return state
 
-  queueProcess: ( state ) ->
-    state.state = 'PERSONSCLUB_PROCESS'
+  state: ( state, action ) ->
+    state.state = action.type
     return state
 
-  queuePause: ( state ) ->
-    state.state = 'PERSONSCLUB_PAUSE'
+  statePerson: ( state, action ) ->
+    person = _.find state.persons, steamId32: action.data.steamId32
+    person.state = action.type
     return state
 
-  queueDrain: ( state ) ->
-    state.state = 'PERSONSCLUB_DRAIN'
-    return state
-
-  queueResume: ( state ) ->
-    state.state = 'PERSONSCLUB_RESUME'
-    return state
-
-  personLoaded: ( state, action ) ->
+  increment: ( state ) ->
     state.current++ if state.current < state.total
-    person = _.find state.persons, steamId32: action.data.steamId32
-    person.state = 'PERSON_LOADED'
-    return state
-
-  personLoading: ( state, action ) ->
-    person = _.find state.persons, steamId32: action.data.steamId32
-    person.state = 'PERSON_LOADING'
     return state
 
   reducer: ( state = @initialState, action ) ->
     switch action.type
-      when '@@redux/INIT'
-        @populate state
-      when 'SETTINGS_CHANGED'
+      when '@@redux/INIT', 'SETTINGS_CHANGED'
         @reset state
-        @populate state
       when 'PERSONSCLUB_QUEUE'
-        @queueStart state
-      when 'PERSONSCLUB_PROCESS'
-        @queueProcess state
-      when 'PERSONSCLUB_PAUSE'
-        @queuePause state
-      when 'PERSONSCLUB_RESUME'
-        @queueResume state
-      when 'PERSONSCLUB_DRAIN'
-        @queueDrain state
+        @queue state
+      when 'PERSONSCLUB_PROCESS', 'PERSONSCLUB_PAUSE', 'PERSONSCLUB_RESUME', 'PERSONSCLUB_DRAIN'
+        @state state, action
       when 'PERSON_LOADING'
-        @personLoading state, action
+        @statePerson state, action
       when 'PERSON_LOADED'
-        @personLoaded state, action
+        @increment state
+        @statePerson state, action
     return state
 
   constructor: () ->

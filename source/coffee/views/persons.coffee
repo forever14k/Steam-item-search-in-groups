@@ -1,4 +1,5 @@
 class PersonsView
+  
   $el: null
   $persons: null
   state: null

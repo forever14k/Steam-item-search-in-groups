@@ -1,4 +1,5 @@
 class Steam
+  
   magic: BigInteger '76561197960265728'
 
   toSteamId64: ( steamId32 ) ->

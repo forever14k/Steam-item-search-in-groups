@@ -1,5 +1,8 @@
 class DebugReducer
-  reducer: ( state = true, action ) ->
+
+  initialState: true
+
+  reducer: ( state = @initialState, action ) ->
     console.log 'ACTION', action
     return state
 

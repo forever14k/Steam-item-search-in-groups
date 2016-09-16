@@ -1,4 +1,5 @@
 class Render
+  
   diffDOM: null
 
   diff: ( $element, newHTML ) ->

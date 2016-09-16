@@ -1,4 +1,5 @@
 class MenuView
+  
   $el: null
   state: null
 
