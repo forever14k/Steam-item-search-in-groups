@@ -36,6 +36,7 @@ module.exports = (grunt)->
           'temp/js/libs/jade.js': 'node_modules/jade/runtime.js'
           'temp/js/libs/redux.js': 'node_modules/redux/dist/redux.min.js'
           'temp/js/libs/async.js': 'node_modules/async/dist/async.js'
+          'temp/js/libs/diffdom.js': 'node_modules/diff-dom/diffDOM.js'
           'temp/js/libs/select2.js': 'node_modules/select2/dist/js/select2.min.js'
           'temp/css/libs/select2.css': 'node_modules/select2/dist/css/select2.min.css'
       app:
@@ -99,6 +100,7 @@ module.exports = (grunt)->
             'temp/js/templates/*.js',
             'temp/js/scripts/*.js'
             'temp/js/scripts/views/*.js'
+            'temp/js/scripts/actions/*.js'
             'temp/js/scripts/reducers/*.js'
             '!temp/js/scripts/state.js', 'temp/js/scripts/state.js'
             '!temp/js/scripts/index.js', 'temp/js/scripts/index.js'

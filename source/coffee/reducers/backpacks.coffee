@@ -16,7 +16,7 @@ Backpacks =
     $.each $persons, ( index, element ) ->
       $element = $ element
       steamId32 = $element.attr 'data-miniprofile'
-      steamId64 = Steam.toSteamId64 steamId32
+      steamId64 = Steam::toSteamId64 steamId32
       person =
         steamId32: steamId32
         steamId64: steamId64

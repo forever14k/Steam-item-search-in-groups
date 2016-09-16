@@ -1,3 +1,10 @@
+mixin search_button( search_button_class )
+  button#search_selected.btn_medium.input_space(type='submit', class=search_button_class)
+    span Search
+mixin load_button( load_button_class )
+  button#load_inventories.btn_medium.input_space(type='submit', class=load_button_class)
+    span Load inventories (#{Backpacks.current}/#{Backpacks.total})
+
 .settings
   .gray_bevel.for_text_input
     input#backpack_search(size='40', name='search_string', placeholder='Enter name of items you searching', value='')
@@ -7,9 +14,21 @@
   .gray_bevel.for_text_input.input_space
     | Context:&nbsp;
     input#contextid(size='4', name='search_string', placeholder='Context', value=Settings.contextid)
-  button#search_selected.btn_darkblue_white_innerfade.btn_medium.input_space(type='submit')
-    span Search
-  button#load_inventories.btn_green_white_innerfade.btn_medium.input_space(type='submit')
-    span Load inventories (#{Backpacks.current}/#{Backpacks.total})
+  case Backpacks.state
+    when 'BACKPACKS_IDLE'
+      +search_button('btn_darkblue_white_innerfade')
+      +load_button('btn_green_white_innerfade')
+    when 'BACKPACKS_PROCESS'
+    when 'BACKPACKS_RESUME'
+      +search_button('btn_blue_white_innerfade')
+      +load_button('btn_blue_white_innerfade')
+    when 'BACKPACKS_PAUSE'
+      +search_button('btn_blue_white_innerfade')
+      +load_button('btn_green_white_innerfade')
+    when 'BACKPACKS_DRAIN'
+      +search_button('btn_green_white_innerfade')
+      +load_button('btn_darkblue_white_innerfade')
+    default
+      +search_button('btn_darkblue_white_innerfade')
+      +load_button('btn_green_white_innerfade')
   #uifilters.uifilters
-.backpacks
