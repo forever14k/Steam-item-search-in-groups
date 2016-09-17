@@ -14,30 +14,52 @@ class Queue
       when 'PERSONSCLUB_PAUSE'
         @pause()
 
-  process: ( data ) ->
-    state = @state.getState().Settings
+  onLoading: ( request ) ->
+    person = request.person
     @state.dispatch
       type: 'PERSON_LOADING'
-      data: data
+      person: person
 
-    # console.log "//steamcommunity.com/profiles/#{data.steamId64}/inventory/json/#{state.appid}/#{state.contextid}/?l=english"
+  onLoaded: ( backpack, status, request ) ->
+    person = request.person
+    @state.dispatch
+      type: 'PERSON_LOADED'
+      person: person
+      backpack: backpack
 
+  onError: ( request, status, error ) ->
+    person = request.person
+    @queue.unshift person
+    @state.dispatch
+      type: 'PERSON_ERROR'
+      person: person
+
+  imitation: ( person ) ->
+    request =
+      person: person
+    @onLoading request
     setTimeout (()=>
       if Math.random().toFixed() > 0.5
-        @state.dispatch
-          type: 'PERSON_LOADED'
-          data: data
+        @onLoaded {}, 'OK', request
       else
-        @queue.unshift data
-        @state.dispatch
-          type: 'PERSON_ERROR'
-          data: data
+        @onError request
     ), 100
 
+  process: ( person ) ->
+    state = @state.getState().Settings
+    request = $.ajax
+      method: 'GET'
+      url: "//steamcommunity.com/profiles/#{person.steamId64}/inventory/json/#{state.appid}/#{state.contextid}/?l=english"
+      dataType: 'json'
+      success: @onLoaded.bind @
+      error: @onError.bind @
+    request.person = person
+    @onLoading request
+
   setup: () ->
-    @queue = async.queue ( ( data, callback )=>
-      @process data
-      data._timeout = setTimeout callback, @state.getState().Persons.delay
+    @queue = async.queue ( ( person, callback )=>
+      @process person
+      person._timeout = setTimeout callback, @state.getState().Persons.delay
     ), 1
     @queue.drain = () =>
       @state.dispatch

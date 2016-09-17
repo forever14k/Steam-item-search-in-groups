@@ -3,7 +3,7 @@ class PersonsReducer
   initialState:
     current: 0
     total: 0
-    delay: 100
+    delay: 4300
     state: 'PERSONSCLUB_IDLE'
     personClass: '.friendBlock'
     persons: []
@@ -36,7 +36,7 @@ class PersonsReducer
     return state
 
   statePerson: ( state, action ) ->
-    person = _.find state.persons, steamId32: action.data.steamId32
+    person = _.find state.persons, steamId32: action.person.steamId32
     person.state = action.type
     return state
 
