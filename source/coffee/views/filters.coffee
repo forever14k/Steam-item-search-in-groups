@@ -14,10 +14,15 @@ class FiltersView
     state = @state.getState().Filters[ option ]
     data =
       results: []
-    _.each state.options, ( choice, index ) =>
-      if not _.find state.selected, { name: choice.name }
-        if _.includes choice.name, query.term
-          data.results.push id: choice.name, text: choice.name, color: choice.color
+    if query.term?
+      term = query.term.toLowerCase()
+      _.each state.options, ( choice, index ) =>
+        search = choice.name.toLowerCase()
+        selected = _.flatMap state.selected, ( selection ) ->
+          return selection.name.toLowerCase()
+        if not _.includes selected, search
+          if _.includes search, term
+            data.results.push id: choice.name, text: choice.name, color: choice.color
     query.callback data
 
   onChange: ( event ) ->
