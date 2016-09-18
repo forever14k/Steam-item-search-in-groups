@@ -37,6 +37,6 @@
     "jquery.cookie": "^1.4.1",
     "lodash": "^4.15.0",
     "redux": "^3.6.0",
-    "select2": "^4.0.3"
+    "select2": "^3.5.2-browserify"
   }
 }

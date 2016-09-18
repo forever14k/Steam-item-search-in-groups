@@ -1,5 +1,5 @@
 class MenuView
-  
+
   $el: null
   state: null
 
@@ -60,11 +60,11 @@ class MenuView
     @$el = $ '#backpackscontent'
 
   render: () ->
-    @$el.html sisbf.menu @state.getState()
+    @$el.html sisbf.menu_menu @state.getState()
     @delegateEvents()
 
   update: () ->
-    render.diff @$el.find(':first-child'), sisbf.menu(@state.getState())
+    render.diff @$el.find(':first-child'), sisbf.menu_menu(@state.getState())
 
   constructor: ( @state ) ->
     @append()

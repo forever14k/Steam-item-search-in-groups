@@ -37,8 +37,8 @@ module.exports = (grunt)->
           'temp/js/libs/redux.js': 'node_modules/redux/dist/redux.min.js'
           'temp/js/libs/async.js': 'node_modules/async/dist/async.js'
           'temp/js/libs/diffdom.js': 'node_modules/diff-dom/diffDOM.js'
-          'temp/js/libs/select2.js': 'node_modules/select2/dist/js/select2.min.js'
-          'temp/css/libs/select2.css': 'node_modules/select2/dist/css/select2.min.css'
+          'temp/js/libs/select2.js': 'node_modules/select2/select2.min.js'
+          'temp/css/libs/select2.css': 'node_modules/select2/select2.css'
       app:
         files:[
           { 'build/js/app.js': 'temp/js/app.min.js' }
@@ -70,7 +70,10 @@ module.exports = (grunt)->
           compileDebug: false
           namespace: 'sisbf'
           processName: ( name ) ->
-            name.replace /(.*)\/(\w+)\.jade/, '$2'
+            name
+              .replace 'source/jade/', ''
+              .replace '.jade', ''
+              .replace '/', '_'
         files: [{
           expand: true
           cwd: 'source/jade/'
@@ -78,6 +81,13 @@ module.exports = (grunt)->
           dest: 'temp/js/templates'
           ext: ".js"
         }]
+    dataUri:
+      select2:
+        src: 'temp/css/libs/select2.css'
+        dest: 'temp/css/libs/'
+        options:
+          baseDir: 'node_modules/select2/'
+          target: 'node_modules/select2/*.*'
     stylus:
       app:
         files: [{
@@ -98,6 +108,7 @@ module.exports = (grunt)->
             'temp/js/libs/jquery.js',
             'temp/js/libs/*.js',
             'temp/js/templates/*.js',
+            'temp/js/templates/**/*.js',
             'temp/js/scripts/*.js'
             'temp/js/scripts/views/*.js'
             'temp/js/scripts/actions/*.js'
@@ -142,6 +153,7 @@ module.exports = (grunt)->
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-jade'
   grunt.loadNpmTasks 'grunt-contrib-stylus'
+  grunt.loadNpmTasks 'grunt-data-uri'
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
@@ -150,8 +162,8 @@ module.exports = (grunt)->
 
   # build
   grunt.registerTask 'prepare', [ 'clean', 'mkdir' ]
-  grunt.registerTask 'compile', [ 'copy:temp', 'coffee', 'jade', 'stylus', 'concat', 'cssmin', 'uglify' ]
-  grunt.registerTask 'compile-dev', [ 'copy:temp', 'coffee', 'jade', 'stylus', 'concat', 'copy:min' ]
+  grunt.registerTask 'compile', [ 'copy:temp', 'coffee', 'jade', 'stylus', 'dataUri', 'concat', 'cssmin', 'uglify' ]
+  grunt.registerTask 'compile-dev', [ 'copy:temp', 'coffee', 'jade', 'stylus', 'dataUri', 'concat', 'copy:min' ]
   grunt.registerTask 'output', [ 'copy:app' , 'update_json' ]
 
   grunt.registerTask 'build', [ 'prepare', 'compile', 'output' ]

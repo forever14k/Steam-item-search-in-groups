@@ -2,6 +2,8 @@ StateReducers = Redux.combineReducers
   Debug: new DebugReducer
   Settings: new SettingsReducer
   Persons: new PersonsReducer
+  Backpacks: new BackpacksReducer
+  Filters: new FiltersReducer
 
 State = Redux.createStore StateReducers
 

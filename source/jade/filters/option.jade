@@ -1,0 +1,5 @@
+.ui_filter(data-option=option)
+  .ui_left
+    | #{option}:
+  .ui_right
+    input(id="select_#{option}_#{filter.selected.length}", data-option-current=option, style="width:200px;")

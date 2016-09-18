@@ -1,5 +1,5 @@
 class TooltipView
-  
+
   $el: null
 
   append: () ->
@@ -8,7 +8,7 @@ class TooltipView
     @$el = $ '.backpack_tooltip'
 
   render: () ->
-    @$el.html sisbf.tooltip()
+    @$el.html sisbf.tooltip_tooltip()
 
   constructor: () ->
     @append()
