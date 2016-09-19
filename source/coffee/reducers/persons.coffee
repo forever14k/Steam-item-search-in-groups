@@ -17,10 +17,10 @@ class PersonsReducer
       $element = $ element
       steamId32 = $element.attr 'data-miniprofile'
       steamId64 = Steam::toSteamId64 steamId32
-      status = 'unknown'
-      status = 'offline' if $element.hasClass 'offline'
-      status = 'online' if $element.hasClass 'online'
-      status = 'in-game' if $element.hasClass 'in-game'
+      status = 'STATUS_UNKNOWN'
+      status = 'STATUS_OFFLINE' if $element.hasClass 'offline'
+      status = 'STATUS_INGAME' if $element.hasClass 'in-game'
+      status = 'STATUS_ONLINE' if $element.hasClass 'online'
       person =
         steamId32: steamId32
         steamId64: steamId64
