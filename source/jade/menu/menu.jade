@@ -15,7 +15,7 @@ mixin input_contextid( inputDisabled )
 
 .settings
   .gray_bevel.for_text_input
-    input#backpack_search(size='40', name='search_string', placeholder='Enter name of items you searching', value='')
+    input#backpack_search(size='40', name='search_string', placeholder='Enter name of items you searching', value=Settings.search)
   case Persons.state
     when 'PERSONSCLUB_IDLE'
       +input_appid(false)

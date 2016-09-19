@@ -3,6 +3,7 @@ class MenuReducer
   initialState:
     appid: 570
     contextid: 2
+    search: ''
     cookie: 'strInventoryLastContext'
 
   setCookie: ( state ) ->
@@ -22,20 +23,34 @@ class MenuReducer
     @setCookie state
     return state
 
+  appid: ( state, action ) ->
+    state.appid = action.appid if action.appid?
+    return state
+
+  contextid: ( state, action ) ->
+    state.contextid = action.contextid if action.contextid?
+    return state
+
+  search: ( state, action ) ->
+    state.search = action.search if action.search?
+    return state
+
   reducer: ( state = @initialState, action ) ->
     switch action.type
       when '@@redux/INIT'
         @checkCookie state
       when 'SETTINGS_CHANGED'
-        state.appid = action.data.appid if action.data?.appid?
-        state.contextid = action.data.contextid if action.data?.contextid?
+        @appid state, action
+        @contextid state, action
         @setCookie state
       when 'APPID_CHANGED'
-        state.appid = action.data.appid if action.data?.appid?
+        @appid state, action
         @setCookie state
       when 'CONTEXTID_CHANGED'
-        state.contextid = action.data.contextid if action.data?.contextid?
+        @contextid state, action
         @setCookie state
+      when 'SEARCH_CHANGED'
+        @search state, action
     return state
 
   constructor: () ->

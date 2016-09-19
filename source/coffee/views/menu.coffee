@@ -13,6 +13,9 @@ class MenuView
     @$el
       .find '#appid, #contextid'
       .on 'change', @onSettingsChanged.bind @
+    @$el
+      .find '#backpack_search'
+      .on 'change', @onSearchChange.bind @
 
     @state.subscribe @onStateChange.bind @
 
@@ -20,17 +23,17 @@ class MenuView
     @update()
 
   onSettingsChanged: ( event ) ->
-    data =
-      appid: (@$el
-        .find '#appid'
-        .val())
-      contextid: (@$el
-        .find '#contextid'
-        .val())
+    appid = (@$el
+      .find '#appid'
+      .val())
+    contextid = (@$el
+      .find '#contextid'
+      .val())
 
     @state.dispatch
       type: 'SETTINGS_CHANGED'
-      data: data
+      appid: appid
+      contextid: contextid
 
   onLoadInventories: ( event ) ->
     switch @state.getState().Persons.state
@@ -45,15 +48,23 @@ class MenuView
           type: 'PERSONSCLUB_RESUME'
 
   onSearchSelected: ( event ) ->
-    search = (@$el
-      .find '#backpack_search'
-      .val())
-    filters = @state.getState().Filters
+    state = @state.getState()
+    search = state.Settings.search
+    filters = state.Filters
 
     @state.dispatch
       type: 'SEARCH_SELECTED'
       search: search
       filters: filters
+
+  onSearchChange: ( event ) ->
+    search = (@$el
+      .find '#backpack_search'
+      .val())
+
+    @state.dispatch
+      type: 'SEARCH_CHANGED'
+      search: search
 
   append: () ->
     $ '.maincontent'
