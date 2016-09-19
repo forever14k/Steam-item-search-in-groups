@@ -13,21 +13,18 @@ class FiltersReducer
     return state
 
   push: ( state, option, name, color ) ->
-    if state[ option ]?
-      filter = state[ option ]
-      filter.enabled = true
-      if not _.find filter.options, { name: name }
-        choice =
-          name: name
-          color: if color? then color else null
-        filter.options.push choice
-    else
+    if not state[ option ]?
       state[ option ] =
         enabled: false
         options: []
         selected: []
-      @push state, option, name, color
-    return state
+    filter = state[ option ]
+    filter.enabled = true
+    if not _.find filter.options, { name: name }
+      choice =
+        name: name
+        color: if color? then color else null
+      filter.options.push choice
 
   filter: ( state, action ) ->
     if action.backpack.success? and action.backpack.success is true
