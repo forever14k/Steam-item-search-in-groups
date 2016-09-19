@@ -1,6 +1,6 @@
 StateReducers = Redux.combineReducers
   Debug: new DebugReducer
-  Settings: new SettingsReducer
+  Settings: new MenuReducer
   Persons: new PersonsReducer
   Backpacks: new BackpacksReducer
   Filters: new FiltersReducer

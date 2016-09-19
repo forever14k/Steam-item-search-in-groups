@@ -45,14 +45,15 @@ class MenuView
           type: 'PERSONSCLUB_RESUME'
 
   onSearchSelected: ( event ) ->
-    data =
-      string: (@$el
-        .find '#backpack_search'
-        .val())
+    search = (@$el
+      .find '#backpack_search'
+      .val())
+    filters = @state.getState().Filters
 
     @state.dispatch
       type: 'SEARCH_SELECTED'
-      data: data
+      search: search
+      filters: filters
 
   append: () ->
     $ '.maincontent'

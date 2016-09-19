@@ -1,4 +1,4 @@
-class SettingsReducer
+class MenuReducer
 
   initialState:
     appid: 570
