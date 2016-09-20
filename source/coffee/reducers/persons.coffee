@@ -5,14 +5,14 @@ class PersonsReducer
     total: 0
     delay: 4300
     state: 'PERSONSCLUB_IDLE'
-    personClass: '.friendBlock'
+    personSelector: '#memberList [data-miniprofile]'
     persons: []
 
   reset: ( state ) ->
     state.state = 'PERSONSCLUB_IDLE'
     state.persons = []
     state.current = state.persons.length
-    $persons = $ state.personClass
+    $persons = $ state.personSelector
     $.each $persons, ( index, element ) ->
       $element = $ element
       steamId32 = $element.attr 'data-miniprofile'

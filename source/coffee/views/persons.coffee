@@ -10,21 +10,26 @@ class PersonsView
   onStateChange: () ->
     persons = @state.getState().Persons.persons
     _.each persons, ( person, index ) =>
-      $person = @$persons.filter("[data-miniprofile=#{person.steamId32}]")
+      $person = @$el.filter("[data-miniprofile=#{person.steamId32}]")
       switch person.state
         when 'PERSON_QUEUE'
-          $person.css 'background', 'none'
+          $person
+            .removeClass 'sisbf_person--loading sisbf_person--error'
+            .addClass 'sisbf_person--queue'
         when 'PERSON_LOADING'
-          $person.css 'background', 'black'
+          $person
+            .removeClass 'sisbf_person--queue sisbf_person--error'
+            .addClass 'sisbf_person--loading'
         when 'PERSON_ERROR'
-          $person.css 'background', 'red'
+          $person
+            .removeClass 'sisbf_person--queue sisbf_person--loading'
+            .addClass 'sisbf_person--error'
         when 'PERSON_IDLE', 'PERSON_LOADED'
-          $person.css 'background', ''
+          $person
+            .removeClass 'sisbf_person--queue sisbf_person--loading sisbf_person--error'
 
   append: () ->
-    @$el = $ @state.getState().Persons.personClass
-      .parent()
-    @$persons = $ @state.getState().Persons.personClass
+    @$el = $ @state.getState().Persons.personSelector
 
   constructor: ( @state ) ->
     @append()
