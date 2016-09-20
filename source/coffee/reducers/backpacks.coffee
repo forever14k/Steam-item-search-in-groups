@@ -4,11 +4,22 @@ class BackpacksReducer
     items: []
     descriptions: {}
     results: {}
+    state: 'BACKPACKS_IDLE'
+    order: [
+      'STATUS_ONLINE'
+      'STATUS_INGAME'
+      'STATUS_OFFLINE'
+      'STATUS_UNKNOWN'
+    ]
 
   reset: ( state ) ->
     state.items = []
     state.descriptions = {}
     state.results = {}
+    return state
+
+  state: ( state, action ) ->
+    state.state = action.type
     return state
 
   push: ( state, action ) ->
@@ -34,20 +45,28 @@ class BackpacksReducer
       person = item.person
       status = person.status
       steamId32 = person.steamId32
+      itemId = item.itemId
       description = state.descriptions[ descriptionId ]
       state.results[ status ] = {} if not state.results[ status ]?
-      state.results[ status ][ steamId32 ] = [] if not state.results[ status ][ steamId32 ]?
-      state.results[ status ][ steamId32 ].push description
+      state.results[ status ][ steamId32 ] = {} if not state.results[ status ][ steamId32 ]?
+      state.results[ status ][ steamId32 ][ itemId ] =
+        person: person
+        description: description
     return state
 
   search: ( state, action ) ->
+    state.results = {}
     search = action.search
-    filters = action.filters
+
+    filters = {}
+    _.each action.filters, ( filter, option ) =>
+      filters[ option ] = filter.selected if filter.enabled and filter.selected.length > 0
 
     _.each state.descriptions, ( description ) =>
       if @filter description, search, filters
         @passed state, "#{description.classid}_#{description.instanceid}"
 
+    state.state = 'BACKPACKS_NOTDISPLAYED'
     return state
 
   filter: ( description, search, filters ) ->
@@ -56,7 +75,17 @@ class BackpacksReducer
 
     inspection.have_market_name = if description?.market_name? then true else false
 
-    inspection.string = _.includes description.name, search
+    name = if description?.name? then description.name.toLowerCase() else ''
+    search = search.toLowerCase()
+    inspection.string = _.includes name, search
+
+    _.each filters, ( selected, option ) ->
+      inspection[ option ] = false
+      _.each selected, ( choice ) ->
+        tag =
+          name: choice.name
+          category_name: option
+        inspection[ option ] = true if _.find description.tags, tag
 
     accept = not _.includes _.values( inspection ), false
     return accept
@@ -69,6 +98,8 @@ class BackpacksReducer
         @push state, action
       when 'SEARCH_SELECTED'
         @search state, action
+      when 'BACKPACKS_DISPLAYED'
+        @state state, action
     return state
 
   constructor: () ->
