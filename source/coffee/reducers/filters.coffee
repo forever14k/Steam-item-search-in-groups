@@ -10,6 +10,7 @@ class FiltersReducer
     _.each state, ( filter, name ) =>
       filter.enabled = false
       filter.options = []
+      filter.selected = []
     return state
 
   push: ( state, option, name, color ) ->
