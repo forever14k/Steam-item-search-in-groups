@@ -16,11 +16,23 @@ class BackpacksReducer
     state.items = []
     state.descriptions = {}
     state.results = {}
+    state.state = 'BACKPACKS_NOTDISPLAYED'
     return state
 
   state: ( state, action ) ->
     state.state = action.type
     return state
+
+  color: ( description ) ->
+    color = null
+    if description?.tags?
+      category = _.find description.tags, category_name: 'Category'
+      quality = _.find description.tags, category_name: 'Quality'
+      rarity = _.find description.tags, category_name: 'Rarity'
+      color = category.color if category?.color? and not color?
+      color = quality.color if quality?.color? and not color? and not _.includes [ 'Standard' ], quality.name
+      color = rarity.color if rarity?.color? and not color?
+    return color
 
   push: ( state, action ) ->
     if action.backpack.success? and action.backpack.success is true
@@ -37,6 +49,7 @@ class BackpacksReducer
             itemId: itemId
             descriptionId: descriptionId
             person: person
+            color: @color description
     return state
 
   passed: ( state, descriptionId ) ->
@@ -50,6 +63,7 @@ class BackpacksReducer
       state.results[ status ] = {} if not state.results[ status ]?
       state.results[ status ][ steamId32 ] = {} if not state.results[ status ][ steamId32 ]?
       state.results[ status ][ steamId32 ][ itemId ] =
+        item: item
         person: person
         description: description
     return state
