@@ -3,6 +3,9 @@ class MenuView
   $el: null
   state: null
 
+  subscribe: () ->
+    @state.subscribe @onStateChange.bind @
+
   delegateEvents: () ->
     @$el
       .find '#load_inventories'
@@ -15,9 +18,7 @@ class MenuView
       .on 'change', @onSettingsChanged.bind @
     @$el
       .find '#backpack_search'
-      .on 'change', @onSearchChange.bind @
-
-    @state.subscribe @onStateChange.bind @
+      .on 'keyup', @onSearchChange.bind @
 
   onStateChange: () ->
     @update()
@@ -81,3 +82,4 @@ class MenuView
   constructor: ( @state ) ->
     @append()
     @render()
+    @subscribe()

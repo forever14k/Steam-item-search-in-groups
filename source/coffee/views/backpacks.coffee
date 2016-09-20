@@ -7,12 +7,8 @@ class BackpacksView
     @state.subscribe @onStateChange.bind @
 
   onStateChange: () ->
-    state = @state.getState().Backpacks
-    if state.state is 'BACKPACKS_NOTDISPLAYED'
-      @render()
-      @state.dispatch
-        type: 'BACKPACKS_DISPLAYED'
-
+    @update()
+    
   profiles: () ->
     @$el
       .find '.backpack .user'
@@ -32,6 +28,13 @@ class BackpacksView
   render: () ->
     @$el.html sisbf.backpacks_backpacks @state.getState()
     @profiles()
+
+  update: () ->
+    state = @state.getState().Backpacks
+    if state.state is 'BACKPACKS_NOTDISPLAYED'
+      @render()
+      @state.dispatch
+        type: 'BACKPACKS_DISPLAYED'
 
   constructor: ( @state ) ->
     @append()

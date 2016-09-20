@@ -3,7 +3,7 @@ class FiltersView
   $el: null
   state: null
 
-  delegateEvents: () ->
+  subscribe: () ->
     @state.subscribe @onStateChange.bind @
 
   onStateChange: () ->
@@ -122,4 +122,4 @@ class FiltersView
 
   constructor: ( @state ) ->
     @append()
-    @delegateEvents()
+    @subscribe()

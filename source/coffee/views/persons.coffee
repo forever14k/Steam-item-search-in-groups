@@ -4,7 +4,7 @@ class PersonsView
   $persons: null
   state: null
 
-  delegateEvents: () ->
+  subscribe: () ->
     @state.subscribe @onStateChange.bind @
 
   onStateChange: () ->
@@ -26,9 +26,6 @@ class PersonsView
       .parent()
     @$persons = $ @state.getState().Persons.personClass
 
-  render: () ->
-    @delegateEvents()
-
   constructor: ( @state ) ->
     @append()
-    @render()
+    @subscribe()
