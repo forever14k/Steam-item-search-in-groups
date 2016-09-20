@@ -6,4 +6,4 @@ each status in Backpacks.order
         .items(data-steamid32=steamId32)
           each item, itemId in items
             a(href="//steamcommunity.com/profiles/#{item.person.steamId64}/inventory/##{Settings.appid}_#{Settings.contextid}_#{itemId}", target="_blank")
-              img(data-itemid=itemId, src="//steamcommunity-a.akamaihd.net/economy/image/#{item.description.icon_url}/73fx49f", style="border:1px solid #CF6A32;")
+              img(data-itemid=itemId, src="//steamcommunity-a.akamaihd.net/economy/image/#{item.description.icon_url}/73fx49f", style="border:1px solid ##{item.item.color};")
