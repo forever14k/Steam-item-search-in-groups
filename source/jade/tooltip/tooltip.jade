@@ -1,1 +1,10 @@
-h1 Hello World
+if tooltip
+  each value, option in tooltip
+    .left
+      | #{option}:
+    .right
+      if value.color
+        span(style="color:##{value.color}") #{value.name}
+      else
+        | #{value.name}
+    br
