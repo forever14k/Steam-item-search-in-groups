@@ -21,7 +21,7 @@ class FiltersView extends BaseView
           if _.includes search, term
             data.results.push id: choice.name, text: choice.name, color: choice.color
       # tf2 levels
-      if option is 'Level'
+      if option is OPTION_LEVEL
         data.results = data.results.sort ( a, b ) -> a.text - b.text # integer sort
 
     query.callback data

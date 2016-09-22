@@ -1,42 +1,40 @@
-class BackpacksView
+class BackpacksView extends BaseView
 
-  $el: null
-  state: null
+  el: '#sisbf_backpacks .sisbf_container .sisbf_backpacks'
+  elAppendTo: '.maincontent'
 
-  subscribe: () ->
-    @state.subscribe @onStateChange.bind @
+  _el:
+    users: '.sisbf_backpacks-user'
 
   onStateChange: () ->
-    @update()
-    
-  profiles: () ->
-    @$el
-      .find '.backpack .user'
-      .each ( index, user ) ->
-        $user = $ user
-        steamId32 = $user.attr 'data-steamid32'
-        $profile = $ "[data-miniprofile=#{steamId32}]"
-        $profile
-          .clone()
-          .appendTo $user
-
-  append: () ->
-    $ '.maincontent'
-      .prepend sisbf.backpacks_container()
-    @$el = $ '.backpacks'
-
-  render: () ->
-    @$el.html sisbf.backpacks_backpacks @state.getState()
-    @profiles()
-
-  update: () ->
     state = @state.getState().Backpacks
     if state.state is BACKPACKS_NOTDISPLAYED
       @render()
-      @state.dispatch
-        type: BACKPACKS_DISPLAYED
+      @update()
 
-  constructor: ( @state ) ->
+  addSteamProfile: ( user ) ->
+    $user = $ user
+    steamId32 = $user.attr 'data-steamid32'
+    $profile = $ "[data-miniprofile=#{steamId32}]"
+    $profile
+      .clone()
+      .appendTo $user
+
+  update: () ->
+    @updateSelectors()
+    _.each @$_el.users, @addSteamProfile.bind @
+
+  append: () ->
+    $( @elAppendTo ).prepend sisbf.backpacks_container @state.getState()
+    @updateSelectors()
+
+  render: () ->
+    @$el.html sisbf.backpacks_backpacks @state.getState()
+
+    @state.dispatch
+      type: BACKPACKS_DISPLAYED
+
+  constructor: () ->
+    super
     @append()
     @render()
-    @subscribe()

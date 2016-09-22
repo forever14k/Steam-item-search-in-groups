@@ -11,6 +11,14 @@ class BackpacksReducer
       STATUS_OFFLINE
       STATUS_UNKNOWN
     ]
+    colorOrder: [
+      OPTION_CATEGORY
+      OPTION_QUALITY
+      OPTION_RARITY
+    ]
+    colorExclude: [
+      CHOICE_STANDARD
+    ]
 
   reset: ( state ) ->
     state.items = []
@@ -23,15 +31,16 @@ class BackpacksReducer
     state.state = action.type
     return state
 
-  color: ( description ) ->
+  color: ( state, description ) ->
     color = null
+
     if description?.tags?
-      category = _.find description.tags, category_name: 'Category'
-      quality = _.find description.tags, category_name: 'Quality'
-      rarity = _.find description.tags, category_name: 'Rarity'
-      color = category.color if category?.color? and not color?
-      color = quality.color if quality?.color? and not color? and not _.includes [ 'Standard' ], quality.name
-      color = rarity.color if rarity?.color? and not color?
+      _.each state.colorOrder, ( optionName ) ->
+        tag = _.find description.tags, category_name: optionName
+        if tag?.color? and not color?
+          if not _.includes state.colorExclude, tag.name
+            color = tag.color
+
     return color
 
   push: ( state, action ) ->
@@ -39,17 +48,22 @@ class BackpacksReducer
       person = action.person
       items = action.backpack.rgInventory
       descriptions = action.backpack.rgDescriptions
+
       _.each items, ( item ) =>
         itemId = item.id
         descriptionId = "#{item.classid}_#{item.instanceid}"
         description = descriptions[ descriptionId ]
+
         if description?
+          color = @color state, description
           state.descriptions[ descriptionId ] = description
+
           state.items.push
             itemId: itemId
             descriptionId: descriptionId
             person: person
-            color: @color description
+            color: color
+
     return state
 
   passed: ( state, descriptionId ) ->
@@ -60,12 +74,14 @@ class BackpacksReducer
       steamId32 = person.steamId32
       itemId = item.itemId
       description = state.descriptions[ descriptionId ]
+
       state.results[ status ] = {} if not state.results[ status ]?
       state.results[ status ][ steamId32 ] = {} if not state.results[ status ][ steamId32 ]?
       state.results[ status ][ steamId32 ][ itemId ] =
-        item: item
+        asset: item
         person: person
         description: description
+        
     return state
 
   search: ( state, action ) ->
@@ -102,10 +118,10 @@ class BackpacksReducer
         inspection[ option ] = true if _.find description.tags, tag
 
       # tf2 levels
-      if option is 'Level'
+      if option is OPTION_LEVEL
         if description?.type?
           inspection[ option ] = true if _.some selected, ( choice ) ->
-            level = "Level #{choice.name}"
+            level = "#{OPTION_LEVEL} #{choice.name}"
             level += " " if description.type.length > level.length
             return _.startsWith description.type, level
 

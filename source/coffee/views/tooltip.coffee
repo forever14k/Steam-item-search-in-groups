@@ -52,7 +52,7 @@ class TooltipView
     if description?.type?
       level = description.type.match /Level\s(\d+)/i
       if level?
-        tooltip.tooltip[ 'Level' ] =
+        tooltip.tooltip[ OPTION_LEVEL ] =
           name: level[ 1 ]
 
     return tooltip
