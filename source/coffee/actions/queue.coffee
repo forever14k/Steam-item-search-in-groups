@@ -2,6 +2,8 @@ class Queue
 
   state: null
   queue: null
+  delay: 4300
+  worker: 1
 
   delegateEvents: () ->
     @state.subscribe @onStateChange.bind @
@@ -59,8 +61,8 @@ class Queue
   setup: () ->
     @queue = async.queue ( ( person, callback )=>
       @process person
-      person._timeout = setTimeout callback, @state.getState().Persons.delay
-    ), 1
+      person._timeout = setTimeout callback, @delay
+    ), @worker
     @queue.drain = () =>
       @state.dispatch
         type: PERSONSCLUB_DRAIN

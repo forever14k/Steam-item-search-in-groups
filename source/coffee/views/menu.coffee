@@ -1,4 +1,4 @@
-class MenuView
+class MenuView extends BaseView
 
   el: '#sisbf_menu .sisbf_container'
   elAppendTo: '.maincontent'
@@ -10,17 +10,6 @@ class MenuView
     appid: '#sisbf_appid'
     contextid: '#sisbf_contextid'
     settings: '#sisbf_appid, #sisbf_contextid'
-
-  $_el: {}
-
-  $el: null
-  state: null
-
-  $: ( selector ) ->
-    return @$el.find selector
-
-  subscribe: () ->
-    @state.subscribe @onStateChange.bind @
 
   delegateEvents: () ->
     @$_el.load
@@ -73,13 +62,8 @@ class MenuView
       type: SEARCH_CHANGED
       search: search
 
-  updateSelectors: () ->
-    @$el = $ @el
-    _.each @_el, ( element, name ) =>
-      @$_el[ name ] = @$ element
-
   append: () ->
-    $(@elAppendTo).prepend sisbf.menu_container @state.getState()
+    $( @elAppendTo ).prepend sisbf.menu_container @state.getState()
     @updateSelectors()
 
   render: () ->
@@ -88,9 +72,9 @@ class MenuView
     @delegateEvents()
 
   update: () ->
-    render.diff @$el.find(':first-child'), sisbf.menu_menu(@state.getState())
+    render.diff @$el.find(':first-child'), sisbf.menu_menu( @state.getState() )
 
-  constructor: ( @state ) ->
+  constructor: () ->
+    super
     @append()
     @render()
-    @subscribe()

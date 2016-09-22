@@ -1,32 +1,27 @@
 class PersonsReducer
 
   initialState:
+    state: PERSONSCLUB_IDLE
     current: 0
     total: 0
-    delay: 4300
-    state: PERSONSCLUB_IDLE
-    personSelector: '#memberList [data-miniprofile]'
     persons: []
 
   reset: ( state ) ->
-    state.state = PERSONSCLUB_IDLE
+    state.state = PERSONSCLUB_OUTDATED
     state.persons = []
     state.current = state.persons.length
-    $persons = $ state.personSelector
-    $.each $persons, ( index, element ) ->
-      $element = $ element
-      steamId32 = $element.attr 'data-miniprofile'
-      steamId64 = Steam::toSteamId64 steamId32
-      status = STATUS_UNKNOWN
-      status = STATUS_OFFLINE if $element.hasClass 'offline'
-      status = STATUS_INGAME if $element.hasClass 'in-game'
-      status = STATUS_ONLINE if $element.hasClass 'online'
-      person =
-        steamId32: steamId32
-        steamId64: steamId64
-        state: PERSON_IDLE
-        status: status
-      state.persons.push person
+    state.total = state.persons.length
+    return state
+
+  populate: ( state, action ) ->
+    state.state = PERSONSCLUB_IDLE
+    state.current = state.persons.length
+    state.persons = action.persons
+    state.total = state.persons.length
+    return state
+
+  unshift: ( state, action ) ->
+    state.persons.unshift action.person
     state.total = state.persons.length
     return state
 
@@ -53,10 +48,15 @@ class PersonsReducer
     switch action.type
       when REDUX_INIT, SETTINGS_CHANGED
         @reset state
+      when PERSONSCLUB_ADD
+        @reset state
+        @populate state, action
       when PERSONSCLUB_QUEUE
         @queue state
-      when PERSONSCLUB_PROCESS, PERSONSCLUB_PAUSE, PERSONSCLUB_RESUME, PERSONSCLUB_DRAIN
+      when PERSONSCLUB_IDLE, PERSONSCLUB_PROCESS, PERSONSCLUB_PAUSE, PERSONSCLUB_RESUME, PERSONSCLUB_DRAIN
         @state state, action
+      when PERSON_ADD
+        @unshift state, action
       when PERSON_LOADING, PERSON_ERROR
         @statePerson state, action
       when PERSON_LOADED
