@@ -7,5 +7,6 @@ OPTION_CATEGORY = 'Category'
 OPTION_QUALITY = 'Quality'
 OPTION_RARITY = 'Rarity'
 OPTION_LEVEL = 'Level'
+OPTION_NAME = 'Name'
 
 CHOICE_STANDARD = 'Standard'

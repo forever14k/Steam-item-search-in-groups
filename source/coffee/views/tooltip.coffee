@@ -1,12 +1,15 @@
-class TooltipView
+class TooltipView extends BaseView
 
-  $el: null
-  state: null
+  el: '.sisbf_tooltip'
+  elAppendTo: 'body'
+
+  _el:
+    items: '.sisbf_backpacks-items [data-descriptionid]'
 
   delegateEvents: () ->
     $ document
-      .on 'mouseover', '.backpack .items [data-itemid]', @onMouseOver.bind @
-      .on 'mouseout', '.backpack .items [data-itemid]', @onMouseOut.bind @
+      .on 'mouseover', @_el.items, @onMouseOver.bind @
+      .on 'mouseout', @_el.items, @onMouseOut.bind @
 
   onMouseOver: ( event ) ->
     @update event, () =>
@@ -23,7 +26,7 @@ class TooltipView
     @$el.css
       top: position.top - 8
 
-    if (width + position.left + 50) >= $(window).width()
+    if (width + position.left + 100) >= $(window).width()
       @$el.css
         left: position.left - width
     else
@@ -40,7 +43,7 @@ class TooltipView
       description: description
       tooltip: {}
 
-    tooltip.tooltip[ 'Name' ] =
+    tooltip.tooltip[ OPTION_NAME ] =
       name: description.name
 
     _.each description.tags, ( tag ) ->
@@ -58,12 +61,11 @@ class TooltipView
     return tooltip
 
   append: () ->
-    $ 'body'
-      .append sisbf.tooltip_container()
-    @$el = $ '.backpack_tooltip'
+    $( @elAppendTo ).append sisbf.tooltip_container @state.getState()
+    @updateSelectors()
 
   render: () ->
-    @$el.html sisbf.tooltip_tooltip()
+    @$el.html sisbf.tooltip_tooltip @state.getState()
     @delegateEvents()
 
   update: ( event, callback ) ->
@@ -76,6 +78,7 @@ class TooltipView
       @$el.html sisbf.tooltip_tooltip @build description
       callback()
 
-  constructor: ( @state ) ->
+  constructor: () ->
+    super
     @append()
     @render()

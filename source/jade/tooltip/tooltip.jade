@@ -1,9 +1,9 @@
 if tooltip
   each value, option in tooltip
-    .left
+    .sisbf_tooltip-title
       | #{option}:
-    .right
-      if value.color
+    .sisbf_tooltip-value
+      if value.color && value.color != null
         span(style="color:##{value.color}") #{value.name}
       else
         | #{value.name}
