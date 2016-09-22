@@ -37,19 +37,19 @@ class MenuReducer
 
   reducer: ( state = @initialState, action ) ->
     switch action.type
-      when '@@redux/INIT'
+      when REDUX_INIT
         @checkCookie state
-      when 'SETTINGS_CHANGED'
+      when SETTINGS_CHANGED
         @appid state, action
         @contextid state, action
         @setCookie state
-      when 'APPID_CHANGED'
+      when APPID_CHANGED
         @appid state, action
         @setCookie state
-      when 'CONTEXTID_CHANGED'
+      when CONTEXTID_CHANGED
         @contextid state, action
         @setCookie state
-      when 'SEARCH_CHANGED'
+      when SEARCH_CHANGED
         @search state, action
     return state
 

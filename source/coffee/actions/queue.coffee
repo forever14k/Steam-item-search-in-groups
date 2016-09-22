@@ -9,21 +9,21 @@ class Queue
   onStateChange: () ->
     state = @state.getState().Persons.state
     switch state
-      when 'PERSONSCLUB_QUEUE', 'PERSONSCLUB_RESUME'
+      when PERSONSCLUB_QUEUE, PERSONSCLUB_RESUME
         @start()
-      when 'PERSONSCLUB_PAUSE'
+      when PERSONSCLUB_PAUSE
         @pause()
 
   onLoading: ( request ) ->
     person = request.person
     @state.dispatch
-      type: 'PERSON_LOADING'
+      type: PERSON_LOADING
       person: person
 
   onLoaded: ( backpack, status, request ) ->
     person = request.person
     @state.dispatch
-      type: 'PERSON_LOADED'
+      type: PERSON_LOADED
       person: person
       backpack: backpack
 
@@ -31,7 +31,7 @@ class Queue
     person = request.person
     @queue.unshift person
     @state.dispatch
-      type: 'PERSON_ERROR'
+      type: PERSON_ERROR
       person: person
 
   imitation: ( person ) ->
@@ -63,16 +63,16 @@ class Queue
     ), 1
     @queue.drain = () =>
       @state.dispatch
-        type: 'PERSONSCLUB_DRAIN'
+        type: PERSONSCLUB_DRAIN
 
   start: () ->
     persons = @state.getState().Persons.persons
-    queue = _.filter persons, state: 'PERSON_QUEUE'
+    queue = _.filter persons, state: PERSON_QUEUE
     @queue._tasks.empty()
     @queue.push queue
     @queue.resume()
     @state.dispatch
-      type: 'PERSONSCLUB_PROCESS'
+      type: PERSONSCLUB_PROCESS
 
   pause: () ->
     @queue.pause()

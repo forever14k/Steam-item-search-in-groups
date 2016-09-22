@@ -31,10 +31,10 @@ class BackpacksView
 
   update: () ->
     state = @state.getState().Backpacks
-    if state.state is 'BACKPACKS_NOTDISPLAYED'
+    if state.state is BACKPACKS_NOTDISPLAYED
       @render()
       @state.dispatch
-        type: 'BACKPACKS_DISPLAYED'
+        type: BACKPACKS_DISPLAYED
 
   constructor: ( @state ) ->
     @append()

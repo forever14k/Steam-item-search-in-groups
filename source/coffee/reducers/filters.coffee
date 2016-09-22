@@ -60,15 +60,15 @@ class FiltersReducer
 
   reducer: ( state = @initialState, action ) ->
     switch action.type
-      when '@@redux/INIT', 'SETTINGS_CHANGED'
+      when REDUX_INIT, SETTINGS_CHANGED
         @reset state
-      when 'PERSON_LOADED'
+      when PERSON_LOADED
         @filter state, action
-      when 'FILTERS_SELECTED'
+      when FILTERS_SELECTED
         @select state, action
-      when 'FILTERS_REMOVED'
+      when FILTERS_REMOVED
         @remove state, action
-      when 'FILTERS_REPLACED'
+      when FILTERS_REPLACED
         @remove state, action
         @select state, action
     return state

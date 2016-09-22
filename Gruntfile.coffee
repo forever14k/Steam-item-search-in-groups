@@ -110,6 +110,7 @@ module.exports = (grunt)->
             'temp/js/templates/*.js',
             'temp/js/templates/**/*.js',
             'temp/js/scripts/*.js'
+            'temp/js/scripts/types/*.js'
             'temp/js/scripts/views/*.js'
             'temp/js/scripts/actions/*.js'
             'temp/js/scripts/reducers/*.js'

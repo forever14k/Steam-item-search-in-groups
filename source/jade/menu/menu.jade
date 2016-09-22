@@ -1,39 +1,39 @@
 mixin button_search( addClassName )
-  button#search_selected.btn_medium.input_space(type='submit', class=addClassName)
+  button#sisbf_search.btn_medium.sisbf_menu--space(type='submit', class=addClassName)
     span Search
 mixin button_load( addClassName )
-  button#load_inventories.btn_medium.input_space(type='submit', class=addClassName)
+  button#sisbf_load.btn_medium.sisbf_menu--space(type='submit', class=addClassName)
     span Load inventories (#{Persons.current}/#{Persons.total})
 mixin input_appid( inputDisabled )
-  .gray_bevel.for_text_input.input_space
+  .gray_bevel.for_text_input.sisbf_menu--space
     | Appid:&nbsp;
-    input#appid(size='4', name='search_string', placeholder='Appid', value=Settings.appid, disabled=inputDisabled)
+    input#sisbf_appid(size='4', name='search_string', placeholder='Appid', value=Settings.appid, disabled=inputDisabled)
 mixin input_contextid( inputDisabled )
-  .gray_bevel.for_text_input.input_space
+  .gray_bevel.for_text_input.sisbf_menu--space
     | Context:&nbsp;
-    input#contextid(size='4', name='search_string', placeholder='Context', value=Settings.contextid, disabled=inputDisabled)
+    input#sisbf_contextid(size='4', name='search_string', placeholder='Context', value=Settings.contextid, disabled=inputDisabled)
 
-.settings
+.sisbf_menu
   .gray_bevel.for_text_input
-    input#backpack_search(size='40', name='search_string', placeholder='Enter name of items you searching', value=Settings.search)
+    input#sisbf_text(size='40', name='search_string', placeholder='Enter name of items you searching', value=Settings.search)
   case Persons.state
-    when 'PERSONSCLUB_IDLE'
+    when PERSONSCLUB_IDLE
       +input_appid(false)
       +input_contextid(false)
       +button_search('btn_darkblue_white_innerfade')
       +button_load('btn_green_white_innerfade')
-    when 'PERSONSCLUB_PROCESS'
-    when 'PERSONSCLUB_RESUME'
+    when PERSONSCLUB_PROCESS
+    when PERSONSCLUB_RESUME
       +input_appid(true)
       +input_contextid(true)
       +button_search('btn_blue_white_innerfade')
       +button_load('btn_blue_white_innerfade')
-    when 'PERSONSCLUB_PAUSE'
+    when PERSONSCLUB_PAUSE
       +input_appid(false)
       +input_contextid(false)
       +button_search('btn_blue_white_innerfade')
       +button_load('btn_green_white_innerfade')
-    when 'PERSONSCLUB_DRAIN'
+    when PERSONSCLUB_DRAIN
       +input_appid(false)
       +input_contextid(false)
       +button_search('btn_green_white_innerfade')

@@ -42,7 +42,7 @@ class FiltersView
     option = $ event.target
       .attr 'data-option-current'
     @state.dispatch
-      type: 'FILTERS_SELECTED'
+      type: FILTERS_SELECTED
       option: option
       added:
         name: event.added.id
@@ -58,7 +58,7 @@ class FiltersView
       .parent()
       .remove()
     @state.dispatch
-      type: 'FILTERS_REMOVED'
+      type: FILTERS_REMOVED
       option: option
       removed:
         name: event.removed.id
@@ -67,7 +67,7 @@ class FiltersView
     option = $ event.target
       .attr 'data-option-current'
     @state.dispatch
-      type: 'FILTERS_REPLACED'
+      type: FILTERS_REPLACED
       option: option
       added:
         name: event.added.id

@@ -4,19 +4,19 @@ class BackpacksReducer
     items: []
     descriptions: {}
     results: {}
-    state: 'BACKPACKS_IDLE'
+    state: BACKPACKS_IDLE
     order: [
-      'STATUS_ONLINE'
-      'STATUS_INGAME'
-      'STATUS_OFFLINE'
-      'STATUS_UNKNOWN'
+      STATUS_ONLINE
+      STATUS_INGAME
+      STATUS_OFFLINE
+      STATUS_UNKNOWN
     ]
 
   reset: ( state ) ->
     state.items = []
     state.descriptions = {}
     state.results = {}
-    state.state = 'BACKPACKS_NOTDISPLAYED'
+    state.state = BACKPACKS_NOTDISPLAYED
     return state
 
   state: ( state, action ) ->
@@ -80,7 +80,7 @@ class BackpacksReducer
       if @filter description, search, filters
         @passed state, "#{description.classid}_#{description.instanceid}"
 
-    state.state = 'BACKPACKS_NOTDISPLAYED'
+    state.state = BACKPACKS_NOTDISPLAYED
     return state
 
   filter: ( description, search, filters ) ->
@@ -108,19 +108,19 @@ class BackpacksReducer
             level = "Level #{choice.name}"
             level += " " if description.type.length > level.length
             return _.startsWith description.type, level
-            
+
     accept = not _.includes _.values( inspection ), false
     return accept
 
   reducer: ( state = @initialState, action ) ->
     switch action.type
-      when '@@redux/INIT', 'SETTINGS_CHANGED'
+      when REDUX_INIT, SETTINGS_CHANGED
         @reset state
-      when 'PERSON_LOADED'
+      when PERSON_LOADED
         @push state, action
-      when 'SEARCH_SELECTED'
+      when BACKPACKS_SEARCH
         @search state, action
-      when 'BACKPACKS_DISPLAYED'
+      when BACKPACKS_DISPLAYED
         @state state, action
     return state
 

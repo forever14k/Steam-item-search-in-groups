@@ -4,12 +4,12 @@ class PersonsReducer
     current: 0
     total: 0
     delay: 4300
-    state: 'PERSONSCLUB_IDLE'
+    state: PERSONSCLUB_IDLE
     personSelector: '#memberList [data-miniprofile]'
     persons: []
 
   reset: ( state ) ->
-    state.state = 'PERSONSCLUB_IDLE'
+    state.state = PERSONSCLUB_IDLE
     state.persons = []
     state.current = state.persons.length
     $persons = $ state.personSelector
@@ -17,23 +17,23 @@ class PersonsReducer
       $element = $ element
       steamId32 = $element.attr 'data-miniprofile'
       steamId64 = Steam::toSteamId64 steamId32
-      status = 'STATUS_UNKNOWN'
-      status = 'STATUS_OFFLINE' if $element.hasClass 'offline'
-      status = 'STATUS_INGAME' if $element.hasClass 'in-game'
-      status = 'STATUS_ONLINE' if $element.hasClass 'online'
+      status = STATUS_UNKNOWN
+      status = STATUS_OFFLINE if $element.hasClass 'offline'
+      status = STATUS_INGAME if $element.hasClass 'in-game'
+      status = STATUS_ONLINE if $element.hasClass 'online'
       person =
         steamId32: steamId32
         steamId64: steamId64
-        state: 'PERSON_IDLE'
+        state: PERSON_IDLE
         status: status
       state.persons.push person
     state.total = state.persons.length
     return state
 
   queue: ( state ) ->
-    state.state = 'PERSONSCLUB_QUEUE'
+    state.state = PERSONSCLUB_QUEUE
     _.each state.persons, ( person, index ) =>
-      person.state = 'PERSON_QUEUE'
+      person.state = PERSON_QUEUE
     return state
 
   state: ( state, action ) ->
@@ -51,15 +51,15 @@ class PersonsReducer
 
   reducer: ( state = @initialState, action ) ->
     switch action.type
-      when '@@redux/INIT', 'SETTINGS_CHANGED'
+      when REDUX_INIT, SETTINGS_CHANGED
         @reset state
-      when 'PERSONSCLUB_QUEUE'
+      when PERSONSCLUB_QUEUE
         @queue state
-      when 'PERSONSCLUB_PROCESS', 'PERSONSCLUB_PAUSE', 'PERSONSCLUB_RESUME', 'PERSONSCLUB_DRAIN'
+      when PERSONSCLUB_PROCESS, PERSONSCLUB_PAUSE, PERSONSCLUB_RESUME, PERSONSCLUB_DRAIN
         @state state, action
-      when 'PERSON_LOADING', 'PERSON_ERROR'
+      when PERSON_LOADING, PERSON_ERROR
         @statePerson state, action
-      when 'PERSON_LOADED'
+      when PERSON_LOADED
         @increment state
         @statePerson state, action
     return state
