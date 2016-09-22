@@ -72,7 +72,7 @@ class MenuView extends BaseView
     @delegateEvents()
 
   update: () ->
-    render.diff @$el.find(':first-child'), sisbf.menu_menu( @state.getState() )
+    render.diff @$el, sisbf.menu_menu( @state.getState() )
 
   constructor: () ->
     super
