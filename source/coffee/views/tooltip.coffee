@@ -48,6 +48,13 @@ class TooltipView
         name: tag.name
         color: if tag.color? then tag.color else null
 
+    # tf2 levels
+    if description?.type?
+      level = description.type.match /Level\s(\d+)/i
+      if level?
+        tooltip.tooltip[ 'Level' ] =
+          name: level[ 1 ]
+
     return tooltip
 
   append: () ->

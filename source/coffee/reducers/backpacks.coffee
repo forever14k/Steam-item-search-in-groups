@@ -101,6 +101,14 @@ class BackpacksReducer
           category_name: option
         inspection[ option ] = true if _.find description.tags, tag
 
+      # tf2 levels
+      if option is 'Level'
+        if description?.type?
+          inspection[ option ] = true if _.some selected, ( choice ) ->
+            level = "Level #{choice.name}"
+            level += " " if description.type.length > level.length
+            return _.startsWith description.type, level
+            
     accept = not _.includes _.values( inspection ), false
     return accept
 

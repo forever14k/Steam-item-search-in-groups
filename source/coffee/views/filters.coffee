@@ -23,6 +23,10 @@ class FiltersView
         if not _.includes selected, search
           if _.includes search, term
             data.results.push id: choice.name, text: choice.name, color: choice.color
+      # tf2 levels
+      if option is 'Level'
+        data.results = data.results.sort ( a, b ) -> a.text - b.text # integer sort
+
     query.callback data
 
   onChange: ( event ) ->

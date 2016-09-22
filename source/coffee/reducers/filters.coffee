@@ -40,6 +40,11 @@ class FiltersReducer
                   @push state, tag.category_name, tag.name, tag.color
                 else
                   @push state, tag.category_name, tag.name
+          # tf2 levels
+          if description?.type?
+            level = description.type.match /Level\s(\d+)/i
+            if level?
+              @push state, 'Level', level[ 1 ]
     return state
 
   select: ( state, action ) ->
