@@ -1,14 +1,14 @@
-mixin button_search( addClassName )
+mixin buttonSearch( addClassName )
   button#sisbf_search.btn_medium.sisbf_menu--space(type='submit', class=addClassName)
     span Search
-mixin button_load( addClassName )
+mixin buttonLoad( addClassName )
   button#sisbf_load.btn_medium.sisbf_menu--space(type='submit', class=addClassName)
     span Load inventories (#{Persons.current}/#{Persons.total})
-mixin input_appid( inputDisabled )
+mixin inputAppid( inputDisabled )
   .gray_bevel.for_text_input.sisbf_menu--space
     | Appid:&nbsp;
     input#sisbf_appid(size='4', name='search_string', placeholder='Appid', value=Settings.appid, disabled=inputDisabled)
-mixin input_contextid( inputDisabled )
+mixin inputContextid( inputDisabled )
   .gray_bevel.for_text_input.sisbf_menu--space
     | Context:&nbsp;
     input#sisbf_contextid(size='4', name='search_string', placeholder='Context', value=Settings.contextid, disabled=inputDisabled)
@@ -18,28 +18,28 @@ mixin input_contextid( inputDisabled )
     input#sisbf_text(size='40', name='search_string', placeholder='Enter name of items you searching', value=Settings.search)
   case Persons.state
     when PERSONSCLUB_IDLE
-      +input_appid(false)
-      +input_contextid(false)
-      +button_search('btn_darkblue_white_innerfade')
-      +button_load('btn_green_white_innerfade')
+      +inputAppid( false )
+      +inputContextid( false )
+      +buttonSearch( 'btn_darkblue_white_innerfade' )
+      +buttonLoad( 'btn_green_white_innerfade' )
     when PERSONSCLUB_PROCESS
     when PERSONSCLUB_RESUME
-      +input_appid(true)
-      +input_contextid(true)
-      +button_search('btn_blue_white_innerfade')
-      +button_load('btn_blue_white_innerfade')
+      +inputAppid( true )
+      +inputContextid( true )
+      +buttonSearch( 'btn_blue_white_innerfade' )
+      +buttonLoad( 'btn_blue_white_innerfade' )
     when PERSONSCLUB_PAUSE
-      +input_appid(false)
-      +input_contextid(false)
-      +button_search('btn_blue_white_innerfade')
-      +button_load('btn_green_white_innerfade')
+      +inputAppid( false )
+      +inputContextid( false )
+      +buttonSearch( 'btn_blue_white_innerfade' )
+      +buttonLoad( 'btn_green_white_innerfade' )
     when PERSONSCLUB_DRAIN
-      +input_appid(false)
-      +input_contextid(false)
-      +button_search('btn_green_white_innerfade')
-      +button_load('btn_darkblue_white_innerfade')
+      +inputAppid( false )
+      +inputContextid( false )
+      +buttonSearch( 'btn_green_white_innerfade' )
+      +buttonLoad( 'btn_darkblue_white_innerfade' )
     default
-      +input_appid(false)
-      +input_contextid(false)
-      +button_search('btn_darkblue_white_innerfade')
-      +button_load('btn_green_white_innerfade')
+      +inputAppid( false )
+      +inputContextid( false )
+      +buttonSearch( 'btn_darkblue_white_innerfade' )
+      +buttonLoad( 'btn_green_white_innerfade' )
