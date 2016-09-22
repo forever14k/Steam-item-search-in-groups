@@ -1,4 +1,6 @@
 .sisbf
+  &_container
+    margin 10px 0 20px 0
   &_person
     &--queue
       background-color transparent !important
@@ -6,9 +8,52 @@
       background-color black !important
     &--error
       background-color red !important
-  &_container
-    &:last-of-type
-      margin 0 0 20px 0
   &_menu
     &--space
       margin 0 0 0 10px
+  &_filters
+    &-options
+    &-option
+    &-title
+    &-input
+      display inline-block
+      vertical-align top
+    &-options
+      width 50%
+      margin 0 0 10px 0
+      &:nth-child(even)
+        text-align right
+    &-option
+      width 100%
+      margin 0 0 5px 0
+      color #C6D4DF
+      &:first-of-type
+        .sisbf_filters-title
+            visibility visible
+    &-title
+    &-input
+      text-align left
+    &-title
+      width 25%
+      visibility hidden
+      span
+        display block
+        margin 7px 0 0 0
+        overflow hidden
+        white-space nowrap
+        text-overflow ellipsis
+    &-input
+      width 70%
+      .select2-container
+        width 100%
+    &-results
+    &-selection
+      &--color
+        width 15px
+        height 15px
+        float left
+        margin 0 5px 0 0
+        border-radius 5px
+    &-selection
+      &--color
+        margin 5px 5px 0 0

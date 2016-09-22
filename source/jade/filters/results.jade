@@ -1,4 +1,4 @@
-.ui_capitalize
-  if color
-    div(style="width:15px;height:15px;background:##{color};float:left;border-radius:5px;margin-right:5px;")
+.sisbf_filters-results
+  if color && color != null
+    .sisbf_filters-results--color(style="background-color:##{color}")
   | #{text}

@@ -1,10 +1,7 @@
-class FiltersView
+class FiltersView extends BaseView
 
-  $el: null
-  state: null
-
-  subscribe: () ->
-    @state.subscribe @onStateChange.bind @
+  el: '#sisbf_filters .sisbf_container .sisbf_filters'
+  elAppendTo: '.maincontent'
 
   onStateChange: () ->
     @update()
@@ -39,40 +36,49 @@ class FiltersView
         @onRemoved event
 
   onAdded: ( event ) ->
-    option = $ event.target
-      .attr 'data-option-current'
+    $target = $ event.target
+
+    option = $target.attr 'data-option-current'
+    added = event.added.id
+
     @state.dispatch
       type: FILTERS_SELECTED
       option: option
       added:
-        name: event.added.id
+        name: added
 
   onRemoved: ( event ) ->
     $target = $ event.target
-    option = $target
-      .attr 'data-option-current'
+
+    option = $target.attr 'data-option-current'
+    removed = event.removed.id
+
     $target
       .select2 'destroy'
-    $target
       .parent()
       .parent()
       .remove()
+
     @state.dispatch
       type: FILTERS_REMOVED
       option: option
       removed:
-        name: event.removed.id
+        name: removed
 
   onReplaced: ( event ) ->
-    option = $ event.target
-      .attr 'data-option-current'
+    $target = $ event.target
+
+    option = $target.attr 'data-option-current'
+    added = event.added.id
+    removed = event.removed.id
+
     @state.dispatch
       type: FILTERS_REPLACED
       option: option
       added:
-        name: event.added.id
+        name: added
       removed:
-        name: event.removed.id
+        name: removed
 
   onFormatResult: ( item ) ->
     return sisbf.filters_results item
@@ -81,9 +87,8 @@ class FiltersView
     return sisbf.filters_selection item
 
   append: () ->
-    $ '.maincontent'
-      .prepend sisbf.filters_container()
-    @$el = $ '#backpacksfilters #uifilters'
+    $( @elAppendTo ).prepend sisbf.filters_container @state.getState()
+    @updateSelectors()
 
   prepare: () ->
     state = @state.getState().Filters
@@ -101,9 +106,9 @@ class FiltersView
     _.each state, ( filter, option ) =>
       $options = @$el.find("[data-option='#{option}']")
       if $options.length is filter.selected.length
-        @_insert option, filter
+        @insertSelect option, filter
 
-  _insert: ( option, filter ) ->
+  insertSelect: ( option, filter ) ->
     $option = $ sisbf.filters_option
       option: option
       filter: filter
@@ -124,6 +129,6 @@ class FiltersView
     @prepare()
     @insert()
 
-  constructor: ( @state ) ->
+  constructor: () ->
+    super
     @append()
-    @subscribe()
