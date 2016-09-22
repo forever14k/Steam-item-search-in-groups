@@ -1,12 +1,9 @@
-class Queue
+class Queue extends BaseView
 
   state: null
   queue: null
   delay: 4300
   worker: 1
-
-  delegateEvents: () ->
-    @state.subscribe @onStateChange.bind @
 
   onStateChange: () ->
     state = @state.getState().Persons.state
@@ -18,12 +15,14 @@ class Queue
 
   onLoading: ( request ) ->
     person = request.person
+
     @state.dispatch
       type: PERSON_LOADING
       person: person
 
   onLoaded: ( backpack, status, request ) ->
     person = request.person
+
     @state.dispatch
       type: PERSON_LOADED
       person: person
@@ -31,6 +30,7 @@ class Queue
 
   onError: ( request, status, error ) ->
     person = request.person
+
     @queue.unshift person
     @state.dispatch
       type: PERSON_ERROR
@@ -49,6 +49,7 @@ class Queue
 
   process: ( person ) ->
     state = @state.getState().Settings
+
     request = $.ajax
       method: 'GET'
       url: "//steamcommunity.com/profiles/#{person.steamId64}/inventory/json/#{state.appid}/#{state.contextid}/?l=english"
@@ -56,6 +57,7 @@ class Queue
       success: @onLoaded.bind @
       error: @onError.bind @
     request.person = person
+
     @onLoading request
 
   setup: () ->
@@ -63,6 +65,7 @@ class Queue
       @process person
       person._timeout = setTimeout callback, @delay
     ), @worker
+
     @queue.drain = () =>
       @state.dispatch
         type: PERSONSCLUB_DRAIN
@@ -70,15 +73,17 @@ class Queue
   start: () ->
     persons = @state.getState().Persons.persons
     queue = _.filter persons, state: PERSON_QUEUE
+
     @queue._tasks.empty()
     @queue.push queue
     @queue.resume()
+
     @state.dispatch
       type: PERSONSCLUB_PROCESS
 
   pause: () ->
     @queue.pause()
 
-  constructor: ( @state ) ->
+  constructor: () ->
+    super
     @setup()
-    @delegateEvents()
