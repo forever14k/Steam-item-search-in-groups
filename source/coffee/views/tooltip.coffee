@@ -38,6 +38,12 @@ class TooltipView extends BaseView
       top: -1000
       left: -1000
 
+  process: ( tooltip, tag ) ->
+    if not tag.hidden?
+      tooltip.tooltip[ tag.category_name ] =
+        name: tag.name
+        color: if tag.color? then tag.color else null
+
   build: ( description ) ->
     tooltip =
       description: description
@@ -46,17 +52,13 @@ class TooltipView extends BaseView
     tooltip.tooltip[ OPTION_NAME ] =
       name: description.name
 
-    _.each description.tags, ( tag ) ->
-      tooltip.tooltip[ tag.category_name ] =
-        name: tag.name
-        color: if tag.color? then tag.color else null
+    if description?.tags?
+      _.each description.tags, ( tag ) =>
+        @process tooltip, tag
 
-    # tf2 levels
-    if description?.type?
-      level = description.type.match /Level\s(\d+)/i
-      if level?
-        tooltip.tooltip[ OPTION_LEVEL ] =
-          name: level[ 1 ]
+    if description?._sisbftags?
+      _.each description._sisbftags, ( tag ) =>
+        @process tooltip, tag
 
     return tooltip
 

@@ -27,24 +27,30 @@ class FiltersReducer
         color: if color? then color else null
       filter.options.push choice
 
+  process: ( state, tag ) ->
+    if tag?.category_name? and tag?.name?
+      if not tag.hidden
+        if tag?.color?
+          @push state, tag.category_name, tag.name, tag.color
+        else
+          @push state, tag.category_name, tag.name
+
   filter: ( state, action ) ->
     if action.backpack.success? and action.backpack.success is true
       backpack = action.backpack
       descriptions = backpack.rgDescriptions
+
       if descriptions?
         _.each descriptions, ( description ) =>
+
           if description?.tags?
             _.each description.tags, ( tag ) =>
-              if tag?.category_name? and tag?.name?
-                if tag?.color?
-                  @push state, tag.category_name, tag.name, tag.color
-                else
-                  @push state, tag.category_name, tag.name
-          # tf2 levels
-          if description?.type?
-            level = description.type.match /Level\s(\d+)/i
-            if level?
-              @push state, OPTION_LEVEL, level[ 1 ]
+              @process state, tag
+
+          if description?._sisbftags?
+            _.each description._sisbftags, ( tag ) =>
+              @process state, tag
+
     return state
 
   select: ( state, action ) ->

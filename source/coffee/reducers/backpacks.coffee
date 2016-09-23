@@ -31,7 +31,7 @@ class BackpacksReducer
     state.state = action.type
     return state
 
-  color: ( state, description ) ->
+  _tagColor: ( state, description ) ->
     color = null
 
     if description?.tags?
@@ -41,7 +41,29 @@ class BackpacksReducer
           if not _.includes state.colorExclude, tag.name
             color = tag.color
 
+    if description?._sisbftags? and color?
+      description._sisbftags.push
+        hidden: true
+        category_name: OPTION_COLOR
+        name: color
+        color: color
+
     return color
+
+  _tagLevel: ( state, description ) ->
+    level = null
+
+    if description?.type?
+      level = description.type.match /Level\s(\d+)/i
+      if level?
+        level = level[ 1 ]
+
+    if description?._sisbftags? and level?
+      description._sisbftags.push
+        category_name: OPTION_LEVEL
+        name: level
+
+    return level
 
   push: ( state, action ) ->
     if action.backpack.success? and action.backpack.success is true
@@ -55,7 +77,9 @@ class BackpacksReducer
         description = descriptions[ descriptionId ]
 
         if description?
-          color = @color state, description
+          description._sisbftags = []
+          color = @_tagColor state, description
+          level = @_tagLevel state, description
           state.descriptions[ descriptionId ] = description
 
           state.items.push
@@ -81,7 +105,7 @@ class BackpacksReducer
         asset: item
         person: person
         description: description
-        
+
     return state
 
   search: ( state, action ) ->
@@ -115,15 +139,10 @@ class BackpacksReducer
         tag =
           name: choice.name
           category_name: option
-        inspection[ option ] = true if _.find description.tags, tag
-
-      # tf2 levels
-      if option is OPTION_LEVEL
-        if description?.type?
-          inspection[ option ] = true if _.some selected, ( choice ) ->
-            level = "#{OPTION_LEVEL} #{choice.name}"
-            level += " " if description.type.length > level.length
-            return _.startsWith description.type, level
+        if description?.tags?
+          inspection[ option ] = true if _.find description.tags, tag
+        if description?._sisbftags? and not inspection[ option ]
+          inspection[ option ] = true if _.find description._sisbftags, tag
 
     accept = not _.includes _.values( inspection ), false
     return accept
