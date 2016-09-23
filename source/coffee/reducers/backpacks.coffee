@@ -31,6 +31,20 @@ class BackpacksReducer
     state.state = action.type
     return state
 
+  _middlewaresTags: ( state, description ) ->
+    middlewares = [
+      @_tagColor
+      @_tagTypeLevel
+      @_tagTypeLimited
+      @_tagTypeStrange
+      @_tagStatus
+    ]
+    _.invokeMap middlewares, _.call, @, state, description
+
+  _insertTag: ( description, tag ) ->
+    description._sisbftags = [] if not description?._sisbftags?
+    description._sisbftags.push tag if tag?.name? and not _.find description._sisbftags, tag
+
   _tagColor: ( state, description ) ->
     color = null
 
@@ -41,16 +55,46 @@ class BackpacksReducer
           if not _.includes state.colorExclude, tag.name
             color = tag.color
 
-    if description?._sisbftags? and color?
-      description._sisbftags.push
-        hidden: true
-        category_name: OPTION_COLOR
-        name: color
-        color: color
+    tag =
+      hidden: true
+      category_name: OPTION_COLOR
+      name: color
+      color: color
 
-    return color
+    @_insertTag description, tag
 
-  _tagLevel: ( state, description ) ->
+  _tagStatus: ( state, description ) ->
+    status = []
+
+    if description?.tradable?
+      switch description.tradable
+        when 0
+          status.push CHOICE_NOTTRADABLE
+        when 1
+          status.push CHOICE_TRADABLE
+
+    if description?.marketable?
+      switch description.marketable
+        when 0
+          status.push CHOICE_NOTMARKETABLE
+        when 1
+          status.push CHOICE_MARKETABLE
+
+    if description?.fraudwarnings?
+      renamed = _.some description.fraudwarnings, ( fraudwarning ) ->
+        _.startsWith fraudwarning, 'This item has been renamed'
+      if renamed
+        status.push CHOICE_RENAMED
+      else
+        status.push CHOICE_NOTRENAMED
+
+    _.each status, ( choice ) =>
+      tag =
+        category_name: OPTION_STATUS
+        name: choice
+      @_insertTag description, tag
+
+  _tagTypeLevel: ( state, description ) ->
     level = null
 
     if description?.type?
@@ -58,12 +102,43 @@ class BackpacksReducer
       if level?
         level = level[ 1 ]
 
-    if description?._sisbftags? and level?
-      description._sisbftags.push
-        category_name: OPTION_LEVEL
-        name: level
+    tag =
+      category_name: OPTION_LEVEL
+      name: level
 
-    return level
+    @_insertTag description, tag
+
+  _tagTypeLimited: ( state, description ) ->
+    limited = null
+    color = null
+
+    if description?.type?
+      limited = description.type.match /(Limited)\s(Level|\w+)/i
+      if limited?
+        limited = limited[ 1 ]
+
+    color = description.name_color if description?.name_color?
+
+    tag =
+      category_name: OPTION_QUALITY
+      name: limited
+      color: color
+
+    @_insertTag description, tag
+
+  _tagTypeStrange: ( state, description ) ->
+    strange = null
+
+    if description?.type?
+      strange = description.type.match /Strange\s.*\s-\s(.*):\s\d+/i
+      if strange?
+        strange = strange[ 1 ]
+
+    tag =
+      category_name: OPTION_TRACK
+      name: strange
+
+    @_insertTag description, tag
 
   push: ( state, action ) ->
     if action.backpack.success? and action.backpack.success is true
@@ -77,9 +152,11 @@ class BackpacksReducer
         description = descriptions[ descriptionId ]
 
         if description?
-          description._sisbftags = []
-          color = @_tagColor state, description
-          level = @_tagLevel state, description
+          @_middlewaresTags state, description
+
+          color = _.find description._sisbftags, category_name: OPTION_COLOR
+            .color
+
           state.descriptions[ descriptionId ] = description
 
           state.items.push
@@ -129,7 +206,7 @@ class BackpacksReducer
 
     inspection.have_market_name = if description?.market_name? then true else false
 
-    name = if description?.name? then description.name.toLowerCase() else ''
+    name = if description?.market_name? then description.market_name.toLowerCase() else ''
     search = search.toLowerCase()
     inspection.string = _.includes name, search
 

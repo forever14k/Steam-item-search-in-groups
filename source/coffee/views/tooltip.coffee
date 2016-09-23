@@ -40,7 +40,8 @@ class TooltipView extends BaseView
 
   process: ( tooltip, tag ) ->
     if not tag.hidden?
-      tooltip.tooltip[ tag.category_name ] =
+      tooltip.tooltip[ tag.category_name ] = [] if not tooltip.tooltip[ tag.category_name ]?
+      tooltip.tooltip[ tag.category_name ].push
         name: tag.name
         color: if tag.color? then tag.color else null
 

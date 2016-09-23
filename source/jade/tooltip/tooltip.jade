@@ -1,10 +1,18 @@
+mixin optionChoice( choice )
+  if choice.color && choice.color != null
+    span(style="color:##{choice.color}") #{choice.name}
+  else
+    | #{choice.name}
+
 if tooltip
-  each value, option in tooltip
-    .sisbf_tooltip-title
-      | #{option}:
-    .sisbf_tooltip-value
-      if value.color && value.color != null
-        span(style="color:##{value.color}") #{value.name}
-      else
-        | #{value.name}
-    br
+  table
+    each choice, option in tooltip
+      tr
+        td #{option}
+        td
+          if !_.isArray( choice )
+            +optionChoice( choice )
+          else
+            each value in choice
+              +optionChoice( value )
+              br
