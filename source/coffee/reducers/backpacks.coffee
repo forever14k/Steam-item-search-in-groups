@@ -11,14 +11,6 @@ class BackpacksReducer
       STATUS_OFFLINE
       STATUS_UNKNOWN
     ]
-    colorOrder: [
-      OPTION_CATEGORY
-      OPTION_QUALITY
-      OPTION_RARITY
-    ]
-    colorExclude: [
-      CHOICE_STANDARD
-    ]
 
   reset: ( state ) ->
     state.items = []
@@ -30,115 +22,6 @@ class BackpacksReducer
   state: ( state, action ) ->
     state.state = action.type
     return state
-
-  _middlewaresTags: ( state, description ) ->
-    middlewares = [
-      @_tagColor
-      @_tagTypeLevel
-      @_tagTypeLimited
-      @_tagTypeStrange
-      @_tagStatus
-    ]
-    _.invokeMap middlewares, _.call, @, state, description
-
-  _insertTag: ( description, tag ) ->
-    description._sisbftags = [] if not description?._sisbftags?
-    description._sisbftags.push tag if tag?.name? and not _.find description._sisbftags, tag
-
-  _tagColor: ( state, description ) ->
-    color = null
-
-    if description?.tags?
-      _.each state.colorOrder, ( optionName ) ->
-        tag = _.find description.tags, category_name: optionName
-        if tag?.color? and not color?
-          if not _.includes state.colorExclude, tag.name
-            color = tag.color
-
-    tag =
-      hidden: true
-      category_name: OPTION_COLOR
-      name: color
-      color: color
-
-    @_insertTag description, tag
-
-  _tagStatus: ( state, description ) ->
-    status = []
-
-    if description?.tradable?
-      switch description.tradable
-        when 0
-          status.push CHOICE_NOTTRADABLE
-        when 1
-          status.push CHOICE_TRADABLE
-
-    if description?.marketable?
-      switch description.marketable
-        when 0
-          status.push CHOICE_NOTMARKETABLE
-        when 1
-          status.push CHOICE_MARKETABLE
-
-    if description?.fraudwarnings?
-      renamed = _.some description.fraudwarnings, ( fraudwarning ) ->
-        _.startsWith fraudwarning, 'This item has been renamed'
-      if renamed
-        status.push CHOICE_RENAMED
-      else
-        status.push CHOICE_NOTRENAMED
-
-    _.each status, ( choice ) =>
-      tag =
-        category_name: OPTION_STATUS
-        name: choice
-      @_insertTag description, tag
-
-  _tagTypeLevel: ( state, description ) ->
-    level = null
-
-    if description?.type?
-      level = description.type.match /Level\s(\d+)/i
-      if level?
-        level = level[ 1 ]
-
-    tag =
-      category_name: OPTION_LEVEL
-      name: level
-
-    @_insertTag description, tag
-
-  _tagTypeLimited: ( state, description ) ->
-    limited = null
-    color = null
-
-    if description?.type?
-      limited = description.type.match /(Limited)\s(Level|\w+)/i
-      if limited?
-        limited = limited[ 1 ]
-
-    color = description.name_color if description?.name_color?
-
-    tag =
-      category_name: OPTION_QUALITY
-      name: limited
-      color: color
-
-    @_insertTag description, tag
-
-  _tagTypeStrange: ( state, description ) ->
-    strange = null
-
-    if description?.type?
-      strange = description.type.match /Strange\s.*\s-\s(.*):\s\d+/i
-      if strange?
-        strange = strange[ 1 ]
-
-    tag =
-      category_name: OPTION_TRACK
-      name: strange
-
-    @_insertTag description, tag
 
   push: ( state, action ) ->
     if action.backpack.success? and action.backpack.success is true
@@ -152,10 +35,9 @@ class BackpacksReducer
         description = descriptions[ descriptionId ]
 
         if description?
-          @_middlewaresTags state, description
-
-          color = _.find description._sisbftags, category_name: OPTION_COLOR
-            .color
+          color = null
+          tagColor = _.find description._sisbftags, category_name: OPTION_COLOR
+          color = tagColor.color if tagColor
 
           state.descriptions[ descriptionId ] = description
 

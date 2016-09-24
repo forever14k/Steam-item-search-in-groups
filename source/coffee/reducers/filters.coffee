@@ -29,7 +29,8 @@ class FiltersReducer
 
   process: ( state, tag ) ->
     if tag?.category_name? and tag?.name?
-      if not tag.hidden
+      disclosed = if tag._filter? then tag._filter else true
+      if disclosed
         if tag?.color?
           @push state, tag.category_name, tag.name, tag.color
         else

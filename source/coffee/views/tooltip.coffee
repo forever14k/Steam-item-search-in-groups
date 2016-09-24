@@ -39,7 +39,8 @@ class TooltipView extends BaseView
       left: -1000
 
   process: ( tooltip, tag ) ->
-    if not tag.hidden?
+    disclosed = if tag._tooltip? then tag._tooltip else true
+    if disclosed
       tooltip.tooltip[ tag.category_name ] = [] if not tooltip.tooltip[ tag.category_name ]?
       tooltip.tooltip[ tag.category_name ].push
         name: tag.name
@@ -51,7 +52,7 @@ class TooltipView extends BaseView
       tooltip: {}
 
     tooltip.tooltip[ OPTION_NAME ] =
-      name: description.name
+      name: description.market_name
 
     if description?.tags?
       _.each description.tags, ( tag ) =>
