@@ -1,21 +1,22 @@
 class TagsReducer
 
-  initialState:
-    cleanDefinition: [
-      CHOICE_TRADABLE
-      CHOICE_NOTGIFTED
-      CHOICE_NOTCRAFTED
-      CHOICE_NOTCHANGED_NAME
-      CHOICE_NOTCHANGED_DESCRIPTION
-    ]
-    colorOrder: [
-      OPTION_CATEGORY
-      OPTION_QUALITY
-      OPTION_RARITY
-    ]
-    colorExclude: [
-      CHOICE_STANDARD
-    ]
+  initialState: true
+
+  cleanDefinition: [
+    CHOICE_TRADABLE
+    CHOICE_NOTGIFTED
+    CHOICE_NOTCRAFTED
+    CHOICE_NOTCHANGED_NAME
+    CHOICE_NOTCHANGED_DESCRIPTION
+  ]
+  colorOrder: [
+    OPTION_CATEGORY
+    OPTION_QUALITY
+    OPTION_RARITY
+  ]
+  colorExclude: [
+    CHOICE_STANDARD
+  ]
 
   middlewares: [
     'tagColor'
@@ -36,27 +37,27 @@ class TagsReducer
       @middlewares[ index ] = @[ middleware ]
 
   _cleanDefinition: () ->
-    @initialState.cleanDefinition = _.sortBy @initialState.cleanDefinition
+    @cleanDefinition = _.sortBy @cleanDefinition
 
   process: ( state, action ) ->
     if action?.backpack?.success? and action.backpack.success
       descriptions = action.backpack.rgDescriptions
       if descriptions?
         _.each descriptions, ( description ) =>
-          _.invokeMap @middlewares, _.call, @, state, description
+          _.invokeMap @middlewares, _.call, @, description
 
   insert: ( description, tag ) ->
     description._sisbftags = [] if not description?._sisbftags?
     description._sisbftags.push tag if tag?.name? and not _.find description._sisbftags, tag
 
-  tagColor: ( state, description ) ->
+  tagColor: ( description ) ->
     color = null
 
     if description?.tags?
-      _.each state.colorOrder, ( optionName ) ->
+      _.each @colorOrder, ( optionName ) ->
         tag = _.find description.tags, category_name: optionName
         if tag?.color? and not color?
-          if not _.includes state.colorExclude, tag.name
+          if not _.includes @colorExclude, tag.name
             color = tag.color
 
     tag =
@@ -67,7 +68,7 @@ class TagsReducer
       color: color
     @insert description, tag
 
-  tagTypeLevel: ( state, description ) ->
+  tagTypeLevel: ( description ) ->
     level = null
 
     if description?.type?
@@ -80,7 +81,7 @@ class TagsReducer
       name: level
     @insert description, tag
 
-  tagTypeLimited: ( state, description ) ->
+  tagTypeLimited: ( description ) ->
     limited = null
     color = null
 
@@ -97,7 +98,7 @@ class TagsReducer
       color: color
     @insert description, tag
 
-  tagTypeStrange: ( state, description ) ->
+  tagTypeStrange: ( description ) ->
     strange = null
 
     if description?.type?
@@ -110,7 +111,7 @@ class TagsReducer
       name: strange
     @insert description, tag
 
-  tagTradable: ( state, description ) ->
+  tagTradable: ( description ) ->
     tradable = null
 
     if description?.tradable?
@@ -125,7 +126,7 @@ class TagsReducer
       name: tradable
     @insert description, tag
 
-  tagMarketable: ( state, description ) ->
+  tagMarketable: ( description ) ->
     marketable = null
 
     if description?.marketable?
@@ -140,7 +141,7 @@ class TagsReducer
       name: marketable
     @insert description, tag
 
-  tagChangedName: ( state, description ) ->
+  tagChangedName: ( description ) ->
     renamed = null
 
     if description?.name?
@@ -164,7 +165,7 @@ class TagsReducer
       name: renamed
     @insert description, tag
 
-  tagChangedDescripion: ( state, description ) ->
+  tagChangedDescripion: ( description ) ->
     renamed = null
 
     if description?.descriptions?
@@ -190,7 +191,7 @@ class TagsReducer
       name: renamed
     @insert description, tag
 
-  tagGifted: ( state, description ) ->
+  tagGifted: ( description ) ->
     gifted = null
 
     if description?.descriptions?
@@ -217,7 +218,7 @@ class TagsReducer
       name: gifted
     @insert description, tag
 
-  tagCrafted: ( state, description ) ->
+  tagCrafted: ( description ) ->
     crafted = null
 
     if description?.descriptions?
@@ -244,13 +245,13 @@ class TagsReducer
       name: crafted
     @insert description, tag
 
-  tagClean: ( state, description ) ->
+  tagClean: ( description ) ->
     clean = null
 
     if description?._sisbftags?
       tags = _.flatMap description._sisbftags, 'name'
-      intersection = _.sortBy _.intersection tags, state.cleanDefinition
-      clean = _.isEqual state.cleanDefinition, intersection
+      intersection = _.sortBy _.intersection tags, @cleanDefinition
+      clean = _.isEqual @cleanDefinition, intersection
 
       if clean? and clean
         clean = CHOICE_CLEAN

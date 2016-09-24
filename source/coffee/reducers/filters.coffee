@@ -6,6 +6,16 @@ class FiltersReducer
       options: []
       selected: []
 
+  idleOptions: [
+    OPTION_TRADABLE
+    OPTION_MARKETABLE
+    OPTION_CHANGED_NAME
+    OPTION_CHANGED_DESCRIPTION
+    OPTION_GIFTED
+    OPTION_CRAFTED
+    OPTION_CLEAN
+  ]
+
   reset: ( state ) ->
     _.each state, ( filter, name ) =>
       filter.enabled = false
@@ -20,12 +30,17 @@ class FiltersReducer
         options: []
         selected: []
     filter = state[ option ]
-    filter.enabled = true
     if not _.find filter.options, { name: name }
       choice =
         name: name
         color: if color? then color else null
       filter.options.push choice
+
+    if _.includes @idleOptions, option
+      if filter.options.length > 1
+        filter.enabled = true
+    else
+      filter.enabled = true
 
   process: ( state, tag ) ->
     if tag?.category_name? and tag?.name?
