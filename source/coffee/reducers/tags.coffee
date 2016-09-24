@@ -23,6 +23,7 @@ class TagsReducer
     'tagTypeLevel'
     'tagTypeLimited'
     'tagTypeStrange'
+
     'tagTradable'
     'tagMarketable'
     'tagChangedName'
@@ -30,6 +31,10 @@ class TagsReducer
     'tagGifted'
     'tagCrafted'
     'tagClean'
+
+    'tagDescStrangeKills'
+    'tagDescStrange'
+    'tagDescPaint'
   ]
 
   _middlewares: () ->
@@ -86,7 +91,7 @@ class TagsReducer
     color = null
 
     if description?.type?
-      limited = description.type.match REGEX_LIMITED
+      limited = description.type.match REGEX_TYPE_LIMITED
       if limited?
         limited = limited[ 1 ]
 
@@ -102,7 +107,7 @@ class TagsReducer
     strange = null
 
     if description?.type?
-      strange = description.type.match REGEX_STRANGE
+      strange = description.type.match REGEX_TYPE_STRANGE
       if strange?
         strange = strange[ 1 ]
 
@@ -262,6 +267,39 @@ class TagsReducer
       category_name: OPTION_CLEAN
       name: clean
     @insert description, tag
+
+  tagDesc: ( description, config ) ->
+    desc = null
+    if description?.descriptions?
+      desc = _.filter description.descriptions, ( definition ) ->
+        config.regex.test definition.value
+      if desc? and desc.length > 0
+        _.each desc, ( definition ) =>
+          descMatch = definition.value.match config.regex
+          if descMatch?
+            tag =
+              category_name: config.option
+              name: if config.value? then config.value else descMatch[ 1 ]
+            @insert description, tag
+
+  tagDescStrangeKills: ( description ) ->
+    config =
+      regex: REGEX_DESCRIPTION_STRANGE_KILLS
+      option: OPTION_TRACK
+      value: CHOICE_KILLS
+    @tagDesc description, config
+
+  tagDescStrange: ( description ) ->
+    config =
+      regex: REGEX_DESCRIPTION_STRANGE
+      option: OPTION_TRACK
+    @tagDesc description, config
+
+  tagDescPaint: ( description ) ->
+    config =
+      regex: REGEX_DESCRIPTION_PAINT
+      option: OPTION_PAINT
+    @tagDesc description, config
 
   reducer: ( state = @initialState, action ) ->
     switch action.type
