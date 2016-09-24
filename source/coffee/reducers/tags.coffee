@@ -150,6 +150,7 @@ class TagsReducer
           marketable = CHOICE_MARKETABLE
 
     tag =
+      _tooltip: false
       category_name: OPTION_MARKETABLE
       name: marketable
     @insert description, tag
@@ -236,7 +237,7 @@ class TagsReducer
 
     if description?.descriptions?
       crafted = _.filter description.descriptions, ( definition ) ->
-        REGEX_CRAFTED.test definition.value
+        definition.color is COLOR_OPTION_CRAFTED and REGEX_CRAFTED.test definition.value
 
       if crafted? and crafted.length > 0
         _.each crafted, ( definition ) =>
