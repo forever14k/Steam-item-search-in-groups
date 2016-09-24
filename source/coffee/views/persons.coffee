@@ -30,14 +30,6 @@ class PersonsView extends BaseView
       type: PERSONSCLUB_ADD
       persons: persons
 
-    @state.dispatch
-      type: PERSON_ADD
-      person:
-        steamId32: '34139527'
-        steamId64: '76561197994405255'
-        state: PERSON_IDLE
-        status: STATUS_ONLINE
-
   update: () ->
     persons = @state.getState().Persons.persons
     _.each persons, ( person, index ) =>
