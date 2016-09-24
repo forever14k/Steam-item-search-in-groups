@@ -35,6 +35,14 @@ class TagsReducer
     'tagDescStrangeKills'
     'tagDescStrange'
     'tagDescPaint'
+    'tagDescStyle'
+    'tagDescHalloween'
+    'tagDescHoliday'
+    'tagDescKillstreaker'
+    'tagDescSheen'
+    'tagDescUnusual'
+
+    'tagDescMedal'
   ]
 
   _middlewares: () ->
@@ -299,6 +307,48 @@ class TagsReducer
     config =
       regex: REGEX_DESCRIPTION_PAINT
       option: OPTION_PAINT
+    @tagDesc description, config
+
+  tagDescStyle: ( description ) ->
+    config =
+      regex: REGEX_DESCRIPTION_STYLE
+      option: OPTION_STYLE
+    @tagDesc description, config
+
+  tagDescHalloween: ( description ) ->
+    config =
+      regex: REGEX_DESCRIPTION_HALLOWEEN
+      option: OPTION_HALLOWEEN
+    @tagDesc description, config
+
+  tagDescHoliday: ( description ) ->
+    config =
+      regex: REGEX_DESCRIPTION_HOLIDAY
+      option: OPTION_HOLIDAY
+    @tagDesc description, config
+
+  tagDescKillstreaker: ( description ) ->
+    config =
+      regex: REGEX_DESCRIPTION_KILLSTREAKER
+      option: OPTION_EFFECT
+    @tagDesc description, config
+
+  tagDescSheen: ( description ) ->
+    config =
+      regex: REGEX_DESCRIPTION_SHEEN
+      option: OPTION_EFFECT
+    @tagDesc description, config
+
+  tagDescUnusual: ( description ) ->
+    config =
+      regex: REGEX_DESCRIPTION_UNUSUAL
+      option: OPTION_EFFECT
+    @tagDesc description, config
+
+  tagDescMedal: ( description ) ->
+    config =
+      regex: REGEX_DESCRIPTION_MEDAL
+      option: OPTION_MEDAL
     @tagDesc description, config
 
   reducer: ( state = @initialState, action ) ->
