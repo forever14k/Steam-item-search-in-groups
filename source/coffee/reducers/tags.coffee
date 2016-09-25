@@ -23,7 +23,6 @@ class TagsReducer
     'tagTypeLevel'
     'tagTypeLimited'
     'tagTypeStrange'
-
     'tagTradable'
     'tagMarketable'
     'tagChangedName'
@@ -31,7 +30,6 @@ class TagsReducer
     'tagGifted'
     'tagCrafted'
     'tagClean'
-
     'tagDescStrangeKills'
     'tagDescStrange'
     'tagDescPaint'
@@ -42,11 +40,24 @@ class TagsReducer
     'tagDescSheen'
     'tagDescUnusual'
     'tagDescMedal'
-
     'tagDescDedication'
     'tagDescEventDOTA2'
     'tagDescItemSetName'
     'tagDescItemSetNameTF2'
+    'tagDescHeroicVictory'
+    'tagDescHeroicFirstBlood'
+    'tagDescHeroicDoubleKill'
+    'tagDescHeroicTripleKill'
+    'tagDescHeroicUltraKill'
+    'tagDescHeroicRampage'
+    'tagDescHeroicGodlike'
+    'tagDescHeroicCourierKill'
+    'tagDescHeroicAllyDenied'
+    'tagDescHeroicAegisDenied'
+    'tagDescHeroicAegisSnatch'
+    'tagDescHeroicEarlyRoshan'
+    'tagDescHeroicRapier'
+    'tagDescHeroic5EchoSlam'
   ]
 
   _middlewares: () ->
@@ -294,77 +305,83 @@ class TagsReducer
               category_name: config.option
               name: if config.value? then config.value else descMatch[ 1 ]
             @insert description, tag
+            if config.order?
+              _.each config.order, ( option, index ) =>
+                tag =
+                  category_name: option
+                  name: descMatch[ ++index ]
+                @insert description, tag
 
   tagDescStrangeKills: ( description ) ->
     config =
-      regex: REGEX_DESCRIPTION_STRANGE_KILLS
+      regex: REGEX_STRANGE_KILLS
       option: OPTION_TRACK
       value: CHOICE_KILLS
     @tagDesc description, config
 
   tagDescStrange: ( description ) ->
     config =
-      regex: REGEX_DESCRIPTION_STRANGE
+      regex: REGEX_STRANGE
       option: OPTION_TRACK
     @tagDesc description, config
 
   tagDescPaint: ( description ) ->
     config =
-      regex: REGEX_DESCRIPTION_PAINT
+      regex: REGEX_PAINT
       option: OPTION_PAINT
     @tagDesc description, config
 
   tagDescStyle: ( description ) ->
     config =
-      regex: REGEX_DESCRIPTION_STYLE
+      regex: REGEX_STYLE
       option: OPTION_STYLE
     @tagDesc description, config
 
   tagDescHalloween: ( description ) ->
     config =
-      regex: REGEX_DESCRIPTION_HALLOWEEN
+      regex: REGEX_HALLOWEEN
       option: OPTION_HALLOWEEN
     @tagDesc description, config
 
   tagDescHoliday: ( description ) ->
     config =
-      regex: REGEX_DESCRIPTION_HOLIDAY
+      regex: REGEX_HOLIDAY
       option: OPTION_HOLIDAY
     @tagDesc description, config
 
   tagDescKillstreaker: ( description ) ->
     config =
-      regex: REGEX_DESCRIPTION_KILLSTREAKER
+      regex: REGEX_KILLSTREAKER
       option: OPTION_EFFECT
     @tagDesc description, config
 
   tagDescSheen: ( description ) ->
     config =
-      regex: REGEX_DESCRIPTION_SHEEN
+      regex: REGEX_SHEEN
       option: OPTION_EFFECT
     @tagDesc description, config
 
   tagDescUnusual: ( description ) ->
     config =
-      regex: REGEX_DESCRIPTION_UNUSUAL
+      regex: REGEX_UNUSUAL
       option: OPTION_EFFECT
     @tagDesc description, config
 
   tagDescMedal: ( description ) ->
     config =
-      regex: REGEX_DESCRIPTION_MEDAL
+      regex: REGEX_MEDAL
       option: OPTION_MEDAL
     @tagDesc description, config
 
   tagDescDedication:  ( description ) ->
     config =
-      regex: REGEX_DESCRIPTION_DEDICATION
+      regex: REGEX_DEDICATION
       option: OPTION_DEDICATION
     @tagDesc description, config
 
   tagDescEventDOTA2:  ( description ) ->
     config =
-      regex: REGEX_DESCRIPTION_EVENT_DOTA2
+      regex: REGEX_EVENT_DOTA2
       option: OPTION_EVENT
     @tagDesc description, config
 
@@ -386,6 +403,118 @@ class TagsReducer
               category_name: OPTION_ITEMSET
               name: definition.value
             @insert description, tag
+
+  tagDescHeroicVictory: ( description ) ->
+    config =
+      regex: REGEX_HEROIC_VICTORY
+      option: OPTION_HEROIC
+      value: CHOICE_VICTORY
+      order: [ OPTION_TEAM, OPTION_TEAM ]
+    @tagDesc description, config
+
+  tagDescHeroicFirstBlood: ( description ) ->
+    config =
+      regex: REGEX_HEROIC_FIRSTBLOOD
+      option: OPTION_HEROIC
+      value: CHOICE_FIRSTBLOOD
+      order: [ OPTION_PLAYER, OPTION_TEAM, OPTION_TEAM ]
+    @tagDesc description, config
+
+  tagDescHeroicDoubleKill: ( description ) ->
+    config =
+      regex: REGEX_HEROIC_DOUBLEKILL
+      option: OPTION_HEROIC
+      value: CHOICE_DOUBLEKILL
+      order: [ OPTION_PLAYER, OPTION_TEAM, OPTION_TEAM ]
+    @tagDesc description, config
+
+  tagDescHeroicTripleKill: ( description ) ->
+    config =
+      regex: REGEX_HEROIC_TRIPLEKILL
+      option: OPTION_HEROIC
+      value: CHOICE_TRIPLEKILL
+      order: [ OPTION_PLAYER, OPTION_TEAM, OPTION_TEAM ]
+    @tagDesc description, config
+
+  tagDescHeroicUltraKill: ( description ) ->
+    config =
+      regex: REGEX_HEROIC_ULKTRAKILL
+      option: OPTION_HEROIC
+      value: CHOICE_ULTRAKILL
+      order: [ OPTION_PLAYER, OPTION_TEAM, OPTION_TEAM ]
+    @tagDesc description, config
+
+  tagDescHeroicRampage: ( description ) ->
+    config =
+      regex: REGEX_HEROIC_RAPMAGE
+      option: OPTION_HEROIC
+      value: CHOICE_RAMPAGE
+      order: [ OPTION_PLAYER, OPTION_TEAM, OPTION_TEAM ]
+    @tagDesc description, config
+
+  tagDescHeroicGodlike: ( description ) ->
+    config =
+      regex: REGEX_HEROIC_GODLIKE
+      option: OPTION_HEROIC
+      value: CHOICE_GODLIKE
+      order: [ OPTION_PLAYER, OPTION_TEAM, OPTION_TEAM ]
+    @tagDesc description, config
+
+  tagDescHeroicCourierKill: ( description ) ->
+    config =
+      regex: REGEX_HEROIC_COURIERKILL
+      option: OPTION_HEROIC
+      value: CHOICE_COURIERKILL
+      order: [ OPTION_PLAYER, OPTION_TEAM, OPTION_TEAM ]
+    @tagDesc description, config
+
+  tagDescHeroicAllyDenied: ( description ) ->
+    config =
+      regex: REGEX_HEROIC_ALLYDENIED
+      option: OPTION_HEROIC
+      value: CHOICE_ALLYDENIED
+      order: [ OPTION_PLAYER, OPTION_TEAM, OPTION_PLAYER ]
+    @tagDesc description, config
+
+  tagDescHeroicAegisDenied: ( description ) ->
+    config =
+      regex: REGEX_HEROIC_AEGISDENIED
+      option: OPTION_HEROIC
+      value: CHOICE_AEGISDENIED
+      order: [ OPTION_PLAYER, OPTION_TEAM, OPTION_TEAM ]
+    @tagDesc description, config
+
+  tagDescHeroicAegisSnatch: ( description ) ->
+    config =
+      regex: REGEX_HEROIC_AEGISSNATCH
+      option: OPTION_HEROIC
+      value: CHOICE_AEGISSNATCH
+      order: [ OPTION_PLAYER, OPTION_TEAM, OPTION_TEAM ]
+    @tagDesc description, config
+
+  tagDescHeroicEarlyRoshan: ( description ) ->
+    config =
+      regex: REGEX_HEROIC_EARLYROSHAN
+      option: OPTION_HEROIC
+      value: CHOICE_EARLYROSHAN
+      order: [ OPTION_PLAYER, OPTION_TEAM, OPTION_TEAM ]
+    @tagDesc description, config
+
+  tagDescHeroicRapier: ( description ) ->
+    config =
+      regex: REGEX_HEROIC_RAPIER
+      option: OPTION_HEROIC
+      value: CHOICE_RAPIER
+      order: [ OPTION_PLAYER, OPTION_TEAM, OPTION_TEAM ]
+    @tagDesc description, config
+
+  tagDescHeroic5EchoSlam: ( description ) ->
+    config =
+      regex: REGEX_HEROIC_5ECHOSLAM
+      option: OPTION_HEROIC
+      value: CHOICE_5ECHOSLAM
+      order: [ OPTION_PLAYER, OPTION_TEAM, OPTION_TEAM ]
+    @tagDesc description, config
 
   reducer: ( state = @initialState, action ) ->
     switch action.type
