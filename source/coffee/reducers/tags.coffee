@@ -41,8 +41,11 @@ class TagsReducer
     'tagDescKillstreaker'
     'tagDescSheen'
     'tagDescUnusual'
-
     'tagDescMedal'
+
+    'tagDescDedication'
+    'tagDescEventDota2'
+    'tagDescItemSetName'
   ]
 
   _middlewares: () ->
@@ -351,6 +354,30 @@ class TagsReducer
       regex: REGEX_DESCRIPTION_MEDAL
       option: OPTION_MEDAL
     @tagDesc description, config
+
+  tagDescDedication:  ( description ) ->
+    config =
+      regex: REGEX_DESCRIPTION_DEDICATION
+      option: OPTION_DEDICATION
+    @tagDesc description, config
+
+  tagDescEventDota2:  ( description ) ->
+    config =
+      regex: REGEX_DESCRIPTION_EVENT_DOTA2
+      option: OPTION_EVENT
+    @tagDesc description, config
+
+  tagDescItemSetName: ( description ) ->
+    sets = null
+
+    if description?.descriptions?
+      sets = []
+      _.each description.descriptions, ( definition ) =>
+        if definition?.app_data?.is_itemset_name? and definition.app_data.is_itemset_name is 1
+          tag =
+            category_name: OPTION_ITEMSET
+            name: definition.value
+          @insert description, tag
 
   reducer: ( state = @initialState, action ) ->
     switch action.type

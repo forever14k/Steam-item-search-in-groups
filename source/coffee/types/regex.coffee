@@ -14,3 +14,5 @@ REGEX_DESCRIPTION_KILLSTREAKER = /^Killstreaker:\s(.*)/i
 REGEX_DESCRIPTION_SHEEN = /^Sheen:\s(.*)/i
 REGEX_DESCRIPTION_UNUSUAL = /Unusual\sEffect:\s(.*)/i
 REGEX_DESCRIPTION_MEDAL = /Medal\sno\.\s(\d+)/i
+REGEX_DESCRIPTION_DEDICATION = /^Dedication:\s(.*)$/i
+REGEX_DESCRIPTION_EVENT_DOTA2 = /((New\sBloom|Diretide|Frostivus|The\sInternational|Sithil\'s\sSummer\sStash|The\sCOmpendium\sFantasy\sChallenge)\s(\d{4}))/i
