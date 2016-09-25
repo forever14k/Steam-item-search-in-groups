@@ -58,6 +58,9 @@ class TagsReducer
     'tagDescHeroicEarlyRoshan'
     'tagDescHeroicRapier'
     'tagDescHeroic5EchoSlam'
+    'tagDescPlayerCardPlayer'
+    'tagDescPlayerCardTeam'
+    'tagDescGems'
   ]
 
   _middlewares: () ->
@@ -515,6 +518,55 @@ class TagsReducer
       value: CHOICE_5ECHOSLAM
       order: [ OPTION_PLAYER, OPTION_TEAM, OPTION_TEAM ]
     @tagDesc description, config
+
+  tagDescPlayerCardPlayer: ( description ) ->
+    config =
+      regex: REGEX_PLAYER_DOTA2
+      option: OPTION_PLAYER
+    @tagDesc description, config
+
+  tagDescPlayerCardTeam: ( description ) ->
+    config =
+      regex: REGEX_TEAM_DOTA2
+      option: OPTION_TEAM
+    @tagDesc description, config
+
+  tagDescGems: ( description ) ->
+    gems = null
+    if description?.descriptions?
+      _.each description.descriptions, ( definition ) =>
+        gems = definition.value.match REGEX_GEMS
+        if gems?
+          _.each gems, ( gemString ) =>
+            gem = gemString.match REGEX_GEM
+
+            if gem?
+              trackGem = gem[ 2 ].match REGEX_TRACK
+              if trackGem?
+                tag =
+                  category_name: OPTION_GEM_TRACK
+                  name: trackGem[ 1 ]
+                @insert description, tag
+
+              trackValue = gem[ 1 ].match REGEX_TRACK
+              if trackValue?
+                tag =
+                  category_name: OPTION_GEM_TRACK
+                  name: trackValue[ 1 ]
+                @insert description, tag
+
+              if not trackGem? and not trackValue?
+                autograph = REGEX_AUTOGRAPHRUNE.test gem[ 2 ]
+                if autograph
+                  tag =
+                    category_name: OPTION_AUTOGRAPHRUNE
+                    name: gem[ 1 ]
+                  @insert description, tag
+                else
+                  tag =
+                    category_name: gem[ 2 ]
+                    name: gem[ 1 ]
+                  @insert description, tag
 
   reducer: ( state = @initialState, action ) ->
     switch action.type

@@ -14,6 +14,7 @@ class FiltersReducer
     OPTION_GIFTED
     OPTION_CRAFTED
     OPTION_CLEAN
+    OPTION_GENERAL
   ]
 
   reset: ( state ) ->
