@@ -37,3 +37,4 @@ REGEX_GEMS = /\<span\sstyle\=\"font\-size\:\s18px\;\scolor\:\srgb\(\d+\,\s\d+\,\
 REGEX_GEM = /\<span\sstyle\=\"font\-size\:\s18px\;\scolor\:\srgb\(\d+\,\s\d+\,\s\d+\)\"\>([^\<\>]+)\<\/span\>\<br\>\<span\sstyle\=\"font\-size\:\s12px\"\>([^\<\>]+)\<\/span\>/i
 REGEX_TRACK = /(.*):\s(\d+)/i
 REGEX_AUTOGRAPHRUNE = /Autograph\sRune/i
+REGEX_STICKERS = /name\=\"sticker_info.*\>Sticker\:\s([^\<\>]+)/i

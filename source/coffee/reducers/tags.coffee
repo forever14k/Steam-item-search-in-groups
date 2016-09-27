@@ -61,6 +61,7 @@ class TagsReducer
     'tagDescPlayerCardPlayer'
     'tagDescPlayerCardTeam'
     'tagDescGems'
+    'tagDescStickers'
   ]
 
   _middlewares: () ->
@@ -567,6 +568,19 @@ class TagsReducer
                     category_name: gem[ 2 ]
                     name: gem[ 1 ]
                   @insert description, tag
+
+  tagDescStickers: ( description ) ->
+    stickers = null
+    if description?.descriptions?
+      _.each description.descriptions, ( definition ) =>
+        stickers = definition.value.match REGEX_STICKERS
+        if stickers?
+          stickers = stickers[ 1 ].split ', '
+          _.each stickers, ( sticker ) =>
+            tag =
+              category_name: OPTION_STICKER
+              name: sticker
+            @insert description, tag
 
   reducer: ( state = @initialState, action ) ->
     switch action.type
