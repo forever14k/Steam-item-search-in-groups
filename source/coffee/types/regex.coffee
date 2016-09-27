@@ -1,7 +1,8 @@
 REGEX_LEVEL = /Level\s(\d+)/i
-REGEX_TYPE_LIMITED = /(Limited)\s(Level|\w+)/i
+REGEX_TYPE_LIMITED = /^(Limited)\s(Level|Strange)/i
 REGEX_TYPE_STRANGE = /Strange\s.*\s-\s(.*):\s\d+/i
 REGEX_RENAMED = /^(\'\'.*\'\')$/i
+REGEX_NAMETAG = /^Name\sTag\:\s(\'\'.*\'\')$/i
 REGEX_GIFTED = /Gift\sfrom:\s(.*)/i
 REGEX_CRAFTED = /Crafted\sby\s(.*)/i
 REGEX_STRANGE = /\((.*):\s(\d+)\)/i
