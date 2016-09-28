@@ -1,0 +1,42 @@
+{
+  "name": "Steam-item-search-between-friends",
+  "version": "1.2.0",
+  "description": "This extension allows to find items you looking for in all friends inventories on the same time.(On steam friends page e.g. http://steamcommunity.com/my/friends)",
+  "main": "build/js/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:forever14k/Steam-item-search-between-friends.git"
+  },
+  "author": "14k",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/14k/steam-item-search-between-friends#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-bump": "^0.8.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-coffee": "^1.0.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^1.0.2",
+    "grunt-contrib-jade": "^1.0.0",
+    "grunt-contrib-stylus": "^1.2.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-mkdir": "^1.0.0",
+    "grunt-update-json": "^0.2.2",
+    "jade": "^1.11.0"
+  },
+  "dependencies": {
+    "async": "^2.0.1",
+    "biginteger": "^1.0.3",
+    "diff-dom": "^2.1.0",
+    "jquery": "^3.1.0",
+    "jquery.cookie": "^1.4.1",
+    "lodash": "^4.15.0",
+    "redux": "^3.6.0",
+    "select2": "^3.5.2-browserify"
+  }
+}
