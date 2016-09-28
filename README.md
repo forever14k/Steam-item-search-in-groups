@@ -20,4 +20,4 @@ This extension allows to find items you looking for in all friends inventories o
 
 In my opinion, steam trading system lack of such a functionality.
 
-# [Changelog](/CHANGELOG.MD)
+# [Changelog](/CHANGELOG.md)
