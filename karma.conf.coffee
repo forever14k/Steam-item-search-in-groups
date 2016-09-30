@@ -4,7 +4,7 @@
 module.exports = (config) ->
   config.set
     basePath: ''
-    frameworks: [ 'jasmine' ]
+    frameworks: [ 'jasmine-ajax', 'jasmine' ]
     files: [
       'temp/js/libs/jquery.js',
       'temp/js/libs/*.js',

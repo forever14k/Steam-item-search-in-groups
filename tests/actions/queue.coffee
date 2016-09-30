@@ -1,116 +1,91 @@
+jasmine.Ajax.install() # dont call real public APIs
+
 describe 'actions/queue', () ->
-
   beforeEach () ->
-
-    @fakeState =
+    @mockState =
       state: {}
-      dispatch: () ->
-        # console.log 'dispatch'
-      getState: () ->
-        @state
-      subscribe: () ->
-        # console.log 'subscribe'
+      dispatch: _.noop
+      getState: () -> @state
+      subscribe: _.noop
 
-    @queue = new Queue @fakeState
-
-    $.ajax = ( options ) ->
-      @options = _.extend {}, @options, options
-      return {}
+    @testQueue = new Queue @mockState
 
   afterEach () ->
-    @fakeState = null
-    @queue = null
+    @mockState = null
+    @testQueue = null
 
   describe '.setup()', () ->
+    it 'it should setup @testQueue', () ->
+      expect( @testQueue.queue ).not.toBeNull()
 
-    it 'it should setup @queue', () ->
-      expect(@queue.queue).not.toBeNull()
-
-    describe '@queue should have', () ->
-
+    describe '@testQueue should have', () ->
       it '._tasks.empty()', () ->
-        expect( @queue.queue._tasks.empty ).toBeDefined()
+        expect( @testQueue.queue._tasks.empty ).toBeDefined()
 
       it '.drain()', () ->
-        expect( @queue.queue.drain ).toBeDefined()
+        expect( @testQueue.queue.drain ).toBeDefined()
 
       it '.push()', () ->
-        expect( @queue.queue.push ).toBeDefined()
+        expect( @testQueue.queue.push ).toBeDefined()
 
       it '.unshift()', () ->
-        expect( @queue.queue.unshift ).toBeDefined()
+        expect( @testQueue.queue.unshift ).toBeDefined()
 
       it '.pause()', () ->
-        expect( @queue.queue.pause ).toBeDefined()
+        expect( @testQueue.queue.pause ).toBeDefined()
 
       it '.resume()', () ->
-        expect( @queue.queue.resume ).toBeDefined()
+        expect( @testQueue.queue.resume ).toBeDefined()
 
   describe '.onStateChange()', () ->
-
     describe 'it should call .start() when .Persons.state is', () ->
-
       it 'PERSONSCLUB_QUEUE', () ->
-
-        @fakeState.state.Persons =
+        @mockState.state.Persons =
           state: PERSONSCLUB_QUEUE
+        spyOn @testQueue, 'start'
 
-        spyOn @queue, 'start'
-        @queue.onStateChange()
-
-        expect( @queue.start ).toHaveBeenCalled()
+        @testQueue.onStateChange()
+        expect( @testQueue.start ).toHaveBeenCalled()
 
       it 'PERSONSCLUB_RESUME', () ->
-
-        @fakeState.state.Persons =
+        @mockState.state.Persons =
           state: PERSONSCLUB_RESUME
+        spyOn @testQueue, 'start'
 
-        spyOn @queue, 'start'
-        @queue.onStateChange()
-
-        expect( @queue.start ).toHaveBeenCalled()
+        @testQueue.onStateChange()
+        expect( @testQueue.start ).toHaveBeenCalled()
 
     describe 'it should not call .start() when .Persons.state is', () ->
-
       it 'other TYPE', () ->
-
-        @fakeState.state.Persons =
+        @mockState.state.Persons =
           state: PERSONSCLUB_IDLE
+        spyOn @testQueue, 'start'
 
-        spyOn @queue, 'start'
-        @queue.onStateChange()
-
-        expect( @queue.start ).not.toHaveBeenCalled()
+        @testQueue.onStateChange()
+        expect( @testQueue.start ).not.toHaveBeenCalled()
 
     describe 'it should call .pause() when .Persons.state is', () ->
-
       it 'PERSONSCLUB_PAUSE', () ->
-
-        @fakeState.state.Persons =
+        @mockState.state.Persons =
           state: PERSONSCLUB_PAUSE
+        spyOn @testQueue, 'pause'
 
-        spyOn @queue, 'pause'
-        @queue.onStateChange()
-
-        expect( @queue.pause ).toHaveBeenCalled()
+        @testQueue.onStateChange()
+        expect( @testQueue.pause ).toHaveBeenCalled()
 
     describe 'it should not call .pause() when .Persons.state is', () ->
-
       it 'other TYPE', () ->
-
-        @fakeState.state =
+        @mockState.state =
           Persons:
             state: PERSONSCLUB_IDLE
+        spyOn @testQueue, 'pause'
 
-        spyOn @queue, 'pause'
-        @queue.onStateChange()
-
-        expect( @queue.pause ).not.toHaveBeenCalled()
+        @testQueue.onStateChange()
+        expect( @testQueue.pause ).not.toHaveBeenCalled()
 
   describe '.start()', () ->
-
     beforeEach () ->
-      @fakeState.state.Persons =
+      @mockState.state.Persons =
         persons: [
           {
             steamId32: '44336602'
@@ -132,75 +107,174 @@ describe 'actions/queue', () ->
           }
         ]
 
+    afterEach () ->
+      @testQueue.pause()
+
     describe 'it should populate queue from .Persons.persons', () ->
-
       it 'where .person.state is PERSON_QUEUE', () ->
-
-        @fakeState.state.Settings =
+        @mockState.state.Settings =
           appid: 570
           contextid: 2
 
-        @queue.start()
-        expect( @queue.queue.length() ).toBe( 2 )
+        @testQueue.start()
+        expect( @testQueue.queue.length() ).toBe( 2 )
 
     it 'it should start/resume queue', () ->
-
-      @fakeState.state.Settings =
+      @mockState.state.Settings =
         appid: 570
         contextid: 2
+      spyOn @testQueue.queue, 'resume'
 
-      spyOn @queue.queue, 'resume'
-      @queue.start()
-      expect( @queue.queue.resume ).toHaveBeenCalled()
+      @testQueue.start()
+      expect( @testQueue.queue.resume ).toHaveBeenCalled()
 
     it 'it should dispatch PERSONSCLUB_PROCESS', () ->
+      @mockState.state.Settings =
+        appid: 570
+        contextid: 2
+      spyOn @mockState, 'dispatch'
 
-      @fakeState.state.Settings =
+      @testQueue.start()
+      expect( @mockState.dispatch ).toHaveBeenCalledWith jasmine.objectContaining
+        type: PERSONSCLUB_PROCESS
+
+  describe '.process()', () ->
+    beforeEach () ->
+      @mockState.state.Settings =
         appid: 570
         contextid: 2
 
-      spyOn @fakeState, 'dispatch'
-      @queue.start()
-      expect( @fakeState.dispatch ).toHaveBeenCalledWith jasmine.objectContaining type: PERSONSCLUB_PROCESS
-
-  describe '.process()', () ->
-
     it 'it should call Steam public API using .Settings', () ->
-
       spyOn $, 'ajax'
         .and
         .callThrough()
 
-      @fakeState.state.Settings =
-        appid: 570
-        contextid: 2
-
-      @queue.process
+      @testQueue.process
         steamId32: '44336602'
         steamId64: '76561198004602330'
         state: PERSON_QUEUE
         status: STATUS_ONLINE
-
       expect( $.ajax ).toHaveBeenCalledWith jasmine.objectContaining url: '//steamcommunity.com/profiles/76561198004602330/inventory/json/570/2/?l=english'
 
     describe 'it should call', () ->
-      it '.onLoading() before API call starts'
-      it '.onLoaded() after  API call success'
-      it '.onError() after API call fails'
+      beforeEach () ->
+        spyOn @testQueue, 'onLoading'
+        spyOn @testQueue, 'onLoaded'
+        spyOn @testQueue, 'onError'
+
+        @testQueue.process
+          steamId32: '44336602'
+          steamId64: '76561198004602330'
+          state: PERSON_QUEUE
+          status: STATUS_ONLINE
+
+      describe '.onLoading() before API call starts', () ->
+        it '.onLoading() have been called', ( ) ->
+          expect( @testQueue.onLoading ).toHaveBeenCalled()
+
+        it '.onLoaded() not have been called', ( ) ->
+          expect( @testQueue.onLoaded ).not.toHaveBeenCalled()
+
+        it '.onError() not have been called', ( ) ->
+          expect( @testQueue.onError ).not.toHaveBeenCalled()
+
+      describe '.onLoaded() after  API call success', () ->
+        beforeEach () ->
+          jasmine.Ajax.requests
+            .mostRecent()
+            .respondWith
+              status: 200
+              responseText: '{"success": false }'
+
+        it '.onLoading() have been called', ( ) ->
+          expect( @testQueue.onLoading ).toHaveBeenCalled()
+
+        it '.onLoaded() have been called', ( ) ->
+          expect( @testQueue.onLoaded ).toHaveBeenCalled()
+
+        it '.onError() not have been called', ( ) ->
+          expect( @testQueue.onError ).not.toHaveBeenCalled()
+
+      describe '.onError() after API call fails', () ->
+        beforeEach () ->
+          jasmine.Ajax.requests
+            .mostRecent()
+            .respondWith
+              status: 503
+              responseText: '{"success": false }'
+
+        it '.onLoading() have been called', ( ) ->
+          expect( @testQueue.onLoading ).toHaveBeenCalled()
+
+        it '.onLoaded() not have been called', ( ) ->
+          expect( @testQueue.onLoaded ).not.toHaveBeenCalled()
+
+        it '.onError() have been called', ( ) ->
+          expect( @testQueue.onError ).toHaveBeenCalled()
 
   describe '.onLoading()', () ->
+    it 'it should dispatch PERSON_LOADING with person', () ->
+      request =
+        person:
+          steamId32: '44336602'
+          steamId64: '76561198004602330'
+          state: PERSON_QUEUE
+          status: STATUS_ONLINE
+      spyOn @mockState, 'dispatch'
 
-    it 'it should dispatch PERSON_LOADING'
+      @testQueue.onLoading request
+      expect( @mockState.dispatch ).toHaveBeenCalledWith
+        type: PERSON_LOADING
+        person: request.person
 
   describe '.onLoaded()', () ->
+    it 'it should dispatch PERSON_LOADED with person and backpack', () ->
+      request =
+        person:
+          steamId32: '44336602'
+          steamId64: '76561198004602330'
+          state: PERSON_QUEUE
+          status: STATUS_ONLINE
+      backpack =
+        success: false
+      spyOn @mockState, 'dispatch'
 
-    it 'it should dispatch PERSON_LOADED'
+      @testQueue.onLoaded backpack, 'OK', request
+      expect( @mockState.dispatch ).toHaveBeenCalledWith
+        type: PERSON_LOADED
+        person: request.person
+        backpack: backpack
 
   describe '.onError()', () ->
+    it 'it should unshift person to queue', () ->
+      request =
+        person:
+          steamId32: '44336602'
+          steamId64: '76561198004602330'
+          state: PERSON_QUEUE
+          status: STATUS_ONLINE
+      spyOn @testQueue.queue, 'unshift'
 
-    it 'it should unshift person to queue'
-    it 'it should dispatch PERSON_ERROR'
+      @testQueue.onError request, 'error', 'Error'
+      expect( @testQueue.queue.unshift ).toHaveBeenCalledWith request.person
+
+    it 'it should dispatch PERSON_ERROR with person', () ->
+      request =
+        person:
+          steamId32: '44336602'
+          steamId64: '76561198004602330'
+          state: PERSON_QUEUE
+          status: STATUS_ONLINE
+      spyOn @mockState, 'dispatch'
+
+      @testQueue.onError request, 'error', 'Error'
+      expect( @mockState.dispatch ).toHaveBeenCalledWith
+        type: PERSON_ERROR
+        person: request.person
 
   describe '.pause()', () ->
+    it 'it should pause queue', () ->
+      spyOn @testQueue.queue, 'pause'
 
-    it 'it should pause queue'
+      @testQueue.pause()
+      expect( @testQueue.queue.pause ).toHaveBeenCalled()
