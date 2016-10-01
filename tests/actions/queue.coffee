@@ -246,6 +246,9 @@ describe 'actions/queue', () ->
         backpack: backpack
 
   describe '.onError()', () ->
+    afterEach () ->
+      @testQueue.pause()
+
     it 'it should unshift person to queue', () ->
       request =
         person:
