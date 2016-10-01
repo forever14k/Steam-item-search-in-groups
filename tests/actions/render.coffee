@@ -1,20 +1,19 @@
 describe 'actions/render', () ->
 
   beforeEach () ->
-    @Render = new Render {}
+    @testRender = new Render {}
 
   afterEach () ->
-    @Render = null
+    @testRender = null
 
   describe '.diff()', () ->
-
     beforeEach () ->
       @oldHTML = '<div class="sisbf_test"><div class="sisbf_render--diff"><div class="sisbf_test-text">Steam item search between friends is GOOD</div></div></div>'
       @newHTML = '<div class="sisbf_test"><div class="sisbf_render--diff"><div class="sisbf_test-text sisbf_test--awesome">Steam item search between friends is AWESOME</div></div></div>'
 
       @$oldEl = $ @oldHTML
       @$newEl = $ @newHTML
-      @Render.diff @$oldEl, @newHTML
+      @testRender.diff @$oldEl, @newHTML
 
     afterEach () ->
       @oldHTML = null
