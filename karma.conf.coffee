@@ -6,15 +6,19 @@ module.exports = (config) ->
     basePath: ''
     frameworks: [ 'jasmine-ajax', 'jasmine' ]
     files: [
-      'temp/js/libs/jquery.js',
-      'temp/js/libs/*.js',
-      'temp/js/templates/*.js',
-      'temp/js/templates/**/*.js',
-      'temp/js/scripts/*.js'
-      'temp/js/scripts/types/*.js'
-      'temp/js/scripts/views/*.js'
-      'temp/js/scripts/actions/*.js'
-      'temp/js/scripts/reducers/**/*.js'
+      'node_modules/jquery/dist/jquery.min.js'
+      'node_modules/jquery.cookie/jquery.cookie.js'
+      'node_modules/biginteger/biginteger.js'
+      'node_modules/lodash/lodash.min.js'
+      'node_modules/jade/runtime.js'
+      'node_modules/redux/dist/redux.min.js'
+      'node_modules/async/dist/async.js'
+      'node_modules/diff-dom/diffDOM.js'
+      'node_modules/select2/select2.min.js'
+      'source/coffee/types/*.coffee'
+      'source/coffee/views/*.coffee'
+      'source/coffee/actions/*.coffee'
+      'source/coffee/reducers/**/*.coffee'
       'tests/**/*.coffee'
     ]
     exclude: [
@@ -27,6 +31,7 @@ module.exports = (config) ->
     colors: true
     logLevel: config.LOG_INFO
     autoWatch: true
+    usePolling: true
     browsers: [
       'Chrome'
       # 'CromeWithoutSecurity'
@@ -36,6 +41,5 @@ module.exports = (config) ->
       'CromeWithoutSecurity':
         base: 'Chrome'
         flags: [ '--disable-web-security' ]
-    useIframe: false
     singleRun: false
     concurrency: Infinity
