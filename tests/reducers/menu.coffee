@@ -1,8 +1,8 @@
 describe 'reducers/menu', () ->
   beforeEach () ->
     @mockState =
-      appid: 570
-      contextid: 2
+      appid: '570'
+      contextid: '2'
       search: ''
       cookie: 'strInventoryLastContext'
     $.removeCookie @mockState.cookie
@@ -35,32 +35,32 @@ describe 'reducers/menu', () ->
   describe '.appid()', () ->
     it 'it should update appid in state from action', () ->
       mockAction =
-        appid: 440
+        appid: '440'
 
       MenuReducer::appid @mockState, mockAction
-      expect( @mockState.appid ).toBe( mockAction.appid )
+      expect( @mockState.appid ).toBe( '440' )
 
     it 'it should not update appid if appid in action is not specified', () ->
       mockAction =
-        contextid: 6
+        contextid: '6'
 
       MenuReducer::appid @mockState, mockAction
-      expect( @mockState.appid ).toBe( 570 )
+      expect( @mockState.appid ).toBe( '570' )
 
   describe '.contextid()', () ->
     it 'it should update contextid in state from action', () ->
       mockAction =
-        contextid: 6
+        contextid: '6'
 
       MenuReducer::contextid @mockState, mockAction
-      expect( @mockState.contextid ).toBe( mockAction.contextid )
+      expect( @mockState.contextid ).toBe( '6' )
 
     it 'it should not update contextid if contextid in action is not specified', () ->
       mockAction =
-        appid: 440
+        appid: '440'
 
       MenuReducer::contextid @mockState, mockAction
-      expect( @mockState.contextid ).toBe( 2 )
+      expect( @mockState.contextid ).toBe( '2' )
 
   describe '.search()', () ->
     it 'it should update search in state from action', () ->
@@ -68,11 +68,11 @@ describe 'reducers/menu', () ->
         search: 'sisbf'
 
       MenuReducer::search @mockState, mockAction
-      expect( @mockState.search ).toBe( mockAction.search )
+      expect( @mockState.search ).toBe( 'sisbf' )
 
     it 'it should not update search if search in action is not specified', () ->
       mockAction =
-        contextid: 2
+        contextid: '2'
 
       MenuReducer::search @mockState, mockAction
       expect( @mockState.search ).toBe( '' )
@@ -80,6 +80,7 @@ describe 'reducers/menu', () ->
   describe '.reducer()', () ->
     beforeEach () ->
       @testMenuReducer = new MenuReducer
+      $.removeCookie @mockState.cookie
 
     afterEach () ->
       @testMenuReducer = null
@@ -89,83 +90,74 @@ describe 'reducers/menu', () ->
       expect( state ).toBeDefined()
 
     describe REDUX_INIT, () ->
-      it 'it should call .checkCookie', () ->
+      it 'it should set appid and contextid from Steam Last Inventory cookie', () ->
         mockAction =
           type: REDUX_INIT
-        spyOn MenuReducer::, 'checkCookie'
+        $.cookie @mockState.cookie, '753_6'
 
         @testMenuReducer @mockState, mockAction
-        expect( MenuReducer::checkCookie ).toHaveBeenCalled()
+        expect( @mockState.appid ).toBe( '753' )
+        expect( @mockState.contextid ).toBe( '6' )
+        expect( $.cookie( @mockState.cookie ) ).toBe( '753_6' )
 
     describe SETTINGS_CHANGED, () ->
       beforeEach () ->
         @mockAction =
           type: SETTINGS_CHANGED
-          appid: 570
-          contextid: 2
+          appid: '730'
+          contextid: '4'
 
       afterEach () ->
         @mockAction = null
 
-      it 'it should call .appid()', () ->
-        spyOn MenuReducer::, 'appid'
-
+      it 'it should update state appid and contextid', () ->
         @testMenuReducer @mockState, @mockAction
-        expect( MenuReducer::appid ).toHaveBeenCalled()
+        expect( @mockState.appid ).toBe( '730' )
+        expect( @mockState.contextid ).toBe( '4' )
 
-      it 'it should call .contextid()', () ->
-        spyOn MenuReducer::, 'contextid'
-
+      it 'it should set Steam Last Inventory cookie', () ->
         @testMenuReducer @mockState, @mockAction
-        expect( MenuReducer::contextid ).toHaveBeenCalled()
-
-      it 'it should call .setCookie()', () ->
-        spyOn MenuReducer::, 'setCookie'
-
-        @testMenuReducer @mockState, @mockAction
-        expect( MenuReducer::setCookie ).toHaveBeenCalled()
+        expect( $.cookie( @mockState.cookie ) ).toBe( '730_4' )
 
     describe APPID_CHANGED, () ->
       beforeEach () ->
         @mockAction =
           type: APPID_CHANGED
-          appid: 570
+          appid: '730'
 
       afterEach () ->
         @mockAction = null
 
-      it 'it should call .appid()', () ->
-        spyOn MenuReducer::, 'appid'
-
+      it 'it should update state appid', () ->
         @testMenuReducer @mockState, @mockAction
-        expect( MenuReducer::appid ).toHaveBeenCalled()
+        expect( @mockState.appid ).toBe( '730' )
 
-      it 'it should call .setCookie()', () ->
-        spyOn MenuReducer::, 'setCookie'
-
+      it 'it should set Steam Last Inventory cookie', () ->
         @testMenuReducer @mockState, @mockAction
-        expect( MenuReducer::setCookie ).toHaveBeenCalled()
+        expect( $.cookie( @mockState.cookie ) ).toBe( '730_2' )
 
     describe CONTEXTID_CHANGED, () ->
       beforeEach () ->
         @mockAction =
           type: CONTEXTID_CHANGED
-          contextid: 2
+          contextid: '4'
 
       afterEach () ->
         @mockAction = null
 
-      it 'it should call .contextid()', () ->
-        spyOn MenuReducer::, 'contextid'
-
+      it 'it should update state contextid', () ->
         @testMenuReducer @mockState, @mockAction
-        expect( MenuReducer::contextid ).toHaveBeenCalled()
+        expect( @mockState.contextid ).toBe( '4' )
 
-      it 'it should call .setCookie()', () ->
-        spyOn MenuReducer::, 'setCookie'
-
+      it 'it should set Steam Last Inventory cookie', () ->
         @testMenuReducer @mockState, @mockAction
-        expect( MenuReducer::setCookie ).toHaveBeenCalled()
+        expect( $.cookie( @mockState.cookie ) ).toBe( '570_4' )
 
     describe SEARCH_CHANGED, () ->
-      it 'it should call .search()'
+      it 'it should update state search', () ->
+        mockAction =
+          type: SEARCH_CHANGED
+          search: 'sisbf'
+
+        @testMenuReducer @mockState, mockAction
+        expect( @mockState.search ).toBe( 'sisbf' )
