@@ -161,3 +161,11 @@ describe 'reducers/menu', () ->
 
         @testMenuReducer @mockState, mockAction
         expect( @mockState.search ).toBe( 'sisbf' )
+
+  describe '.constructor()', () ->
+    it 'it should return .reducer()', () ->
+      spyOn MenuReducer::, 'reducer'
+
+      testMenuReducer = new MenuReducer
+      testMenuReducer undefined, type: '@@sisbf/TEST'
+      expect( MenuReducer::reducer ).toHaveBeenCalledWith undefined, type: '@@sisbf/TEST'
