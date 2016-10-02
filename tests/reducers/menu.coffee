@@ -11,71 +11,96 @@ describe 'reducers/menu', () ->
     @mockState = null
 
   describe '.setCookie()', () ->
+    beforeEach () ->
+      @testState = MenuReducer::setCookie @mockState
+
+    afterEach () ->
+      @testState = null
+
     it 'it should set Steam Last Inventory cookie from state', () ->
-      MenuReducer::setCookie @mockState
       expect( $.cookie( @mockState.cookie ) ).toBe( '570_2' )
 
-  describe '.getCookie()', () ->
-    it 'it should get Steam Last Inventory cookie to state', () ->
-      $.cookie @mockState.cookie, '753_6'
+    it 'it should return new state', () ->
+      expect( @testState ).toEqual( @mockState )
 
-      MenuReducer::getCookie @mockState
+  describe '.getCookie()', () ->
+    beforeEach () ->
+      $.cookie @mockState.cookie, '753_6'
+      @testState = MenuReducer::getCookie @mockState
+
+    afterEach () ->
+      @testState = null
+
+    it 'it should get Steam Last Inventory cookie to state', () ->
       expect( @mockState.appid ).toBe( '753' )
       expect( @mockState.contextid ).toBe( '6' )
 
-  describe '.checkCookie()', () ->
-    it 'it should update state from Steam Last Inventory cookie', () ->
-      $.cookie @mockState.cookie, '753_6'
+    it 'it should return new state', () ->
+      expect( @testState ).toEqual( @mockState )
 
-      MenuReducer::checkCookie @mockState
+  describe '.checkCookie()', () ->
+    beforeEach () ->
+      $.cookie @mockState.cookie, '753_6'
+      @testState = MenuReducer::checkCookie @mockState
+
+    afterEach () ->
+      @testState = null
+
+    it 'it should update state from Steam Last Inventory cookie', () ->
       expect( @mockState.appid ).toBe( '753' )
       expect( @mockState.contextid ).toBe( '6' )
       expect( $.cookie( @mockState.cookie ) ).toBe( '753_6' )
 
-  describe '.appid()', () ->
-    it 'it should update appid in state from action', () ->
-      mockAction =
-        appid: '440'
+    it 'it should return new state', () ->
+      expect( @testState ).toEqual( @mockState )
 
-      MenuReducer::appid @mockState, mockAction
+  describe '.appid()', () ->
+    beforeEach () ->
+      @mockAction =
+        appid: '440'
+      @testState = MenuReducer::appid @mockState, @mockAction
+
+    afterEach () ->
+      @mockAction = null
+      @testState = null
+
+    it 'it should update appid in state from action', () ->
       expect( @mockState.appid ).toBe( '440' )
 
-    it 'it should not update appid if appid in action is not specified', () ->
-      mockAction =
-        contextid: '6'
-
-      MenuReducer::appid @mockState, mockAction
-      expect( @mockState.appid ).toBe( '570' )
+    it 'it should return new state', () ->
+      expect( @testState ).toEqual( @mockState )
 
   describe '.contextid()', () ->
-    it 'it should update contextid in state from action', () ->
-      mockAction =
+    beforeEach () ->
+      @mockAction =
         contextid: '6'
+      @testState = MenuReducer::contextid @mockState, @mockAction
 
-      MenuReducer::contextid @mockState, mockAction
+    afterEach () ->
+      @mockAction = null
+      @testState = null
+
+    it 'it should update contextid in state from action', () ->
       expect( @mockState.contextid ).toBe( '6' )
 
-    it 'it should not update contextid if contextid in action is not specified', () ->
-      mockAction =
-        appid: '440'
-
-      MenuReducer::contextid @mockState, mockAction
-      expect( @mockState.contextid ).toBe( '2' )
+    it 'it should return new state', () ->
+      expect( @testState ).toEqual( @mockState )
 
   describe '.search()', () ->
-    it 'it should update search in state from action', () ->
-      mockAction =
+    beforeEach () ->
+      @mockAction =
         search: 'sisbf'
+      @testState = MenuReducer::search @mockState, @mockAction
 
-      MenuReducer::search @mockState, mockAction
+    afterEach () ->
+      @mockAction = null
+      @testState = null
+
+    it 'it should update search in state from action', () ->
       expect( @mockState.search ).toBe( 'sisbf' )
 
-    it 'it should not update search if search in action is not specified', () ->
-      mockAction =
-        contextid: '2'
-
-      MenuReducer::search @mockState, mockAction
-      expect( @mockState.search ).toBe( '' )
+    it 'it should return new state', () ->
+      expect( @testState ).toEqual( @mockState )
 
   describe '.reducer()', () ->
     beforeEach () ->
@@ -86,8 +111,12 @@ describe 'reducers/menu', () ->
       @testMenuReducer = null
 
     it 'it should set initial state', () ->
-      state = @testMenuReducer undefined, type: '@@sisbf/TEST'
-      expect( state ).toBeDefined()
+      testState = @testMenuReducer undefined, type: '@@sisbf/TEST'
+      expect( testState ).toBeDefined()
+
+    it 'it should return new state', () ->
+      testState = @testMenuReducer @mockState, type: '@@sisbf/TEST'
+      expect( testState ).toEqual( @mockState )
 
     describe REDUX_INIT, () ->
       it 'it should set appid and contextid from Steam Last Inventory cookie', () ->
