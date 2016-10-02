@@ -9,11 +9,8 @@ class TagsBaseReducer
     _.each @middlewares, ( middleware, index ) =>
       @middlewares[ index ] = @[ middleware ]
 
-  _cleanDefinition: () ->
-    @cleanDefinition = _.sortBy @cleanDefinition
-
   process: ( state, action ) ->
-    if action?.backpack?.success
+    if action?.backpack?.success is true
       descriptions = action.backpack.rgDescriptions
       if descriptions?
         _.each descriptions, ( description ) =>
@@ -66,5 +63,4 @@ class TagsBaseReducer
 
   constructor: () ->
     @_middlewares()
-    @_cleanDefinition()
     return @reducer.bind @
