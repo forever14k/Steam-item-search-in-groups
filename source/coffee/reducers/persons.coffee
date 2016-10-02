@@ -8,15 +8,15 @@ class PersonsReducer
 
   reset: ( state ) ->
     state.state = PERSONSCLUB_OUTDATED
+    state.current = 0
     state.persons = []
-    state.current = state.persons.length
     state.total = state.persons.length
     return state
 
   populate: ( state, action ) ->
     state.state = PERSONSCLUB_IDLE
-    state.current = state.persons.length
-    state.persons = action.persons
+    state.current = 0
+    state.persons = action.persons if action?.persons?
     state.total = state.persons.length
     return state
 
@@ -37,7 +37,7 @@ class PersonsReducer
 
   statePerson: ( state, action ) ->
     person = _.find state.persons, steamId32: action.person.steamId32
-    person.state = action.type
+    person.state = action.type if person?
     return state
 
   increment: ( state ) ->
@@ -49,7 +49,6 @@ class PersonsReducer
       when REDUX_INIT, SETTINGS_CHANGED
         @reset state
       when PERSONSCLUB_ADD
-        @reset state
         @populate state, action
       when PERSONSCLUB_QUEUE
         @queue state
