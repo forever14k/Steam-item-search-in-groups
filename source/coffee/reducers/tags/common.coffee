@@ -31,6 +31,9 @@ class TagsCommonReducer extends TagsBaseReducer
     # 'tagCommonDescDedication'
   ]
 
+  _cleanDefinition: () ->
+    @cleanDefinition = _.sortBy @cleanDefinition
+
   tagCommonColor: ( description ) ->
     color = null
 
@@ -257,3 +260,7 @@ class TagsCommonReducer extends TagsBaseReducer
       regex: REGEX_DEDICATION
       option: OPTION_DEDICATION
     @tagDesc description, config
+
+  constructor: () ->
+    super
+    @_cleanDefinition()
