@@ -24,7 +24,7 @@ class BackpacksReducer
     return state
 
   push: ( state, action ) ->
-    if action.backpack.success? and action.backpack.success is true
+    if action?.backpack?.success is true
       person = action.person
       items = action.backpack.rgInventory
       descriptions = action.backpack.rgDescriptions

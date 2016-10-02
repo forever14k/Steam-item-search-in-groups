@@ -53,7 +53,7 @@ class FiltersReducer
           @push state, tag.category_name, tag.name
 
   filter: ( state, action ) ->
-    if action.backpack.success? and action.backpack.success is true
+    if action?.backpack?.success is true
       backpack = action.backpack
       descriptions = backpack.rgDescriptions
 
