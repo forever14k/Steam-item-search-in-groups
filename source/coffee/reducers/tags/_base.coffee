@@ -18,7 +18,10 @@ class TagsBaseReducer
       if descriptions?
         _.each descriptions, ( description ) =>
           if @isAppId description, state.appId
-            _.invokeMap @middlewares, _.call, @, description
+            @invoke description
+
+  invoke: ( description ) ->
+    _.invokeMap @middlewares, _.call, @, description
 
   insert: ( description, tag ) ->
     description._sisbftags = [] if not description?._sisbftags?
