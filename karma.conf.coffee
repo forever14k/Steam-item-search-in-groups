@@ -19,13 +19,16 @@ module.exports = (config) ->
       'source/coffee/views/*.coffee'
       'source/coffee/actions/*.coffee'
       'source/coffee/reducers/**/*.coffee'
+      'tests/mocks/**/*.json'
       'tests/**/*.coffee'
     ]
-    exclude: [
-      'temp/js/scripts/state.js'
-      'temp/js/scripts/index.js'
-    ]
-    preprocessors: '**/*.coffee': [ 'coffee' ]
+    exclude: []
+    preprocessors:
+      '**/*.coffee': [ 'coffee' ]
+      'tests/mocks/**/*.json': [ 'json_fixtures' ]
+    jsonFixturesPreprocessor:
+      stripPrefix: 'tests/mocks/'
+      variableName: '__mock__'
     reporters: [ 'verbose', 'kjhtml' ]
     port: 9876
     colors: true
