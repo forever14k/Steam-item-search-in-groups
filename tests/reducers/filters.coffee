@@ -267,7 +267,7 @@ describe 'reducers/filters', () ->
     describe SETTINGS_CHANGED, () ->
       it 'it should reset state', () ->
         mockAction =
-          type: REDUX_INIT
+          type: SETTINGS_CHANGED
 
         @testFiltersReducer @mockState, mockAction
         _.each @mockState, ( filter ) =>
