@@ -262,5 +262,5 @@ class TagsCommonReducer extends TagsBaseReducer
     @tagDesc description, config
 
   constructor: () ->
-    super
     @_cleanDefinition()
+    return super
