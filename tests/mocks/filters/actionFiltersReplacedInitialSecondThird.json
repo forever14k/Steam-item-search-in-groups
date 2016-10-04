@@ -1,0 +1,10 @@
+{
+    "type": "FILTERS_REPLACED",
+    "option": "initial",
+    "removed": {
+        "name": "second"
+    },
+    "added": {
+        "name": "third"
+    }
+}
