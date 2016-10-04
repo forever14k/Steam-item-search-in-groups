@@ -166,7 +166,7 @@ describe 'reducers/backpacks', () ->
       testState = @testBackpacksReducer @mockState, mockAction
       expect( testState ).toEqual( @mockState )
 
-    describe REDUX_INIT, () ->
+    describe '@@redux/INIT', () ->
       it 'it should reset state', () ->
         mockAction = __mock__[ 'common/action/init' ]
 
@@ -176,7 +176,7 @@ describe 'reducers/backpacks', () ->
         expect( _.keys( @mockState.results ).length ).toBe( 0 )
         expect( @mockState.state ).toBe( 'BACKPACKS_NOTDISPLAYED' )
 
-    describe SETTINGS_CHANGED, () ->
+    describe 'SETTINGS_CHANGED', () ->
       it 'it should reset state', () ->
         mockAction = __mock__[ 'backpacks/action/SETTINGS_CHANGED/730_4' ]
 
@@ -186,7 +186,7 @@ describe 'reducers/backpacks', () ->
         expect( _.keys( @mockState.results ).length ).toBe( 0 )
         expect( @mockState.state ).toBe( 'BACKPACKS_NOTDISPLAYED' )
 
-    describe PERSON_LOADED, () ->
+    describe 'PERSON_LOADED', () ->
       it 'it should populate state filters', () ->
         mockAction = __mock__[ 'backpacks/action/PERSON_LOADED/success' ]
 
@@ -194,7 +194,7 @@ describe 'reducers/backpacks', () ->
         expect( @mockState.descriptions[ '0_14000' ] ).toBeDefined()
         expect( _.find( @mockState.items, itemId: '14000' ) ).toBeDefined()
 
-    describe BACKPACKS_SEARCH, () ->
+    describe 'BACKPACKS_SEARCH', () ->
       it 'it should search items using action.filters', () ->
         mockAction = __mock__[ 'backpacks/action/BACKPACKS_SEARCH/tradable' ]
 
@@ -202,7 +202,7 @@ describe 'reducers/backpacks', () ->
         expect( _.keys( @mockState.results?[ 'STATUS_INGAME' ]?[ '44336602' ] ).length ).toBe( 3 )
         expect( @mockState.state ).toBe( 'BACKPACKS_NOTDISPLAYED' )
 
-    describe BACKPACKS_DISPLAYED, () ->
+    describe 'BACKPACKS_DISPLAYED', () ->
       it 'it should set .state to BACKPACKS_DISPLAYED', () ->
         mockAction = __mock__[ 'backpacks/action/BACKPACKS_DISPLAYED' ]
 
