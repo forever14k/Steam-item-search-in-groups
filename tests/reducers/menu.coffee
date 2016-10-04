@@ -1,6 +1,6 @@
 describe 'reducers/menu', () ->
   beforeEach () ->
-    @mockState = _.cloneDeep __mock__[ 'menu/initialState' ]
+    @mockState = _.cloneDeep __mock__[ 'menu/state/initial' ]
     $.removeCookie @mockState.cookie
 
   afterEach () ->
@@ -52,7 +52,7 @@ describe 'reducers/menu', () ->
 
   describe '.appid()', () ->
     beforeEach () ->
-      @mockAction = __mock__[ 'menu/actionAppIdChanged440' ]
+      @mockAction = __mock__[ 'menu/action/APPID_CHANGED/440' ]
       @testState = MenuReducer::appid @mockState, @mockAction
 
     afterEach () ->
@@ -67,7 +67,7 @@ describe 'reducers/menu', () ->
 
   describe '.contextid()', () ->
     beforeEach () ->
-      @mockAction = __mock__[ 'menu/actionContextIdChanged6' ]
+      @mockAction = __mock__[ 'menu/action/CONTEXTID_CHANGED/6' ]
       @testState = MenuReducer::contextid @mockState, @mockAction
 
     afterEach () ->
@@ -82,7 +82,7 @@ describe 'reducers/menu', () ->
 
   describe '.search()', () ->
     beforeEach () ->
-      @mockAction = __mock__[ 'menu/actionSearchChangedSisbf' ]
+      @mockAction = __mock__[ 'menu/action/SEARCH_CHANGED/sisbf' ]
       @testState = MenuReducer::search @mockState, @mockAction
 
     afterEach () ->
@@ -104,18 +104,18 @@ describe 'reducers/menu', () ->
       @testMenuReducer = null
 
     it 'it should set initial state', () ->
-      mockAction = __mock__[ 'actionTest' ]
+      mockAction = __mock__[ 'common/action/test' ]
       testState = @testMenuReducer undefined, mockAction
       expect( testState ).toBeDefined()
 
     it 'it should return new state', () ->
-      mockAction = __mock__[ 'actionTest' ]
+      mockAction = __mock__[ 'common/action/test' ]
       testState = @testMenuReducer @mockState, mockAction
       expect( testState ).toEqual( @mockState )
 
-    describe REDUX_INIT, () ->
+    describe '@@redux/INIT', () ->
       it 'it should set appid and contextid from Steam Last Inventory cookie', () ->
-        mockAction = __mock__[ 'actionReduxInit' ]
+        mockAction = __mock__[ 'common/action/init' ]
         $.cookie @mockState.cookie, '753_6'
 
         @testMenuReducer @mockState, mockAction
@@ -123,9 +123,9 @@ describe 'reducers/menu', () ->
         expect( @mockState.contextid ).toBe( '6' )
         expect( $.cookie( @mockState.cookie ) ).toBe( '753_6' )
 
-    describe SETTINGS_CHANGED, () ->
+    describe 'SETTINGS_CHANGED', () ->
       beforeEach () ->
-        @mockAction = __mock__[ 'menu/actionSettingsChanged730_4' ]
+        @mockAction = __mock__[ 'menu/action/SETTINGS_CHANGED/730_4' ]
 
       afterEach () ->
         @mockAction = null
@@ -139,9 +139,9 @@ describe 'reducers/menu', () ->
         @testMenuReducer @mockState, @mockAction
         expect( $.cookie( @mockState.cookie ) ).toBe( '730_4' )
 
-    describe APPID_CHANGED, () ->
+    describe 'APPID_CHANGED', () ->
       beforeEach () ->
-        @mockAction = __mock__[ 'menu/actionAppIdChanged730' ]
+        @mockAction = __mock__[ 'menu/action/APPID_CHANGED/730' ]
 
       afterEach () ->
         @mockAction = null
@@ -154,9 +154,9 @@ describe 'reducers/menu', () ->
         @testMenuReducer @mockState, @mockAction
         expect( $.cookie( @mockState.cookie ) ).toBe( '730_2' )
 
-    describe CONTEXTID_CHANGED, () ->
+    describe 'CONTEXTID_CHANGED', () ->
       beforeEach () ->
-        @mockAction = __mock__[ 'menu/actionContextIdChanged4' ]
+        @mockAction = __mock__[ 'menu/action/CONTEXTID_CHANGED/4' ]
 
       afterEach () ->
         @mockAction = null
@@ -169,9 +169,9 @@ describe 'reducers/menu', () ->
         @testMenuReducer @mockState, @mockAction
         expect( $.cookie( @mockState.cookie ) ).toBe( '570_4' )
 
-    describe SEARCH_CHANGED, () ->
+    describe 'SEARCH_CHANGED', () ->
       it 'it should update state search', () ->
-        mockAction = __mock__[ 'menu/actionSearchChangedSisbf' ]
+        mockAction = __mock__[ 'menu/action/SEARCH_CHANGED/sisbf' ]
 
         @testMenuReducer @mockState, mockAction
         expect( @mockState.search ).toBe( 'sisbf' )
@@ -180,7 +180,7 @@ describe 'reducers/menu', () ->
     it 'it should return .reducer()', () ->
       spyOn MenuReducer::, 'reducer'
 
-      mockAction = __mock__[ 'actionTest' ]
+      mockAction = __mock__[ 'common/action/test' ]
       testMenuReducer = new MenuReducer
       testMenuReducer undefined, mockAction
       expect( MenuReducer::reducer ).toHaveBeenCalledWith undefined, mockAction
