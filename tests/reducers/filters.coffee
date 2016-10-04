@@ -189,8 +189,8 @@ describe 'reducers/filters', () ->
         mockAction = __mock__[ 'filters/actionPersonLoaded' ]
 
         @testFiltersReducer @mockState, mockAction
-        expect( @mockState[ OPTION_TRADABLE ] ).toBeDefined()
-        expect( @mockState[ OPTION_MARKETABLE ] ).toBeDefined()
+        expect( @mockState[ 'Tradable' ] ).toBeDefined()
+        expect( @mockState[ 'Marketable' ] ).toBeDefined()
 
     describe FILTERS_SELECTED, () ->
       it 'it should select option in filter', () ->
