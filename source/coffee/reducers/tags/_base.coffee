@@ -7,7 +7,7 @@ class TagsBaseReducer
 
   _middlewares: () ->
     _.each @middlewares, ( middleware, index ) =>
-      @middlewares[ index ] = @[ middleware ]
+      @middlewares[ index ] = if @[ middleware ]? then @[ middleware ] else _.noop
 
   process: ( state, action ) ->
     if action?.backpack?.success is true
@@ -16,6 +16,7 @@ class TagsBaseReducer
         _.each descriptions, ( description ) =>
           if @isAppId description, state.appId
             @invoke description
+    return state
 
   invoke: ( description ) ->
     _.invokeMap @middlewares, _.call, @, description
