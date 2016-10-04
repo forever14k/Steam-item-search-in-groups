@@ -118,7 +118,7 @@ describe 'reducers/backpacks', () ->
     it 'it should check market_name', () ->
       search = ''
       filters = __mock__[ 'backpacks/function/filter/empty' ]
-      description = __mock__[ 'backpacks/descriptions/market_name/empty' ]
+      description = __mock__[ 'backpacks/description/market_name/empty' ]
 
       inspection = BackpacksReducer::filter description, search, filters
       expect( inspection ).toBe( true )
@@ -126,7 +126,7 @@ describe 'reducers/backpacks', () ->
     it 'it should compare search string to market_name', () ->
       search = 'item'
       filters = __mock__[ 'backpacks/function/filter/empty' ]
-      description = __mock__[ 'backpacks/descriptions/market_name/item1' ]
+      description = __mock__[ 'backpacks/description/market_name/item1' ]
 
       inspection = BackpacksReducer::filter description, search, filters
       expect( inspection ).toBe( true )
@@ -134,7 +134,7 @@ describe 'reducers/backpacks', () ->
     it 'it should check .tags', () ->
       search = ''
       filters = __mock__[ 'backpacks/function/filter/tradable' ]
-      description = __mock__[ 'backpacks/descriptions/tags/tradable' ]
+      description = __mock__[ 'backpacks/description/tags/tradable' ]
 
       inspection = BackpacksReducer::filter description, search, filters
       expect( inspection ).toBe( true )
@@ -142,7 +142,7 @@ describe 'reducers/backpacks', () ->
     it 'it should check .sisbftags', () ->
       search = ''
       filters = __mock__[ 'backpacks/function/filter/tradable' ]
-      description = __mock__[ 'backpacks/descriptions/_sisbftags/tradable' ]
+      description = __mock__[ 'backpacks/description/_sisbftags/tradable' ]
 
       inspection = BackpacksReducer::filter description, search, filters
       expect( inspection ).toBe( true )

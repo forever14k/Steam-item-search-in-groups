@@ -58,7 +58,7 @@ describe 'reducers/tags/_base', () ->
       TagsBaseReducer::middlewares = @middlewares
 
     it 'it should invoke all .middlewares[]', () ->
-      description = __mock__[ 'tags/_base/descriptions/empty' ]
+      description = __mock__[ 'tags/_base/description/empty' ]
       _.each TagsBaseReducer::middlewares, ( middleware, index ) ->
         spyOn TagsBaseReducer::middlewares, index
 
@@ -68,7 +68,7 @@ describe 'reducers/tags/_base', () ->
 
   describe '.insert()', () ->
     beforeEach () ->
-      @description = _.cloneDeep __mock__[ 'tags/_base/descriptions/empty' ]
+      @description = _.cloneDeep __mock__[ 'tags/_base/description/empty' ]
       @tag = __mock__[ 'tags/_base/tags/tradable' ]
 
       TagsBaseReducer::insert @description, @tag
@@ -85,7 +85,7 @@ describe 'reducers/tags/_base', () ->
 
   describe '.isAppId()', () ->
     beforeEach () ->
-      @description = __mock__[ 'tags/_base/descriptions/appid/570' ]
+      @description = __mock__[ 'tags/_base/description/appid/570' ]
 
     afterEach () ->
       @description = null
@@ -108,33 +108,33 @@ describe 'reducers/tags/_base', () ->
 
   describe '.isHaveDescriptions()', () ->
     it 'it should return true if description have descriptions', () ->
-      description = __mock__[ 'tags/_base/descriptions/descriptions/1' ]
+      description = __mock__[ 'tags/_base/description/descriptions/1' ]
 
       isHaveDescriptions = TagsBaseReducer::isHaveDescriptions description
       expect( isHaveDescriptions ).toBe( true )
 
     it 'it should return false if description have descriptions', () ->
-      description = __mock__[ 'tags/_base/descriptions/empty' ]
+      description = __mock__[ 'tags/_base/description/empty' ]
 
       isHaveDescriptions = TagsBaseReducer::isHaveDescriptions description
       expect( isHaveDescriptions ).toBe( false )
 
   describe '.isHaveFraudWarnings()', () ->
     it 'it should return true if description have fraudwarnings', () ->
-      description = __mock__[ 'tags/_base/descriptions/fraudwarnings/1' ]
+      description = __mock__[ 'tags/_base/description/fraudwarnings/1' ]
 
       isHaveFraudWarnings = TagsBaseReducer::isHaveFraudWarnings description
       expect( isHaveFraudWarnings ).toBe( true )
 
     it 'it should return false if description have fraudwarnings', () ->
-      description = __mock__[ 'tags/_base/descriptions/empty' ]
+      description = __mock__[ 'tags/_base/description/empty' ]
 
       isHaveFraudWarnings = TagsBaseReducer::isHaveFraudWarnings description
       expect( isHaveFraudWarnings ).toBe( false )
 
   describe '.tagDesc()', () ->
     beforeEach () ->
-      @description = _.cloneDeep __mock__[ 'tags/_base/descriptions/descriptions/heroic/rapier' ]
+      @description = _.cloneDeep __mock__[ 'tags/_base/description/descriptions/heroic/rapier' ]
       @config =
         regex: /\<font\scolor\=\#999999\>(.*)\sof\s(.*)\spurchased\sa\sRapier\sagainst\s(.*)\son\s(\w{3})\s(\d{2})\,\s(\d{4})\s\((\d{1,2}\:\d{1,2}\:\d{1,2})\)(\.|\!|)<\/font\>/i
         option: 'Heroic event'
