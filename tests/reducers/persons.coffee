@@ -1,37 +1,13 @@
 describe 'reducers/persons', () ->
   beforeEach () ->
-    @mockState =
-      state: PERSONSCLUB_IDLE
-      current: 1
-      total: 3
-      persons: [
-        {
-          steamId32: '44336602'
-          steamId64: '76561198004602330'
-          state: PERSON_QUEUE
-          status: STATUS_ONLINE
-        }
-        {
-          steamId32: '44336602'
-          steamId64: '76561198004602330'
-          state: PERSON_QUEUE
-          status: STATUS_ONLINE
-        }
-        {
-          steamId32: '44336602'
-          steamId64: '76561198004602330'
-          state: PERSON_IDLE
-          status: STATUS_ONLINE
-        }
-    ]
+    @mockState = _.cloneDeep __mock__[ 'persons/initialState' ]
 
   afterEach () ->
     @mockState = null
 
   describe '.reset()', () ->
     beforeEach () ->
-      @mockAction =
-        type: REDUX_INIT
+      @mockAction = __mock__[ 'actionReduxInit' ]
       @testState = PersonsReducer::reset @mockState, @mockAction
 
     afterEach () ->
@@ -55,22 +31,7 @@ describe 'reducers/persons', () ->
 
   describe '.populate()', () ->
     beforeEach () ->
-      @mockAction =
-        type: PERSONSCLUB_ADD
-        persons: [
-          {
-            steamId32: '44336602'
-            steamId64: '76561198004602330'
-            state: PERSON_QUEUE
-            status: STATUS_ONLINE
-          }
-          {
-            steamId32: '44336602'
-            steamId64: '76561198004602330'
-            state: PERSON_QUEUE
-            status: STATUS_ONLINE
-          }
-        ]
+      @mockAction = __mock__[ 'persons/actionPerconClubAdd2' ]
       @testState = PersonsReducer::populate @mockState, @mockAction
 
     afterEach () ->
@@ -94,13 +55,7 @@ describe 'reducers/persons', () ->
 
   describe '.unshift()', () ->
     beforeEach () ->
-      @mockAction =
-        type: PERSON_ADD
-        person:
-          steamId32: '41208521'
-          steamId64: '76561198001474249'
-          state: PERSON_IDLE
-          status: STATUS_INGAME
+      @mockAction = __mock__[ 'persons/actionPersonAdd41208521' ]
       @testState = PersonsReducer::unshift @mockState, @mockAction
 
     afterEach () ->
@@ -108,11 +63,8 @@ describe 'reducers/persons', () ->
       @testState = null
 
     it 'it should unshift person to .persons[]', () ->
-      expect( _.first( @mockState.persons ) ).toEqual
+      expect( _.first( @mockState.persons ) ).toEqual jasmine.objectContaining
         steamId32: '41208521'
-        steamId64: '76561198001474249'
-        state: PERSON_IDLE
-        status: STATUS_INGAME
 
     it 'it should update .total state', () ->
       expect( @mockState.total ).toBe( 4 )
@@ -122,8 +74,7 @@ describe 'reducers/persons', () ->
 
   describe '.queue()', () ->
     beforeEach () ->
-      @mockAction =
-        type: PERSONSCLUB_QUEUE
+      @mockAction = __mock__[ 'persons/actionPerconClubQueue' ]
       @testState = PersonsReducer::queue @mockState, @mockAction
 
     afterEach () ->
@@ -141,8 +92,7 @@ describe 'reducers/persons', () ->
 
   describe '.state()', () ->
     beforeEach () ->
-      @mockAction =
-        type: PERSONSCLUB_PROCESS
+      @mockAction = __mock__[ 'persons/actionPerconClubProcess' ]
       @testState = PersonsReducer::state @mockState, @mockAction
 
     afterEach () ->
@@ -157,13 +107,7 @@ describe 'reducers/persons', () ->
 
   describe '.statePerson()', () ->
     beforeEach () ->
-      @mockAction =
-        type: PERSON_LOADING
-        person:
-          steamId32: '44336602'
-          steamId64: '76561198004602330'
-          state: PERSON_QUEUE
-          status: STATUS_ONLINE
+      @mockAction = __mock__[ 'persons/actionPersonLoading44336602' ]
       @testState = PersonsReducer::statePerson @mockState, @mockAction
 
     afterEach () ->
@@ -178,8 +122,7 @@ describe 'reducers/persons', () ->
 
   describe '.increment()', () ->
     beforeEach () ->
-      @mockAction =
-        type: PERSON_LOADED
+      @mockAction = __mock__[ 'persons/actionPersonLoaded44336602' ]
       @testState = PersonsReducer::increment @mockState, @mockAction
 
     afterEach () ->
@@ -200,17 +143,18 @@ describe 'reducers/persons', () ->
       @testPersonsReducer = null
 
     it 'it should set initial state', () ->
-      testState = @testPersonsReducer undefined, type: '@@sisbf/TEST'
+      mockAction = __mock__[ 'actionTest' ]
+      testState = @testPersonsReducer undefined, mockAction
       expect( testState ).toBeDefined()
 
     it 'it should return new state', () ->
-      testState = @testPersonsReducer @mockState, type: '@@sisbf/TEST'
+      mockAction = __mock__[ 'actionTest' ]
+      testState = @testPersonsReducer @mockState, mockAction
       expect( testState ).toEqual( @mockState )
 
     describe REDUX_INIT, () ->
       it 'it should reset state', () ->
-        mockAction =
-          type: REDUX_INIT
+        mockAction = __mock__[ 'actionReduxInit' ]
 
         @testPersonsReducer @mockState, mockAction
         expect( @mockState.state ).toBe( PERSONSCLUB_OUTDATED )
@@ -220,8 +164,7 @@ describe 'reducers/persons', () ->
 
     describe SETTINGS_CHANGED, () ->
       it 'it should reset state', () ->
-        mockAction =
-          type: REDUX_INIT
+        mockAction = __mock__[ 'persons/actionSettingsChanged730_4' ]
 
         @testPersonsReducer @mockState, mockAction
         expect( @mockState.state ).toBe( PERSONSCLUB_OUTDATED )
@@ -231,22 +174,7 @@ describe 'reducers/persons', () ->
 
     describe PERSONSCLUB_ADD, () ->
       it 'it should populate state with persons', () ->
-        mockAction =
-          type: PERSONSCLUB_ADD
-          persons: [
-            {
-              steamId32: '44336602'
-              steamId64: '76561198004602330'
-              state: PERSON_QUEUE
-              status: STATUS_ONLINE
-            }
-            {
-              steamId32: '44336602'
-              steamId64: '76561198004602330'
-              state: PERSON_QUEUE
-              status: STATUS_ONLINE
-            }
-          ]
+        mockAction = __mock__[ 'persons/actionPerconClubAdd2' ]
 
         @testPersonsReducer @mockState, mockAction
         expect( @mockState.state ).toBe( PERSONSCLUB_IDLE )
@@ -256,8 +184,7 @@ describe 'reducers/persons', () ->
 
     describe PERSONSCLUB_QUEUE, () ->
       beforeEach () ->
-        @mockAction =
-          type: PERSONSCLUB_QUEUE
+        @mockAction = __mock__[ 'persons/actionPerconClubQueue' ]
 
         @testPersonsReducer @mockState, @mockAction
 
@@ -272,100 +199,66 @@ describe 'reducers/persons', () ->
 
     describe PERSONSCLUB_IDLE, () ->
       it "it should set .state to #{PERSONSCLUB_IDLE}", () ->
-        mockAction =
-          type: PERSONSCLUB_IDLE
+        mockAction = __mock__[ 'persons/actionPerconClubIdle' ]
 
         @testPersonsReducer @mockState, mockAction
         expect( @mockState.state ).toBe( PERSONSCLUB_IDLE )
 
     describe PERSONSCLUB_PROCESS, () ->
       it "it should set .state to #{PERSONSCLUB_PROCESS}", () ->
-        mockAction =
-          type: PERSONSCLUB_PROCESS
+        mockAction = __mock__[ 'persons/actionPerconClubProcess' ]
 
         @testPersonsReducer @mockState, mockAction
         expect( @mockState.state ).toBe( PERSONSCLUB_PROCESS )
 
     describe PERSONSCLUB_PAUSE, () ->
       it "it should set .state to #{PERSONSCLUB_PAUSE}", () ->
-        mockAction =
-          type: PERSONSCLUB_PAUSE
+        mockAction = __mock__[ 'persons/actionPerconClubPause' ]
 
         @testPersonsReducer @mockState, mockAction
         expect( @mockState.state ).toBe( PERSONSCLUB_PAUSE )
 
     describe PERSONSCLUB_RESUME, () ->
       it "it should set .state to #{PERSONSCLUB_RESUME}", () ->
-        mockAction =
-          type: PERSONSCLUB_RESUME
+        mockAction = __mock__[ 'persons/actionPerconClubResume' ]
 
         @testPersonsReducer @mockState, mockAction
         expect( @mockState.state ).toBe( PERSONSCLUB_RESUME )
 
     describe PERSONSCLUB_DRAIN, () ->
       it "it should set .state to #{PERSONSCLUB_DRAIN}", () ->
-        mockAction =
-          type: PERSONSCLUB_DRAIN
+        mockAction = __mock__[ 'persons/actionPerconClubDrain' ]
 
         @testPersonsReducer @mockState, mockAction
         expect( @mockState.state ).toBe( PERSONSCLUB_DRAIN )
 
     describe PERSON_ADD, () ->
       it 'it should unshift person to state', () ->
-        mockAction =
-          type: PERSON_ADD
-          person:
-            steamId32: '41208521'
-            steamId64: '76561198001474249'
-            state: PERSON_IDLE
-            status: STATUS_INGAME
+        mockAction = __mock__[ 'persons/actionPersonAdd41208521' ]
 
         @testPersonsReducer @mockState, mockAction
 
-        expect( _.first( @mockState.persons ) ).toEqual
+        expect( _.first( @mockState.persons ) ).toEqual jasmine.objectContaining
           steamId32: '41208521'
-          steamId64: '76561198001474249'
-          state: PERSON_IDLE
-          status: STATUS_INGAME
         expect( @mockState.total ).toBe( 4 )
 
     describe PERSON_LOADING, () ->
       it "it should set person state to #{PERSON_LOADING}", () ->
-        mockAction =
-          type: PERSON_LOADING
-          person:
-            steamId32: '44336602'
-            steamId64: '76561198004602330'
-            state: PERSON_QUEUE
-            status: STATUS_ONLINE
-
+        mockAction = __mock__[ 'persons/actionPersonLoading44336602' ]
 
         @testPersonsReducer @mockState, mockAction
         expect( _.find( @mockState.persons, steamId32: '44336602' ).state ).toBe( PERSON_LOADING )
 
     describe PERSON_ERROR, () ->
       it "it should set person state to #{PERSON_ERROR}", () ->
-        mockAction =
-          type: PERSON_ERROR
-          person:
-            steamId32: '44336602'
-            steamId64: '76561198004602330'
-            state: PERSON_QUEUE
-            status: STATUS_ONLINE
-
+        mockAction = __mock__[ 'persons/actionPersonError44336602' ]
 
         @testPersonsReducer @mockState, mockAction
         expect( _.find( @mockState.persons, steamId32: '44336602' ).state ).toBe( PERSON_ERROR )
 
     describe PERSON_LOADED, () ->
       beforeEach () ->
-        @mockAction =
-          type: PERSON_LOADED
-          person:
-            steamId32: '44336602'
-            steamId64: '76561198004602330'
-            state: PERSON_QUEUE
-            status: STATUS_ONLINE
+        @mockAction = __mock__[ 'persons/actionPersonLoaded44336602' ]
         @testState = @testPersonsReducer @mockState, @mockAction
 
       afterEach () ->
@@ -382,6 +275,7 @@ describe 'reducers/persons', () ->
     it 'it should return .reducer()', () ->
       spyOn PersonsReducer::, 'reducer'
 
+      mockAction = __mock__[ 'actionTest' ]
       testMenuReducer = new PersonsReducer
-      testMenuReducer undefined, type: '@@sisbf/TEST'
-      expect( PersonsReducer::reducer ).toHaveBeenCalledWith undefined, type: '@@sisbf/TEST'
+      testMenuReducer undefined, mockAction
+      expect( PersonsReducer::reducer ).toHaveBeenCalledWith undefined, mockAction
