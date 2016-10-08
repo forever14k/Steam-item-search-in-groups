@@ -75,7 +75,8 @@ describe 'reducers/backpacks', () ->
       expect( @mockState.descriptions[ '0_14000' ] ).toBeDefined()
 
     it 'it should push item asset to .items', () ->
-      expect( _.find( @mockState.items, itemId: '14000' ) ).toBeDefined()
+      expect( @mockState.items ).toContain jasmine.objectContaining
+        itemId: '14000'
 
     it 'it should return new state', () ->
       expect( @testState ).toEqual( @mockState )
@@ -192,7 +193,8 @@ describe 'reducers/backpacks', () ->
 
         @testBackpacksReducer @mockState, mockAction
         expect( @mockState.descriptions[ '0_14000' ] ).toBeDefined()
-        expect( _.find( @mockState.items, itemId: '14000' ) ).toBeDefined()
+        expect( @mockState.items ).toContain jasmine.objectContaining
+          itemId: '14000'
 
     describe 'BACKPACKS_SEARCH', () ->
       it 'it should search items using action.filters', () ->

@@ -116,7 +116,9 @@ describe 'reducers/persons', () ->
       @testState = null
 
     it 'it should find and set person state to action.type', () ->
-      expect( _.find( @mockState.persons, steamId32: '44336602' ).state ).toBe( 'PERSON_LOADING' )
+      expect( @mockState.persons ).toContain jasmine.objectContaining
+        steamId32: '44336602'
+        state: 'PERSON_LOADING'
 
     it 'it should return new state', () ->
       expect( @testState ).toEqual( @mockState )
@@ -249,14 +251,18 @@ describe 'reducers/persons', () ->
         mockAction = __mock__[ 'persons/action/PERSON_LOADING/44336602' ]
 
         @testPersonsReducer @mockState, mockAction
-        expect( _.find( @mockState.persons, steamId32: '44336602' ).state ).toBe( 'PERSON_LOADING' )
+        expect( @mockState.persons ).toContain jasmine.objectContaining
+          steamId32: '44336602'
+          state: 'PERSON_LOADING'
 
     describe 'PERSON_ERROR', () ->
       it 'it should set person state to PERSON_ERROR', () ->
         mockAction = __mock__[ 'persons/action/PERSON_ERROR/44336602' ]
 
         @testPersonsReducer @mockState, mockAction
-        expect( _.find( @mockState.persons, steamId32: '44336602' ).state ).toBe( 'PERSON_ERROR' )
+        expect( @mockState.persons ).toContain jasmine.objectContaining
+          steamId32: '44336602'
+          state: 'PERSON_ERROR'
 
     describe 'PERSON_LOADED', () ->
       beforeEach () ->
@@ -271,7 +277,9 @@ describe 'reducers/persons', () ->
         expect( @mockState.current ).toBe( 2 )
 
       it 'it should set person state to PERSON_LOADED', () ->
-        expect( _.find( @mockState.persons, steamId32: '44336602' ).state ).toBe( 'PERSON_LOADED' )
+        expect( @mockState.persons ).toContain jasmine.objectContaining
+          steamId32: '44336602'
+          state: 'PERSON_LOADED'
 
   describe '.constructor()', () ->
     it 'it should return .reducer()', () ->

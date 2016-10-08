@@ -1,7 +1,7 @@
 describe 'reducers/filters', () ->
   beforeEach () ->
     @mockState = _.cloneDeep __mock__[ 'filters/state/initial' ]
-    
+
   afterEach () ->
     @mockState = null
 
@@ -125,7 +125,8 @@ describe 'reducers/filters', () ->
       @testState = null
 
     it 'it should push filter option to selected', () ->
-      expect( _.find( @mockState[ 'initial' ].selected, name: 'third' ) ).toBeDefined()
+      expect( @mockState[ 'initial' ].selected ).toContain jasmine.objectContaining
+        name: 'third'
 
     it 'it should return new state', () ->
       expect( @testState ).toEqual( @mockState )
@@ -141,7 +142,8 @@ describe 'reducers/filters', () ->
       @testState = null
 
     it 'it should remove selected option from filter', () ->
-      expect( _.find( @mockState[ 'initial' ].selected, name: 'second' ) ).not.toBeDefined()
+      expect( @mockState[ 'initial' ].selected ).not.toContain jasmine.objectContaining
+        name: 'second'
 
     it 'it should return new state', () ->
       expect( @testState ).toEqual( @mockState )
@@ -198,7 +200,8 @@ describe 'reducers/filters', () ->
         mockAction = __mock__[ 'filters/action/FILTERS_SELECTED/initial/third' ]
 
         @testFiltersReducer @mockState, mockAction
-        expect( _.find( @mockState[ 'initial' ].selected, name: 'third' ) ).toBeDefined()
+        expect( @mockState[ 'initial' ].selected ).toContain jasmine.objectContaining
+          name: 'third'
 
     describe 'FILTERS_REMOVED', () ->
       it 'it should remove selected option in filter', () ->
@@ -206,7 +209,8 @@ describe 'reducers/filters', () ->
         mockAction = __mock__[ 'filters/action/FILTERS_REMOVED/initial/second' ]
 
         @testFiltersReducer @mockState, mockAction
-        expect( _.find( @mockState[ 'initial' ].selected, name: 'second' ) ).not.toBeDefined()
+        expect( @mockState[ 'initial' ].selected ).not.toContain jasmine.objectContaining
+          name: 'second'
 
     describe 'FILTERS_REPLACED', () ->
       it 'it should replace selected option in filter', () ->
@@ -214,8 +218,11 @@ describe 'reducers/filters', () ->
         mockAction = __mock__[ 'filters/action/FILTERS_REPLACED/initial/second-third' ]
 
         @testFiltersReducer @mockState, mockAction
-        expect( _.find( @mockState[ 'initial' ].selected, name: 'third' ) ).toBeDefined()
-        expect( _.find( @mockState[ 'initial' ].selected, name: 'second' ) ).not.toBeDefined()
+
+        expect( @mockState[ 'initial' ].selected ).toContain jasmine.objectContaining
+          name: 'third'
+        expect( @mockState[ 'initial' ].selected ).not.toContain jasmine.objectContaining
+          name: 'second'
 
   describe '.constructor()', () ->
     it 'it should return .reducer()', () ->

@@ -81,7 +81,7 @@ describe 'reducers/tags/_base', () ->
       expect( @description._sisbftags ).toBeDefined()
 
     it 'it should push tag to ._sisbftags if not exists', () ->
-      expect( _.find( @description._sisbftags, @tag ) ).toBeDefined()
+      expect( @description._sisbftags ).toContain( @tag )
 
   describe '.isAppId()', () ->
     beforeEach () ->
@@ -162,19 +162,26 @@ describe 'reducers/tags/_base', () ->
         @config.value = 'Rapier'
 
         TagsBaseReducer::tagDesc @description, @config
-        expect( _.find( @description._sisbftags, category_name: 'Heroic event' ).name ).toBe( 'Rapier' )
+        expect( @description._sisbftags ).toContain jasmine.objectContaining
+          category_name: 'Heroic event'
+          name: 'Rapier'
 
       it 'matched value', () ->
         TagsBaseReducer::tagDesc @description, @config
-        expect( _.find( @description._sisbftags, category_name: 'Heroic event' ).name ).not.toBe( 'Rapier' )
+        expect( @description._sisbftags ).toContain jasmine.objectContaining
+          category_name: 'Heroic event'
+          name: 'gramovsky'
 
     it 'it should insert tags if order specified', () ->
       @config.order = [ 'Professional Player', 'Team 1', 'Team 2' ]
 
       TagsBaseReducer::tagDesc @description, @config
-      expect( _.find( @description._sisbftags, category_name: 'Professional Player' ) ).toBeDefined()
-      expect( _.find( @description._sisbftags, category_name: 'Team 1' ) ).toBeDefined()
-      expect( _.find( @description._sisbftags, category_name: 'Team 2' ) ).toBeDefined()
+      expect( @description._sisbftags ).toContain jasmine.objectContaining
+        category_name: 'Professional Player'
+      expect( @description._sisbftags ).toContain jasmine.objectContaining
+        category_name: 'Team 1'
+      expect( @description._sisbftags ).toContain jasmine.objectContaining
+        category_name: 'Team 2'
 
   describe '.reducer()', () ->
     beforeEach () ->
