@@ -3,10 +3,6 @@ class TagsTF2Reducer extends TagsBaseReducer
   initialState:
     appId: APPID_TF2
 
-  setExclude: [
-    CHOICE_SETBONUS
-  ]
-
   middlewares: [
     'tagTF2TypeLevel'
     'tagTF2TypeLimited'
@@ -16,11 +12,10 @@ class TagsTF2Reducer extends TagsBaseReducer
     'tagTF2DescPaint'
     'tagTF2DescHalloween'
     'tagTF2DescHoliday'
-    'tagTF2DescKillstreaker'
-    'tagTF2DescSheen'
-    'tagTF2DescUnusual'
+    'tagTF2DescEffectKillstreaker'
+    'tagTF2DescEffectSheen'
+    'tagTF2DescEffectUnusual'
     'tagTF2DescMedal'
-    'tagTF2DescItemSetName'
   ]
 
   tagTF2TypeLevel: ( description ) ->
@@ -100,19 +95,19 @@ class TagsTF2Reducer extends TagsBaseReducer
       option: OPTION_HOLIDAY
     @tagDesc description, config
 
-  tagTF2DescKillstreaker: ( description ) ->
+  tagTF2DescEffectKillstreaker: ( description ) ->
     config =
       regex: REGEX_KILLSTREAKER
       option: OPTION_EFFECT
     @tagDesc description, config
 
-  tagTF2DescSheen: ( description ) ->
+  tagTF2DescEffectSheen: ( description ) ->
     config =
       regex: REGEX_SHEEN
       option: OPTION_EFFECT
     @tagDesc description, config
 
-  tagTF2DescUnusual: ( description ) ->
+  tagTF2DescEffectUnusual: ( description ) ->
     config =
       regex: REGEX_UNUSUAL
       option: OPTION_EFFECT
@@ -123,13 +118,3 @@ class TagsTF2Reducer extends TagsBaseReducer
       regex: REGEX_MEDAL
       option: OPTION_MEDAL
     @tagDesc description, config
-
-  tagTF2DescItemSetName: ( description ) ->
-    if @isHaveDescriptions description
-      _.each description.descriptions, ( definition ) =>
-        if definition.color is COLOR_OPTION_SET_TF2
-          if not _.includes @setExclude, definition.value
-            tag =
-              category_name: OPTION_ITEMSET
-              name: definition.value
-            @insert description, tag
