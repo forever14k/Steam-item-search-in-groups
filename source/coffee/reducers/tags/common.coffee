@@ -38,7 +38,7 @@ class TagsCommonReducer extends TagsBaseReducer
     color = null
 
     if description?.tags?
-      _.each @colorOrder, ( optionName ) ->
+      _.each @colorOrder, ( optionName ) =>
         tag = _.find description.tags, category_name: optionName
         if tag?.color? and not color?
           if not _.includes @colorExclude, tag.name
@@ -116,18 +116,19 @@ class TagsCommonReducer extends TagsBaseReducer
 
     if @isHaveFraudWarnings description
       _.each description.fraudwarnings, ( fraudwarning ) =>
-        nameTag = fraudwarning.match REGEX_NAMETAG
-        if nameTag?
-          tag =
-            _filter: false
-            category_name: OPTION_CHANGED_NAME
-            name: nameTag[ 1 ]
-          @insert description, tag
+        if not renamed?
+          renamed = fraudwarning.match REGEX_NAMETAG
+          if renamed?
+            tag =
+              _filter: false
+              category_name: OPTION_CHANGED_NAME
+              name: renamed[ 1 ]
+            @insert description, tag
 
-        if nameTag?
-          renamed = CHOICE_CHANGED_NAME
-        else
-          renamed = CHOICE_NOTCHANGED_NAME
+    if renamed?
+      renamed = CHOICE_CHANGED_NAME
+    else
+      renamed = CHOICE_NOTCHANGED_NAME
 
     if renamed?
       tag =
@@ -140,21 +141,21 @@ class TagsCommonReducer extends TagsBaseReducer
     renamed = null
 
     if @isHaveDescriptions description
-      renamed = _.filter description.descriptions, ( definition ) ->
-        REGEX_RENAMED.test definition.value
+      _.each description.descriptions, ( definition ) =>
+        if definition?.value?
+          if not renamed?
+            renamed = definition.value.match REGEX_RENAMED
+            if renamed?
+              tag =
+                _filter: false
+                category_name: OPTION_CHANGED_DESCRIPTION
+                name: definition.value
+              @insert description, tag
 
-      if renamed? and renamed.length > 0
-        _.each renamed, ( definition ) =>
-          tag =
-            _filter: false
-            category_name: OPTION_CHANGED_DESCRIPTION
-            name: definition.value
-          @insert description, tag
-
-      if renamed? and renamed.length > 0
-        renamed = CHOICE_CHANGED_DESCRIPTION
-      else
-        renamed = CHOICE_NOTCHANGED_DESCRIPTION
+    if renamed?
+      renamed = CHOICE_CHANGED_DESCRIPTION
+    else
+      renamed = CHOICE_NOTCHANGED_DESCRIPTION
 
     if renamed?
       tag =
@@ -166,24 +167,22 @@ class TagsCommonReducer extends TagsBaseReducer
   tagCommonGifted: ( description ) ->
     gifted = null
 
-    if description?.descriptions?
-      gifted = _.filter description.descriptions, ( definition ) ->
-        REGEX_GIFTED.test definition.value
+    if @isHaveDescriptions description
+      _.each description.descriptions, ( definition ) =>
+        if definition?.value?
+          if not gifted?
+            gifted = definition.value.match REGEX_GIFTED
+            if gifted?
+              tag =
+                _filter: false
+                category_name: OPTION_GIFTED_FROM
+                name: gifted[ 1 ]
+              @insert description, tag
 
-      if gifted? and gifted.length > 0
-        _.each gifted, ( definition ) =>
-          giftedFrom = definition.value.match REGEX_GIFTED
-          if giftedFrom?
-            tag =
-              _filter: false
-              category_name: OPTION_GIFTED_FROM
-              name: giftedFrom[ 1 ]
-            @insert description, tag
-
-      if gifted? and gifted.length > 0
-        gifted = CHOICE_GIFTED
-      else
-        gifted = CHOICE_NOTGIFTED
+    if gifted?
+      gifted = CHOICE_GIFTED
+    else
+      gifted = CHOICE_NOTGIFTED
 
     if gifted?
       tag =
@@ -195,24 +194,22 @@ class TagsCommonReducer extends TagsBaseReducer
   tagCommonCrafted: ( description ) ->
     crafted = null
 
-    if description?.descriptions?
-      crafted = _.filter description.descriptions, ( definition ) ->
-        definition.color is COLOR_OPTION_CRAFTED and REGEX_CRAFTED.test definition.value
+    if @isHaveDescriptions description
+      _.each description.descriptions, ( definition ) =>
+        if definition?.value? and definition.color is COLOR_OPTION_CRAFTED
+          if not crafted?
+            crafted = definition.value.match REGEX_CRAFTED
+            if crafted?
+              tag =
+                _filter: false
+                category_name: OPTION_CRAFTED_BY
+                name: crafted[ 1 ]
+              @insert description, tag
 
-      if crafted? and crafted.length > 0
-        _.each crafted, ( definition ) =>
-          craftedBy = definition.value.match REGEX_CRAFTED
-          if craftedBy?
-            tag =
-              _filter: false
-              category_name: OPTION_CRAFTED_BY
-              name: craftedBy[ 1 ]
-            @insert description, tag
-
-      if crafted? and crafted.length > 0
-        crafted = CHOICE_CRAFTED
-      else
-        crafted = CHOICE_NOTCRAFTED
+    if crafted?
+      crafted = CHOICE_CRAFTED
+    else
+      crafted = CHOICE_NOTCRAFTED
 
     if crafted?
       tag =
@@ -229,10 +226,10 @@ class TagsCommonReducer extends TagsBaseReducer
       intersection = _.sortBy _.intersection tags, @cleanDefinition
       clean = _.isEqual @cleanDefinition, intersection
 
-      if clean? and clean
-        clean = CHOICE_CLEAN
-      else
-        clean = CHOICE_DIRTY
+    if clean? and clean
+      clean = CHOICE_CLEAN
+    else
+      clean = CHOICE_DIRTY
 
     if clean?
       tag =
