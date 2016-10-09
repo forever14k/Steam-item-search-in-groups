@@ -143,10 +143,31 @@ class TagsDOTA2Reducer extends TagsBaseReducer
     @tagDesc description, config
 
   tagDOTA2DescPlayerCardPlayer: ( description ) ->
-    config =
-      regex: REGEX_PLAYER_DOTA2
-      option: OPTION_PLAYER
-    @tagDesc description, config
+    name = null
+    player = null
+    nickname = null
+
+    if description?.market_name?
+      nickname = description.market_name.match REGEX_NICKNAME_DOTA2
+
+    if @isHaveDescriptions description
+      _.each description.descriptions, ( definition ) =>
+        if definition?.value?
+          if not name?
+            name = definition.value.match REGEX_PLAYER_DOTA2
+
+    player = null
+    if name?
+      if nickname?
+        player = "#{nickname[ 1 ]} (#{name[ 1 ]})"
+      else
+        player = "#{name[ 1 ]}"
+
+    if player?
+      tag =
+        category_name: OPTION_PLAYER
+        name: player
+      @insert description, tag
 
   tagDOTA2DescPlayerCardTeam: ( description ) ->
     config =
@@ -155,40 +176,46 @@ class TagsDOTA2Reducer extends TagsBaseReducer
     @tagDesc description, config
 
   tagDOTA2DescGem: ( description, gem ) ->
-    trackGem = null
-    trackValue = null
-    isAutograph = null
+    tag = null
+    name = null
+    value = null
+    autograph = null
 
-    trackGem = gem[ 2 ].match REGEX_TRACK
-    if trackGem?
+    if gem[ 2 ]?
+      name = gem[ 2 ].match REGEX_TRACK
+
+    if gem[ 1 ]?
+      value = gem[ 1 ].match REGEX_TRACK
+
+    if not name? and not value?
+      autograph = gem[ 2 ].match REGEX_AUTOGRAPHRUNE
+
+    if autograph?
       tag =
-        category_name: OPTION_TRACK
-        name: trackGem[ 1 ]
-      @insert description, tag
-
-    trackValue = gem[ 1 ].match REGEX_TRACK
-    if trackValue?
-      tag =
-        category_name: OPTION_TRACK
-        name: trackValue[ 1 ]
-      @insert description, tag
-
-    if not trackGem? and not trackValue?
-      isAutograph = REGEX_AUTOGRAPHRUNE.test gem[ 2 ]
-      if isAutograph
+        category_name: OPTION_AUTOGRAPHRUNE
+        name: gem[ 1 ]
+    else
+      if name?
         tag =
-          category_name: OPTION_AUTOGRAPHRUNE
-          name: gem[ 1 ]
-        @insert description, tag
+          category_name: OPTION_TRACK
+          name: "#{name[ 1 ]} (#{ gem[ 1 ]})"
+      else if value?
+        tag =
+          category_name: OPTION_TRACK
+          name: value[ 1 ]
       else
         tag =
           category_name: gem[ 2 ]
           name: gem[ 1 ]
-        @insert description, tag
+
+    if tag?
+      @insert description, tag
+
 
   tagDOTA2DescGems: ( description ) ->
+    gems = null
+
     if @isHaveDescriptions description
-      gems = null
       _.each description.descriptions, ( definition ) =>
         gems = definition.value.match REGEX_GEMS
 

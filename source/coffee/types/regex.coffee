@@ -17,6 +17,7 @@ REGEX_UNUSUAL = /Unusual\sEffect:\s(.*)/i
 REGEX_MEDAL = /Medal\sno\.\s(\d+)/i
 REGEX_DEDICATION = /^Dedication:\s(.*)$/i
 REGEX_EVENT_DOTA2 = /((New\sBloom|Diretide|Frostivus|The\sInternational|Sithil\'s\sSummer\sStash|The\sCOmpendium\sFantasy\sChallenge)\s(\d{4}))/i
+REGEX_NICKNAME_DOTA2 = /\d{4}\sPlayer\sCard\:\s(.*)/i
 REGEX_PLAYER_DOTA2 = /name\=\"player_card_info.*\>Name:\s([^\<\>]+)/i
 REGEX_TEAM_DOTA2 = /name\=\"player_card_info.*\>Team:\s([^\<\>]+)/i
 REGEX_HEROIC_DATE = /(\w{3})\s(\d{2})\,\s(\d{4})\s\((\d{1,2}\:\d{1,2}\:\d{1,2})\)(\.|\!|)/i
@@ -29,7 +30,7 @@ REGEX_HEROIC_RAPMAGE = /\<font\scolor\=\#999999\>(.*)\sof\s(.*)\sscored\sa\sRAMP
 REGEX_HEROIC_GODLIKE = /\<font\scolor\=\#999999\>(.*)\sof\s(.*)\sachieved\sgodlike\sstreak\sagainst\s(.*)\son\s(\w{3})\s(\d{2})\,\s(\d{4})\s\((\d{1,2}\:\d{1,2}\:\d{1,2})\)(\.|\!|)<\/font\>/i
 REGEX_HEROIC_COURIERKILL = /\<font\scolor\=\#999999\>(.*)\sof\s(.*)\skilled\sa\scourier\sagainst\s*(.*)\son\s(\w{3})\s(\d{2})\,\s(\d{4})\s\((\d{1,2}\:\d{1,2}\:\d{1,2})\)(\.|\!|)<\/font\>/i
 REGEX_HEROIC_ALLYDENIED = /\<font\scolor\=\#999999\>(.*)\sof\s(.*)\sdenied\shis\sally\s(.*)\son\s(\w{3})\s(\d{2})\,\s(\d{4})\s\((\d{1,2}\:\d{1,2}\:\d{1,2})\)(\.|\!|)<\/font\>/i
-REGEX_HEROIC_AEGISDENIED = /\<font\scolor\=\#999999\>(.*)\sof\s(.*)\sdestroyed\sthe\sAegis\sof\sthe\sImmortal\,\sdenying\s(.*)\its\suse\son\s(\w{3})\s(\d{2})\,\s(\d{4})\s\((\d{1,2}\:\d{1,2}\:\d{1,2})\)(\.|\!|)<\/font\>/i
+REGEX_HEROIC_AEGISDENIED = /\<font\scolor\=\#999999\>(.*)\sof\s(.*)\sdestroyed\sthe\sAegis\sof\sthe\sImmortal\,\sdenying\s(.*)\s\its\suse\son\s(\w{3})\s(\d{2})\,\s(\d{4})\s\((\d{1,2}\:\d{1,2}\:\d{1,2})\)(\.|\!|)<\/font\>/i
 REGEX_HEROIC_AEGISSNATCH = /\<font\scolor\=\#999999\>(.*)\sof\s(.*)\sunexpectedly\ssnatched\sthe\sAegis\sof\sthe\sImmortal\,\sdenying\s(.*)\sits\suse\son\s(\w{3})\s(\d{2})\,\s(\d{4})\s\((\d{1,2}\:\d{1,2}\:\d{1,2})\)(\.|\!|)<\/font\>/i
 REGEX_HEROIC_EARLYROSHAN = /\<font\scolor\=\#999999\>(.*)\sof\s(.*)\sgot\san\searly\sRoshan\sagainst\s(.*)\son\s(\w{3})\s(\d{2})\,\s(\d{4})\s\((\d{1,2}\:\d{1,2}\:\d{1,2})\)(\.|\!|)<\/font\>/i
 REGEX_HEROIC_RAPIER = /\<font\scolor\=\#999999\>(.*)\sof\s(.*)\spurchased\sa\sRapier\sagainst\s(.*)\son\s(\w{3})\s(\d{2})\,\s(\d{4})\s\((\d{1,2}\:\d{1,2}\:\d{1,2})\)(\.|\!|)<\/font\>/i
