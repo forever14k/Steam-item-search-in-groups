@@ -136,8 +136,8 @@ describe 'reducers/tags/_base', () ->
     beforeEach () ->
       @description = __mock__( 'tags/_base/description/descriptions/heroic/rapier' )
       @config =
-        regex: /\<font\scolor\=\#999999\>(.*)\sof\s(.*)\spurchased\sa\sRapier\sagainst\s(.*)\son\s(\w{3})\s(\d{2})\,\s(\d{4})\s\((\d{1,2}\:\d{1,2}\:\d{1,2})\)(\.|\!|)<\/font\>/i
-        option: 'Heroic event'
+        regex: REGEX_HEROIC_RAPIER
+        option: OPTION_HEROIC
       spyOn TagsBaseReducer::, 'isHaveDescriptions'
         .and
         .callThrough()
@@ -159,29 +159,32 @@ describe 'reducers/tags/_base', () ->
 
     describe 'it should insert tag with', () ->
       it 'passed value', () ->
-        @config.value = 'Rapier'
+        @config.value = CHOICE_RAPIER
 
         TagsBaseReducer::tagDesc @description, @config
         expect( @description._sisbftags ).toContain jasmine.objectContaining
-          category_name: 'Heroic event'
-          name: 'Rapier'
+          category_name: OPTION_HEROIC
+          name: CHOICE_RAPIER
 
       it 'matched value', () ->
         TagsBaseReducer::tagDesc @description, @config
         expect( @description._sisbftags ).toContain jasmine.objectContaining
-          category_name: 'Heroic event'
+          category_name: OPTION_HEROIC
           name: 'gramovsky'
 
     it 'it should insert tags if order specified', () ->
-      @config.order = [ 'Professional Player', 'Team 1', 'Team 2' ]
+      @config.order = [ OPTION_PLAYER, OPTION_TEAM, OPTION_TEAM ]
 
       TagsBaseReducer::tagDesc @description, @config
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Professional Player'
+        category_name: OPTION_PLAYER
+        name: 'gramovsky'
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team 1'
+        category_name: OPTION_TEAM
+        name: 'I\'m creating hope'
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team 2'
+        category_name: OPTION_TEAM
+        name: 'Call For Hell'
 
   describe '.reducer()', () ->
     beforeEach () ->

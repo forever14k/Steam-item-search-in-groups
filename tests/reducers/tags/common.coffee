@@ -29,7 +29,7 @@ describe 'reducers/tags/common', () ->
 
       TagsCommonReducer::tagCommonColor description
       expect( description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Color'
+        category_name: OPTION_COLOR
         color: 'CF6A32'
 
     it 'it should exclude .colorExclude', () ->
@@ -37,7 +37,7 @@ describe 'reducers/tags/common', () ->
 
       TagsCommonReducer::tagCommonColor description
       expect( description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Color'
+        category_name: OPTION_COLOR
         color: '5e98d9'
 
   describe '.tagCommonTradable()', () ->
@@ -47,16 +47,16 @@ describe 'reducers/tags/common', () ->
 
         TagsCommonReducer::tagCommonTradable description
         expect( description._sisbftags ).toContain jasmine.objectContaining
-          category_name: 'Tradable'
-          name: 'Tradable'
+          category_name: OPTION_TRADABLE
+          name: CHOICE_TRADABLE
 
       it 'not tradable', () ->
         description = __mock__( 'tags/common/description/tradable/false' )
 
         TagsCommonReducer::tagCommonTradable description
         expect( description._sisbftags ).toContain jasmine.objectContaining
-          category_name: 'Tradable'
-          name: 'Not Tradable'
+          category_name: OPTION_TRADABLE
+          name: CHOICE_NOTTRADABLE
 
   describe '.tagCommonMarketable()', () ->
     describe 'it should determine is item', () ->
@@ -65,16 +65,16 @@ describe 'reducers/tags/common', () ->
 
         TagsCommonReducer::tagCommonMarketable description
         expect( description._sisbftags ).toContain jasmine.objectContaining
-          category_name: 'Marketable'
-          name: 'Marketable'
+          category_name: OPTION_MARKETABLE
+          name: CHOICE_MARKETABLE
 
       it 'not marketable', () ->
         description = __mock__( 'tags/common/description/marketable/false' )
 
         TagsCommonReducer::tagCommonMarketable description
         expect( description._sisbftags ).toContain jasmine.objectContaining
-          category_name: 'Marketable'
-          name: 'Not Marketable'
+          category_name: OPTION_MARKETABLE
+          name: CHOICE_NOTMARKETABLE
 
   describe '.tagCommonChangedName()', () ->
     describe 'it should determine is item with', () ->
@@ -83,16 +83,16 @@ describe 'reducers/tags/common', () ->
 
         TagsCommonReducer::tagCommonChangedName description
         expect( description._sisbftags ).toContain jasmine.objectContaining
-          category_name: 'Name Changed'
-          name: 'Changed Name'
+          category_name: OPTION_CHANGED_NAME
+          name: CHOICE_CHANGED_NAME
 
       it 'not changed name', () ->
         description = __mock__( 'tags/common/description/name/changed/false' )
 
         TagsCommonReducer::tagCommonChangedName description
         expect( description._sisbftags ).toContain jasmine.objectContaining
-          category_name: 'Name Changed'
-          name: 'Not Changed Name'
+          category_name: OPTION_CHANGED_NAME
+          name: CHOICE_NOTCHANGED_NAME
 
   describe '.tagCommonNameTag()', () ->
     describe 'it should determine is item with', () ->
@@ -101,16 +101,16 @@ describe 'reducers/tags/common', () ->
 
         TagsCommonReducer::tagCommonNameTag description
         expect( description._sisbftags ).toContain jasmine.objectContaining
-          category_name: 'Name Changed'
-          name: 'Changed Name'
+          category_name: OPTION_CHANGED_NAME
+          name: CHOICE_CHANGED_NAME
 
       it 'not changed name', () ->
         description = __mock__( 'tags/common/description/fraudwarnings/name/changed/false' )
 
         TagsCommonReducer::tagCommonNameTag description
         expect( description._sisbftags ).toContain jasmine.objectContaining
-          category_name: 'Name Changed'
-          name: 'Not Changed Name'
+          category_name: OPTION_CHANGED_NAME
+          name: CHOICE_NOTCHANGED_NAME
 
   describe '.tagCommonChangedDescripion()', () ->
     describe 'it should determine is item with', () ->
@@ -119,16 +119,16 @@ describe 'reducers/tags/common', () ->
 
         TagsCommonReducer::tagCommonChangedDescripion description
         expect( description._sisbftags ).toContain jasmine.objectContaining
-          category_name: 'Description Changed'
-          name: 'Changed Description'
+          category_name: OPTION_CHANGED_DESCRIPTION
+          name: CHOICE_CHANGED_DESCRIPTION
 
       it 'not changed description', () ->
         description = __mock__( 'tags/common/description/descriptions/name/changed/false' )
 
         TagsCommonReducer::tagCommonChangedDescripion description
         expect( description._sisbftags ).toContain jasmine.objectContaining
-          category_name: 'Description Changed'
-          name: 'Not Changed Description'
+          category_name: OPTION_CHANGED_DESCRIPTION
+          name: CHOICE_NOTCHANGED_DESCRIPTION
 
   describe '.tagCommonGifted()', () ->
     describe 'it should determine is item', () ->
@@ -137,16 +137,16 @@ describe 'reducers/tags/common', () ->
 
         TagsCommonReducer::tagCommonGifted description
         expect( description._sisbftags ).toContain jasmine.objectContaining
-          category_name: 'Gifted'
-          name: 'Gifted'
+          category_name: OPTION_GIFTED
+          name: CHOICE_GIFTED
 
       it 'not gifted', () ->
         description = __mock__( 'tags/common/description/descriptions/gifted/false' )
 
         TagsCommonReducer::tagCommonGifted description
         expect( description._sisbftags ).toContain jasmine.objectContaining
-          category_name: 'Gifted'
-          name: 'Not Gifted'
+          category_name: OPTION_GIFTED
+          name: CHOICE_NOTGIFTED
 
   describe '.tagCommonCrafted()', () ->
     describe 'it should determine is item', () ->
@@ -155,16 +155,16 @@ describe 'reducers/tags/common', () ->
 
         TagsCommonReducer::tagCommonCrafted description
         expect( description._sisbftags ).toContain jasmine.objectContaining
-          category_name: 'Crafted'
-          name: 'Crafted'
+          category_name: OPTION_CRAFTED
+          name: CHOICE_CRAFTED
 
       it 'not crafted', () ->
         description = __mock__( 'tags/common/description/descriptions/crafted/false' )
 
         TagsCommonReducer::tagCommonCrafted description
         expect( description._sisbftags ).toContain jasmine.objectContaining
-          category_name: 'Crafted'
-          name: 'Not Crafted'
+          category_name: OPTION_CRAFTED
+          name: CHOICE_NOTCRAFTED
 
 
   describe '.tagCommonClean()', () ->
@@ -182,16 +182,16 @@ describe 'reducers/tags/common', () ->
 
         TagsCommonReducer::tagCommonClean description
         expect( description._sisbftags ).toContain jasmine.objectContaining
-          category_name: 'Clean'
-          name: 'Clean'
+          category_name: OPTION_CLEAN
+          name: CHOICE_CLEAN
 
       it 'dirty', () ->
         description = __mock__( 'tags/common/description/_sisbftags/clean/false' )
 
         TagsCommonReducer::tagCommonClean description
         expect( description._sisbftags ).toContain jasmine.objectContaining
-          category_name: 'Clean'
-          name: 'Dirty'
+          category_name: OPTION_CLEAN
+          name: CHOICE_DIRTY
 
   describe '.tagCommonDescItemSetName()', () ->
     it 'it should determine is item part of set', () ->
@@ -199,7 +199,7 @@ describe 'reducers/tags/common', () ->
 
       TagsCommonReducer::tagCommonDescItemSetName description
       expect( description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Set'
+        category_name: OPTION_ITEMSET
         name: 'Ardor of the scarlet raven'
 
   describe '.tagCommonDescStyle()', () ->
@@ -208,7 +208,7 @@ describe 'reducers/tags/common', () ->
 
       TagsCommonReducer::tagCommonDescStyle description
       expect( description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Style'
+        category_name: OPTION_STYLE
         name: 'Menacing'
 
   describe '.tagCommonDescDedication()', () ->
@@ -217,7 +217,7 @@ describe 'reducers/tags/common', () ->
 
       TagsCommonReducer::tagCommonDescDedication description
       expect( description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Dedication'
+        category_name: OPTION_DEDICATION
         name: 'What are thooooose'
 
   describe '.constructor()', () ->

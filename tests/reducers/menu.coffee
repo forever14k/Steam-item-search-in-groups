@@ -113,7 +113,7 @@ describe 'reducers/menu', () ->
       testState = @testMenuReducer @mockState, mockAction
       expect( testState ).toEqual( @mockState )
 
-    describe '@@redux/INIT', () ->
+    describe 'REDUX_INIT', () ->
       it 'it should set appid and contextid from Steam Last Inventory cookie', () ->
         mockAction = __mock__( 'common/action/init' )
         $.cookie @mockState.cookie, '753_6'

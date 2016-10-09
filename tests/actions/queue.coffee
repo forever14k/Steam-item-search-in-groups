@@ -101,7 +101,7 @@ describe 'actions/queue', () ->
 
       @testQueue.start()
       expect( @mockState.dispatch ).toHaveBeenCalledWith jasmine.objectContaining
-        type: 'PERSONSCLUB_PROCESS'
+        type: PERSONSCLUB_PROCESS
 
   describe '.process()', () ->
     beforeEach () ->
@@ -176,7 +176,7 @@ describe 'actions/queue', () ->
 
       @testQueue.onLoading request
       expect( @mockState.dispatch ).toHaveBeenCalledWith
-        type: 'PERSON_LOADING'
+        type: PERSON_LOADING
         person: request.person
 
   describe '.onLoaded()', () ->
@@ -189,7 +189,7 @@ describe 'actions/queue', () ->
 
       @testQueue.onLoaded backpack, 'OK', request
       expect( @mockState.dispatch ).toHaveBeenCalledWith
-        type: 'PERSON_LOADED'
+        type: PERSON_LOADED
         person: request.person
         backpack: backpack
 
@@ -212,7 +212,7 @@ describe 'actions/queue', () ->
 
       @testQueue.onError request, 'error', 'Error'
       expect( @mockState.dispatch ).toHaveBeenCalledWith
-        type: 'PERSON_ERROR'
+        type: PERSON_ERROR
         person: request.person
 
   describe '.pause()', () ->

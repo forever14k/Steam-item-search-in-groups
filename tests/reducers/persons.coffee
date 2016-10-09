@@ -15,7 +15,7 @@ describe 'reducers/persons', () ->
       @testState = null
 
     it 'it should set .state to PERSONSCLUB_OUTDATED', () ->
-      expect( @mockState.state ).toBe( 'PERSONSCLUB_OUTDATED' )
+      expect( @mockState.state ).toBe( PERSONSCLUB_OUTDATED )
 
     it 'it should reset .persons[]', () ->
       expect( @mockState.persons.length ).toBe( 0 )
@@ -39,7 +39,7 @@ describe 'reducers/persons', () ->
       @testState = null
 
     it 'it should set .state to PERSONSCLUB_IDLE', () ->
-      expect( @mockState.state ).toBe( 'PERSONSCLUB_IDLE' )
+      expect( @mockState.state ).toBe( PERSONSCLUB_IDLE )
 
     it 'it should update .persons[]', () ->
       expect( @mockState.persons.length ).toBe( 2 )
@@ -82,11 +82,11 @@ describe 'reducers/persons', () ->
       @testState = null
 
     it 'it should set .state to PERSONSCLUB_QUEUE', () ->
-      expect( @mockState.state ).toBe( 'PERSONSCLUB_QUEUE' )
+      expect( @mockState.state ).toBe( PERSONSCLUB_QUEUE )
 
     it 'it should set each person state to PERSON_QUEUE in .persons[]', () ->
       _.each @mockState.persons, ( person ) =>
-        expect( person.state ).toBe( 'PERSON_QUEUE' )
+        expect( person.state ).toBe( PERSON_QUEUE )
 
     it 'it should return new state', () ->
       expect( @testState ).toEqual( @mockState )
@@ -101,7 +101,7 @@ describe 'reducers/persons', () ->
       @testState = null
 
     it 'it should set .state to action.type', () ->
-      expect( @mockState.state ).toBe( 'PERSONSCLUB_PROCESS' )
+      expect( @mockState.state ).toBe( PERSONSCLUB_PROCESS )
 
     it 'it should return new state', () ->
       expect( @testState ).toEqual( @mockState )
@@ -118,7 +118,7 @@ describe 'reducers/persons', () ->
     it 'it should find and set person state to action.type', () ->
       expect( @mockState.persons ).toContain jasmine.objectContaining
         steamId32: '44336602'
-        state: 'PERSON_LOADING'
+        state: PERSON_LOADING
 
     it 'it should return new state', () ->
       expect( @testState ).toEqual( @mockState )
@@ -155,12 +155,12 @@ describe 'reducers/persons', () ->
       testState = @testPersonsReducer @mockState, mockAction
       expect( testState ).toEqual( @mockState )
 
-    describe '@@redux/INIT', () ->
+    describe 'REDUX_INIT', () ->
       it 'it should reset state', () ->
         mockAction = __mock__( 'common/action/init' )
 
         @testPersonsReducer @mockState, mockAction
-        expect( @mockState.state ).toBe( 'PERSONSCLUB_OUTDATED' )
+        expect( @mockState.state ).toBe( PERSONSCLUB_OUTDATED )
         expect( @mockState.persons.length ).toBe( 0 )
         expect( @mockState.current ).toBe( 0 )
         expect( @mockState.total ).toBe( 0 )
@@ -170,7 +170,7 @@ describe 'reducers/persons', () ->
         mockAction = __mock__( 'persons/action/SETTINGS_CHANGED/730_4' )
 
         @testPersonsReducer @mockState, mockAction
-        expect( @mockState.state ).toBe( 'PERSONSCLUB_OUTDATED' )
+        expect( @mockState.state ).toBe( PERSONSCLUB_OUTDATED )
         expect( @mockState.persons.length ).toBe( 0 )
         expect( @mockState.current ).toBe( 0 )
         expect( @mockState.total ).toBe( 0 )
@@ -180,7 +180,7 @@ describe 'reducers/persons', () ->
         mockAction = __mock__( 'persons/action/PERSONSCLUB_ADD/2' )
 
         @testPersonsReducer @mockState, mockAction
-        expect( @mockState.state ).toBe( 'PERSONSCLUB_IDLE' )
+        expect( @mockState.state ).toBe( PERSONSCLUB_IDLE )
         expect( @mockState.persons.length ).toBe( 2 )
         expect( @mockState.current ).toBe( 0 )
         expect( @mockState.total ).toBe( 2 )
@@ -195,46 +195,46 @@ describe 'reducers/persons', () ->
         @mockAction = null
 
       it 'it should set .state to PERSONSCLUB_QUEUE', () ->
-        expect( @mockState.state ).toBe( 'PERSONSCLUB_QUEUE' )
+        expect( @mockState.state ).toBe( PERSONSCLUB_QUEUE )
 
       it 'it should set each person state to PERSON_QUEUE', () ->
         _.each @mockState.persons, ( person ) =>
-          expect( person.state ).toBe( 'PERSON_QUEUE' )
+          expect( person.state ).toBe( PERSON_QUEUE )
 
     describe 'PERSONSCLUB_IDLE', () ->
       it 'it should set .state to PERSONSCLUB_IDLE', () ->
         mockAction = __mock__( 'persons/action/PERSONSCLUB_IDLE' )
 
         @testPersonsReducer @mockState, mockAction
-        expect( @mockState.state ).toBe( 'PERSONSCLUB_IDLE' )
+        expect( @mockState.state ).toBe( PERSONSCLUB_IDLE )
 
     describe 'PERSONSCLUB_PROCESS', () ->
       it 'it should set .state to PERSONSCLUB_PROCESS', () ->
         mockAction = __mock__( 'persons/action/PERSONSCLUB_PROCESS' )
 
         @testPersonsReducer @mockState, mockAction
-        expect( @mockState.state ).toBe( 'PERSONSCLUB_PROCESS' )
+        expect( @mockState.state ).toBe( PERSONSCLUB_PROCESS )
 
     describe 'PERSONSCLUB_PAUSE', () ->
       it 'it should set .state to PERSONSCLUB_PAUSE', () ->
         mockAction = __mock__( 'persons/action/PERSONSCLUB_PAUSE' )
 
         @testPersonsReducer @mockState, mockAction
-        expect( @mockState.state ).toBe( 'PERSONSCLUB_PAUSE' )
+        expect( @mockState.state ).toBe( PERSONSCLUB_PAUSE )
 
     describe 'PERSONSCLUB_RESUME', () ->
       it 'it should set .state to PERSONSCLUB_RESUME', () ->
         mockAction = __mock__( 'persons/action/PERSONSCLUB_RESUME' )
 
         @testPersonsReducer @mockState, mockAction
-        expect( @mockState.state ).toBe( 'PERSONSCLUB_RESUME' )
+        expect( @mockState.state ).toBe( PERSONSCLUB_RESUME )
 
     describe 'PERSONSCLUB_DRAIN', () ->
       it 'it should set .state to PERSONSCLUB_DRAIN', () ->
         mockAction = __mock__( 'persons/action/PERSONSCLUB_DRAIN' )
 
         @testPersonsReducer @mockState, mockAction
-        expect( @mockState.state ).toBe( 'PERSONSCLUB_DRAIN' )
+        expect( @mockState.state ).toBe( PERSONSCLUB_DRAIN )
 
     describe 'PERSON_ADD', () ->
       it 'it should unshift person to state', () ->
@@ -253,7 +253,7 @@ describe 'reducers/persons', () ->
         @testPersonsReducer @mockState, mockAction
         expect( @mockState.persons ).toContain jasmine.objectContaining
           steamId32: '44336602'
-          state: 'PERSON_LOADING'
+          state: PERSON_LOADING
 
     describe 'PERSON_ERROR', () ->
       it 'it should set person state to PERSON_ERROR', () ->
@@ -262,7 +262,7 @@ describe 'reducers/persons', () ->
         @testPersonsReducer @mockState, mockAction
         expect( @mockState.persons ).toContain jasmine.objectContaining
           steamId32: '44336602'
-          state: 'PERSON_ERROR'
+          state: PERSON_ERROR
 
     describe 'PERSON_LOADED', () ->
       beforeEach () ->
@@ -279,7 +279,7 @@ describe 'reducers/persons', () ->
       it 'it should set person state to PERSON_LOADED', () ->
         expect( @mockState.persons ).toContain jasmine.objectContaining
           steamId32: '44336602'
-          state: 'PERSON_LOADED'
+          state: PERSON_LOADED
 
   describe '.constructor()', () ->
     it 'it should return .reducer()', () ->

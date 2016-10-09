@@ -39,7 +39,7 @@ class TagsTF2Reducer extends TagsBaseReducer
     if description?.type?
       limited = description.type.match REGEX_TYPE_LIMITED
       if limited?
-        limited = limited[ 1 ]
+        limited = CHOICE_LIMITED
 
     color = description.name_color if description?.name_color?
 

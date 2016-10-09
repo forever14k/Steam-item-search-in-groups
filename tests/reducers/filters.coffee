@@ -167,7 +167,7 @@ describe 'reducers/filters', () ->
       testState = @testFiltersReducer @mockState, mockAction
       expect( testState ).toEqual( @mockState )
 
-    describe '@@redux/INIT', () ->
+    describe 'REDUX_INIT', () ->
       it 'it should reset state', () ->
         mockAction = __mock__( 'common/action/init' )
 

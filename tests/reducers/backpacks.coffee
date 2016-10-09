@@ -24,7 +24,7 @@ describe 'reducers/backpacks', () ->
       expect( _.keys( @mockState.results ).length ).toBe( 0 )
 
     it 'it should set .state to BACKPACKS_NOTDISPLAYED', () ->
-      expect( @mockState.state ).toBe( 'BACKPACKS_NOTDISPLAYED' )
+      expect( @mockState.state ).toBe( BACKPACKS_NOTDISPLAYED )
 
     it 'it should return new state', () ->
       expect( @testState ).toEqual( @mockState )
@@ -39,7 +39,7 @@ describe 'reducers/backpacks', () ->
       @testState = null
 
     it 'it should set .state to action.type', () ->
-      expect( @mockState.state ).toBe( 'BACKPACKS_NOTDISPLAYED' )
+      expect( @mockState.state ).toBe( BACKPACKS_NOTDISPLAYED )
 
     it 'it should return new state', () ->
       expect( @testState ).toEqual( @mockState )
@@ -90,9 +90,9 @@ describe 'reducers/backpacks', () ->
       @testState = null
 
     it 'it should populate results with passed descriptionId', () ->
-      expect( @mockState.results?[ 'STATUS_INGAME' ]?[ '44336602' ]?[ '0' ] ).toBeDefined()
-      expect( @mockState.results?[ 'STATUS_INGAME' ]?[ '44336602' ]?[ '3' ] ).toBeDefined()
-      expect( @mockState.results?[ 'STATUS_INGAME' ]?[ '44336602' ]?[ '1' ] ).not.toBeDefined()
+      expect( @mockState.results?[ STATUS_INGAME ]?[ '44336602' ]?[ '0' ] ).toBeDefined()
+      expect( @mockState.results?[ STATUS_INGAME ]?[ '44336602' ]?[ '3' ] ).toBeDefined()
+      expect( @mockState.results?[ STATUS_INGAME ]?[ '44336602' ]?[ '1' ] ).not.toBeDefined()
 
     it 'it should return new state', () ->
       expect( @testState ).toEqual( @mockState )
@@ -107,10 +107,10 @@ describe 'reducers/backpacks', () ->
       @testState = null
 
     it 'it should populate results', () ->
-      expect( _.keys( @mockState.results?[ 'STATUS_INGAME' ]?[ '44336602' ] ).length ).toBe( 3 )
+      expect( _.keys( @mockState.results?[ STATUS_INGAME ]?[ '44336602' ] ).length ).toBe( 3 )
 
     it 'it should set .state to BACKPACKS_NOTDISPLAYED', () ->
-      expect( @mockState.state ).toBe( 'BACKPACKS_NOTDISPLAYED' )
+      expect( @mockState.state ).toBe( BACKPACKS_NOTDISPLAYED )
 
     it 'it should return new state', () ->
       expect( @testState ).toEqual( @mockState )
@@ -167,7 +167,7 @@ describe 'reducers/backpacks', () ->
       testState = @testBackpacksReducer @mockState, mockAction
       expect( testState ).toEqual( @mockState )
 
-    describe '@@redux/INIT', () ->
+    describe 'REDUX_INIT', () ->
       it 'it should reset state', () ->
         mockAction = __mock__( 'common/action/init' )
 
@@ -175,7 +175,7 @@ describe 'reducers/backpacks', () ->
         expect( @mockState.items.length ).toBe( 0 )
         expect( _.keys( @mockState.descriptions ).length ).toBe( 0 )
         expect( _.keys( @mockState.results ).length ).toBe( 0 )
-        expect( @mockState.state ).toBe( 'BACKPACKS_NOTDISPLAYED' )
+        expect( @mockState.state ).toBe( BACKPACKS_NOTDISPLAYED )
 
     describe 'SETTINGS_CHANGED', () ->
       it 'it should reset state', () ->
@@ -185,7 +185,7 @@ describe 'reducers/backpacks', () ->
         expect( @mockState.items.length ).toBe( 0 )
         expect( _.keys( @mockState.descriptions ).length ).toBe( 0 )
         expect( _.keys( @mockState.results ).length ).toBe( 0 )
-        expect( @mockState.state ).toBe( 'BACKPACKS_NOTDISPLAYED' )
+        expect( @mockState.state ).toBe( BACKPACKS_NOTDISPLAYED )
 
     describe 'PERSON_LOADED', () ->
       it 'it should populate state filters', () ->
@@ -201,15 +201,15 @@ describe 'reducers/backpacks', () ->
         mockAction = __mock__( 'backpacks/action/BACKPACKS_SEARCH/tradable' )
 
         @testBackpacksReducer @mockState, mockAction
-        expect( _.keys( @mockState.results?[ 'STATUS_INGAME' ]?[ '44336602' ] ).length ).toBe( 3 )
-        expect( @mockState.state ).toBe( 'BACKPACKS_NOTDISPLAYED' )
+        expect( _.keys( @mockState.results?[ STATUS_INGAME ]?[ '44336602' ] ).length ).toBe( 3 )
+        expect( @mockState.state ).toBe( BACKPACKS_NOTDISPLAYED )
 
     describe 'BACKPACKS_DISPLAYED', () ->
       it 'it should set .state to BACKPACKS_DISPLAYED', () ->
         mockAction = __mock__( 'backpacks/action/BACKPACKS_DISPLAYED' )
 
         @testBackpacksReducer @mockState, mockAction
-        expect( @mockState.state ).toBe( 'BACKPACKS_DISPLAYED' )
+        expect( @mockState.state ).toBe( BACKPACKS_DISPLAYED )
 
   describe '.constructor()', () ->
     it 'it should return .reducer()', () ->

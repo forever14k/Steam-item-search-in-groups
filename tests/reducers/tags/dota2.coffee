@@ -5,7 +5,7 @@ describe 'reducers/tags/dota2', () ->
 
       TagsDOTA2Reducer::tagDOTA2DescEvent description
       expect( description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Event'
+        category_name: OPTION_EVENT
         name: 'The International 2013'
 
   describe '.tagDOTA2DescHeroicVictory()', () ->
@@ -18,12 +18,12 @@ describe 'reducers/tags/dota2', () ->
 
     it 'it should detect heroic victory item', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Heroic event'
-        name: 'Victory'
+        category_name: OPTION_HEROIC
+        name: CHOICE_VICTORY
 
     it 'it should detect teams', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'Unknown Team'
 
   describe '.tagDOTA2DescHeroicFirstBlood()', () ->
@@ -36,20 +36,20 @@ describe 'reducers/tags/dota2', () ->
 
     it 'it should detect heroic first blood item', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Heroic event'
-        name: 'First Blood'
+        category_name: OPTION_HEROIC
+        name: CHOICE_FIRSTBLOOD
 
     it 'it should detect teams', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'Invictus Gaming'
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'WWW of RaTtLeSnAkE. CN GaMiNg'
 
     it 'it should detect players', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Professional Player'
+        category_name: OPTION_PLAYER
         name: 'biubiubiu!'
 
   describe '.tagDOTA2DescHeroicDoubleKill()', () ->
@@ -62,20 +62,20 @@ describe 'reducers/tags/dota2', () ->
 
     it 'it should detect heroic double kill item', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Heroic event'
-        name: 'Double Kill'
+        category_name: OPTION_HEROIC
+        name: CHOICE_DOUBLEKILL
 
     it 'it should detect teams', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'BBUBU+4'
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'Combos Nich\'s'
 
     it 'it should detect players', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Professional Player'
+        category_name: OPTION_PLAYER
         name: 'Lexbreaker'
 
   describe '.tagDOTA2DescHeroicTripleKill()', () ->
@@ -88,20 +88,20 @@ describe 'reducers/tags/dota2', () ->
 
     it 'it should detect heroic triple kill item', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Heroic event'
-        name: 'Triple Kill'
+        category_name: OPTION_HEROIC
+        name: CHOICE_TRIPLEKILL
 
     it 'it should detect teams', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'Unknown Team'
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'queens'
 
     it 'it should detect players', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Professional Player'
+        category_name: OPTION_PLAYER
         name: 'Rizza'
 
   describe '.tagDOTA2DescHeroicUltraKill()', () ->
@@ -114,20 +114,20 @@ describe 'reducers/tags/dota2', () ->
 
     it 'it should detect heroic ultra kill item', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Heroic event'
-        name: 'ULTRA KILL'
+        category_name: OPTION_HEROIC
+        name: CHOICE_ULTRAKILL
 
     it 'it should detect teams', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'Suck My Dagon'
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: '[rewind]'
 
     it 'it should detect players', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Professional Player'
+        category_name: OPTION_PLAYER
         name: 'Ardi'
 
   describe '.tagDOTA2DescHeroicRampage()', () ->
@@ -140,20 +140,20 @@ describe 'reducers/tags/dota2', () ->
 
     it 'it should detect heroic rampage item', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Heroic event'
-        name: 'RAMPAGE!'
+        category_name: OPTION_HEROIC
+        name: CHOICE_RAMPAGE
 
     it 'it should detect teams', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'Unknown Team'
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'SeriousModeOn'
 
     it 'it should detect players', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Professional Player'
+        category_name: OPTION_PLAYER
         name: 'Chur'
 
   describe '.tagDOTA2DescHeroicGodlike()', () ->
@@ -166,20 +166,20 @@ describe 'reducers/tags/dota2', () ->
 
     it 'it should detect heroic godlike item', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Heroic event'
-        name: 'Godlike'
+        category_name: OPTION_HEROIC
+        name: CHOICE_GODLIKE
 
     it 'it should detect teams', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'Duck &amp; Cover'
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: '-Godlike-'
 
     it 'it should detect players', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Professional Player'
+        category_name: OPTION_PLAYER
         name: 'Splash'
 
   describe '.tagDOTA2DescHeroicCourierKill()', () ->
@@ -192,20 +192,20 @@ describe 'reducers/tags/dota2', () ->
 
     it 'it should detect heroic courier kill item', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Heroic event'
-        name: 'Courier Kill'
+        category_name: OPTION_HEROIC
+        name: CHOICE_COURIERKILL
 
     it 'it should detect teams', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'Natus Vincere'
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'Alliance'
 
     it 'it should detect players', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Professional Player'
+        category_name: OPTION_PLAYER
         name: 'Food'
 
   describe '.tagDOTA2DescHeroicAllyDenied()', () ->
@@ -218,17 +218,17 @@ describe 'reducers/tags/dota2', () ->
 
     it 'it should detect heroic ally denied item', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Heroic event'
-        name: 'Allied Hero Denial'
+        category_name: OPTION_HEROIC
+        name: CHOICE_ALLYDENIED
 
     it 'it should detect teams', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'APETACO'
 
     it 'it should detect players', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Professional Player'
+        category_name: OPTION_PLAYER
         name: 'solen'
 
   describe '.tagDOTA2DescHeroicAegisDenied()', () ->
@@ -241,20 +241,20 @@ describe 'reducers/tags/dota2', () ->
 
     it 'it should detect heroic aegis denied item', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Heroic event'
-        name: 'Aegis Denial'
+        category_name: OPTION_HEROIC
+        name: CHOICE_AEGISDENIED
 
     it 'it should detect teams', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'GameOn.'
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'Tegu Opa'
 
     it 'it should detect players', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Professional Player'
+        category_name: OPTION_PLAYER
         name: 'Speedy'
 
   describe '.tagDOTA2DescHeroicAegisSnatch()', () ->
@@ -267,20 +267,20 @@ describe 'reducers/tags/dota2', () ->
 
     it 'it should detect heroic aegis snatch item', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Heroic event'
-        name: 'Aegis Stolen'
+        category_name: OPTION_HEROIC
+        name: CHOICE_AEGISSNATCH
 
     it 'it should detect teams', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'MOSCOWITA POWER'
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: '300 The Return'
 
     it 'it should detect players', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Professional Player'
+        category_name: OPTION_PLAYER
         name: 'Hello'
 
   describe '.tagDOTA2DescHeroicEarlyRoshan()', () ->
@@ -293,20 +293,20 @@ describe 'reducers/tags/dota2', () ->
 
     it 'it should detect heroic early roshan item', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Heroic event'
-        name: 'Early Roshan'
+        category_name: OPTION_HEROIC
+        name: CHOICE_EARLYROSHAN
 
     it 'it should detect teams', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name:'New Age AR'
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name:'VolcaniaGaming'
 
     it 'it should detect players', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Professional Player'
+        category_name: OPTION_PLAYER
         name: 'zhimoneta'
 
   describe '.tagDOTA2DescHeroicRapier()', () ->
@@ -319,20 +319,20 @@ describe 'reducers/tags/dota2', () ->
 
     it 'it should detect heroic rapier item', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Heroic event'
-        name: 'Rapier'
+        category_name: OPTION_HEROIC
+        name: CHOICE_RAPIER
 
     it 'it should detect teams', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'Immortal Fire.'
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'Yolo Swagerino'
 
     it 'it should detect players', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Professional Player'
+        category_name: OPTION_PLAYER
         name: 'FUCK YOU CHINA'
 
   describe '.tagDOTA2DescHeroic5EchoSlam()', () ->
@@ -345,20 +345,20 @@ describe 'reducers/tags/dota2', () ->
 
     it 'it should detect heroic 5 echo slam item', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Heroic event'
-        name: 'Echo Slam'
+        category_name: OPTION_HEROIC
+        name: CHOICE_5ECHOSLAM
 
     it 'it should detect teams', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'Team Empire'
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'Cloud9 G2A'
 
     it 'it should detect players', () ->
       expect( @description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Professional Player'
+        category_name: OPTION_PLAYER
         name: 'VANSKOR'
 
   describe '.tagDOTA2DescPlayerCardPlayer()', () ->
@@ -367,7 +367,7 @@ describe 'reducers/tags/dota2', () ->
 
       TagsDOTA2Reducer::tagDOTA2DescPlayerCardPlayer description
       expect( description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Professional Player'
+        category_name: OPTION_PLAYER
         name: 'Maximilian Broecker'
 
     it 'it should support player nickname', () ->
@@ -375,7 +375,7 @@ describe 'reducers/tags/dota2', () ->
 
       TagsDOTA2Reducer::tagDOTA2DescPlayerCardPlayer description
       expect( description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Professional Player'
+        category_name: OPTION_PLAYER
         name: 'qojqva (Maximilian Broecker)'
 
   describe '.tagDOTA2DescPlayerCardTeam()', () ->
@@ -384,7 +384,7 @@ describe 'reducers/tags/dota2', () ->
 
       TagsDOTA2Reducer::tagDOTA2DescPlayerCardTeam description
       expect( description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Team'
+        category_name: OPTION_TEAM
         name: 'Alliance'
 
   describe '.tagDOTA2DescGem()', () ->
@@ -394,7 +394,7 @@ describe 'reducers/tags/dota2', () ->
 
       TagsDOTA2Reducer::tagDOTA2DescGem description, gem
       expect( description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Track'
+        category_name: OPTION_TRACK
         name: 'Games Watched (NaVi)'
 
     it 'it should detect track gem in gem value', () ->
@@ -403,7 +403,7 @@ describe 'reducers/tags/dota2', () ->
 
       TagsDOTA2Reducer::tagDOTA2DescGem description, gem
       expect( description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Track'
+        category_name: OPTION_TRACK
         name: 'Barracks Destroyed'
 
     it 'it should detect autograph rune', () ->
@@ -412,7 +412,7 @@ describe 'reducers/tags/dota2', () ->
 
       TagsDOTA2Reducer::tagDOTA2DescGem description, gem
       expect( description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Autograph Rune'
+        category_name: OPTION_AUTOGRAPHRUNE
         name: 'Andrey \'Dread\' Golubev'
 
     it 'it should detect others gems', () ->
@@ -421,7 +421,7 @@ describe 'reducers/tags/dota2', () ->
 
       TagsDOTA2Reducer::tagDOTA2DescGem description, gem
       expect( description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Kinetic Gem'
+        category_name: OPTION_GEM_KINETIC
         name: 'Sylvan Cascade!'
 
   describe '.tagDOTA2DescGems()', () ->
@@ -430,8 +430,8 @@ describe 'reducers/tags/dota2', () ->
 
       TagsDOTA2Reducer::tagDOTA2DescGems description
       expect( description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Track'
+        category_name: OPTION_TRACK
         name: 'Buildings Focus Fired'
       expect( description._sisbftags ).toContain jasmine.objectContaining
-        category_name: 'Kinetic Gem'
+        category_name: OPTION_GEM_KINETIC
         name: 'Sylvan Cascade!'
