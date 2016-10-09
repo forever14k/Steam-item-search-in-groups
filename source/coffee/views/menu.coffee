@@ -1,6 +1,6 @@
 class MenuView extends BaseView
 
-  el: '#sisbf_menu .sisbf_container'
+  el: '#sisbf_menu .sisbf_container .sisbf_menu'
   elAppendTo: '.maincontent'
 
   _el:

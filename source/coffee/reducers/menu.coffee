@@ -1,8 +1,8 @@
 class MenuReducer
 
   initialState:
-    appid: 570
-    contextid: 2
+    appid: '570'
+    contextid: '2'
     search: ''
     cookie: 'strInventoryLastContext'
 

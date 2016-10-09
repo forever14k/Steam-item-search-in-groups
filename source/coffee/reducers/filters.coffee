@@ -42,6 +42,7 @@ class FiltersReducer
         filter.enabled = true
     else
       filter.enabled = true
+    return state
 
   process: ( state, tag ) ->
     if tag?.category_name? and tag?.name?
@@ -51,9 +52,10 @@ class FiltersReducer
           @push state, tag.category_name, tag.name, tag.color
         else
           @push state, tag.category_name, tag.name
+    return state
 
   filter: ( state, action ) ->
-    if action.backpack.success? and action.backpack.success is true
+    if action?.backpack?.success is true
       backpack = action.backpack
       descriptions = backpack.rgDescriptions
 

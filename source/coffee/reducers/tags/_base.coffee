@@ -7,18 +7,19 @@ class TagsBaseReducer
 
   _middlewares: () ->
     _.each @middlewares, ( middleware, index ) =>
-      @middlewares[ index ] = @[ middleware ]
-
-  _cleanDefinition: () ->
-    @cleanDefinition = _.sortBy @cleanDefinition
+      @middlewares[ index ] = if @[ middleware ]? then @[ middleware ] else _.noop
 
   process: ( state, action ) ->
-    if action?.backpack?.success
+    if action?.backpack?.success is true
       descriptions = action.backpack.rgDescriptions
       if descriptions?
         _.each descriptions, ( description ) =>
           if @isAppId description, state.appId
-            _.invokeMap @middlewares, _.call, @, description
+            @invoke description
+    return state
+
+  invoke: ( description ) ->
+    _.invokeMap @middlewares, _.call, @, description
 
   insert: ( description, tag ) ->
     description._sisbftags = [] if not description?._sisbftags?
@@ -63,5 +64,4 @@ class TagsBaseReducer
 
   constructor: () ->
     @_middlewares()
-    @_cleanDefinition()
     return @reducer.bind @
