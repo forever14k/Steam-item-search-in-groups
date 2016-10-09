@@ -40,14 +40,14 @@ describe 'actions/queue', () ->
   describe '.onStateChange()', () ->
     describe 'it should call .start() when .Persons.state is', () ->
       it 'PERSONSCLUB_QUEUE', () ->
-        @mockState.state.Persons = __mock__[ 'queue/state/persons/PERSONSCLUB_QUEUE/3' ]
+        @mockState.state.Persons = __mock__( 'queue/state/persons/PERSONSCLUB_QUEUE/3' )
         spyOn @testQueue, 'start'
 
         @testQueue.onStateChange()
         expect( @testQueue.start ).toHaveBeenCalled()
 
       it 'PERSONSCLUB_RESUME', () ->
-        @mockState.state.Persons = __mock__[ 'queue/state/persons/PERSONSCLUB_RESUME' ]
+        @mockState.state.Persons = __mock__( 'queue/state/persons/PERSONSCLUB_RESUME' )
         spyOn @testQueue, 'start'
 
         @testQueue.onStateChange()
@@ -55,7 +55,7 @@ describe 'actions/queue', () ->
 
     describe 'it should not call .start() when .Persons.state is', () ->
       it 'other TYPE', () ->
-        @mockState.state.Persons = __mock__[ 'queue/state/persons/PERSONSCLUB_IDLE' ]
+        @mockState.state.Persons = __mock__( 'queue/state/persons/PERSONSCLUB_IDLE' )
         spyOn @testQueue, 'start'
 
         @testQueue.onStateChange()
@@ -63,7 +63,7 @@ describe 'actions/queue', () ->
 
     describe 'it should call .pause() when .Persons.state is', () ->
       it 'PERSONSCLUB_PAUSE', () ->
-        @mockState.state.Persons = __mock__[ 'queue/state/persons/PERSONSCLUB_PAUSE' ]
+        @mockState.state.Persons = __mock__( 'queue/state/persons/PERSONSCLUB_PAUSE' )
         spyOn @testQueue, 'pause'
 
         @testQueue.onStateChange()
@@ -71,7 +71,7 @@ describe 'actions/queue', () ->
 
     describe 'it should not call .pause() when .Persons.state is', () ->
       it 'other TYPE', () ->
-        @mockState.state.Persons = __mock__[ 'queue/state/persons/PERSONSCLUB_IDLE' ]
+        @mockState.state.Persons = __mock__( 'queue/state/persons/PERSONSCLUB_IDLE' )
         spyOn @testQueue, 'pause'
 
         @testQueue.onStateChange()
@@ -79,8 +79,8 @@ describe 'actions/queue', () ->
 
   describe '.start()', () ->
     beforeEach () ->
-      @mockState.state.Persons = __mock__[ 'queue/state/persons/PERSONSCLUB_QUEUE/3' ]
-      @mockState.state.Settings = __mock__[ 'queue/state/settings/570_2' ]
+      @mockState.state.Persons = __mock__( 'queue/state/persons/PERSONSCLUB_QUEUE/3' )
+      @mockState.state.Settings = __mock__( 'queue/state/settings/570_2' )
 
     afterEach () ->
       @testQueue.pause()
@@ -105,14 +105,14 @@ describe 'actions/queue', () ->
 
   describe '.process()', () ->
     beforeEach () ->
-      @mockState.state.Settings = __mock__[ 'queue/state/settings/570_2' ]
+      @mockState.state.Settings = __mock__( 'queue/state/settings/570_2' )
 
     it 'it should call Steam public API using .Settings', () ->
       spyOn $, 'ajax'
         .and
         .callThrough()
 
-      @testQueue.process __mock__[ 'queue/person/44336602' ]
+      @testQueue.process __mock__( 'queue/person/44336602' )
       expect( $.ajax ).toHaveBeenCalledWith jasmine.objectContaining
         url: '//steamcommunity.com/profiles/76561198004602330/inventory/json/570/2/?l=english'
 
@@ -122,7 +122,7 @@ describe 'actions/queue', () ->
         spyOn @testQueue, 'onLoaded'
         spyOn @testQueue, 'onError'
 
-        @testQueue.process __mock__[ 'queue/person/44336602' ]
+        @testQueue.process __mock__( 'queue/person/44336602' )
 
       describe '.onLoading() before API call starts', () ->
         it '.onLoading() have been called', ( ) ->
@@ -171,7 +171,7 @@ describe 'actions/queue', () ->
   describe '.onLoading()', () ->
     it 'it should dispatch PERSON_LOADING with person', () ->
       request =
-        person: __mock__[ 'queue/person/44336602' ]
+        person: __mock__( 'queue/person/44336602' )
       spyOn @mockState, 'dispatch'
 
       @testQueue.onLoading request
@@ -182,7 +182,7 @@ describe 'actions/queue', () ->
   describe '.onLoaded()', () ->
     it 'it should dispatch PERSON_LOADED with person and backpack', () ->
       request =
-        person: __mock__[ 'queue/person/44336602' ]
+        person: __mock__( 'queue/person/44336602' )
       backpack =
         success: false
       spyOn @mockState, 'dispatch'
@@ -199,7 +199,7 @@ describe 'actions/queue', () ->
 
     it 'it should unshift person to queue', () ->
       request =
-        person: __mock__[ 'queue/person/44336602' ]
+        person: __mock__( 'queue/person/44336602' )
       spyOn @testQueue.queue, 'unshift'
 
       @testQueue.onError request, 'error', 'Error'
@@ -207,7 +207,7 @@ describe 'actions/queue', () ->
 
     it 'it should dispatch PERSON_ERROR with person', () ->
       request =
-        person: __mock__[ 'queue/person/44336602' ]
+        person: __mock__( 'queue/person/44336602' )
       spyOn @mockState, 'dispatch'
 
       @testQueue.onError request, 'error', 'Error'

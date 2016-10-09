@@ -1,7 +1,7 @@
 describe 'reducers/tags/tf2', () ->
   describe '.tagTF2TypeLevel()', () ->
     it 'it should determine item level', () ->
-      description = __mock__[ 'tags/tf2/type/level/14' ]
+      description = __mock__( 'tags/tf2/type/level/14' )
 
       TagsTF2Reducer::tagTF2TypeLevel description
       expect( description._sisbftags ).toContain jasmine.objectContaining
@@ -10,7 +10,7 @@ describe 'reducers/tags/tf2', () ->
 
   describe '.tagTF2TypeLimited()', () ->
     it 'it should determine item limited quality', () ->
-      description = __mock__[ 'tags/tf2/type/limited/44' ]
+      description = __mock__( 'tags/tf2/type/limited/44' )
 
       TagsTF2Reducer::tagTF2TypeLimited description
       expect( description._sisbftags ).toContain jasmine.objectContaining
@@ -18,7 +18,7 @@ describe 'reducers/tags/tf2', () ->
         name: 'Limited'
 
     it 'it should inherit .name_color if present', () ->
-      description = __mock__[ 'tags/tf2/type/limited/name_color/7D6D00' ]
+      description = __mock__( 'tags/tf2/type/limited/name_color/7D6D00' )
 
       TagsTF2Reducer::tagTF2TypeLimited description
       expect( description._sisbftags ).toContain jasmine.objectContaining
@@ -28,7 +28,7 @@ describe 'reducers/tags/tf2', () ->
 
   describe '.tagTF2TypeStrange()', () ->
     it 'it should determine is item tracking anything', () ->
-      description = __mock__[ 'tags/tf2/type/strange/sentry kills' ]
+      description = __mock__( 'tags/tf2/type/strange/sentry kills' )
 
       TagsTF2Reducer::tagTF2TypeStrange description
       expect( description._sisbftags ).toContain jasmine.objectContaining
@@ -37,7 +37,7 @@ describe 'reducers/tags/tf2', () ->
 
   describe '.tagTF2DescStrangeKills()', () ->
     it 'it should determine is item tracking kills', () ->
-      description = __mock__[ 'tags/tf2/description/strange/kills' ]
+      description = __mock__( 'tags/tf2/description/strange/kills' )
 
       TagsTF2Reducer::tagTF2DescStrangeKills description
       expect( description._sisbftags ).toContain jasmine.objectContaining
@@ -46,7 +46,7 @@ describe 'reducers/tags/tf2', () ->
 
   describe '.tagTF2DescStrange()', () ->
     it 'it should detect item trackers', () ->
-      description = __mock__[ 'tags/tf2/description/strange/headshot kills' ]
+      description = __mock__( 'tags/tf2/description/strange/headshot kills' )
 
       TagsTF2Reducer::tagTF2DescStrange description
       expect( description._sisbftags ).toContain jasmine.objectContaining
@@ -55,7 +55,7 @@ describe 'reducers/tags/tf2', () ->
 
   describe '.tagTF2DescPaint()', () ->
     it 'it should detect item paint color', () ->
-      description = __mock__[ 'tags/tf2/description/paint/an extraordinary abundance of tinge' ]
+      description = __mock__( 'tags/tf2/description/paint/an extraordinary abundance of tinge' )
 
       TagsTF2Reducer::tagTF2DescPaint description
       expect( description._sisbftags ).toContain jasmine.objectContaining
@@ -64,7 +64,7 @@ describe 'reducers/tags/tf2', () ->
 
   describe '.tagTF2DescHalloween()', () ->
     it 'it should detect halloween spell item', () ->
-      description = __mock__[ 'tags/tf2/description/halloween/bruised purple footprints' ]
+      description = __mock__( 'tags/tf2/description/halloween/bruised purple footprints' )
 
       TagsTF2Reducer::tagTF2DescHalloween description
       expect( description._sisbftags ).toContain jasmine.objectContaining
@@ -73,7 +73,7 @@ describe 'reducers/tags/tf2', () ->
 
   describe '.tagTF2DescHoliday()', () ->
     it 'it should detect holiday restricted items', () ->
-      description = __mock__[ 'tags/tf2/description/holiday/tf birthday' ]
+      description = __mock__( 'tags/tf2/description/holiday/tf birthday' )
 
       TagsTF2Reducer::tagTF2DescHoliday description
       expect( description._sisbftags ).toContain jasmine.objectContaining
@@ -82,7 +82,7 @@ describe 'reducers/tags/tf2', () ->
 
   describe '.tagTF2DescEffectKillstreaker()', () ->
     it 'it should detect killstreaker effect', () ->
-      description = __mock__[ 'tags/tf2/description/effect/killstreaker/singularity' ]
+      description = __mock__( 'tags/tf2/description/effect/killstreaker/singularity' )
 
       TagsTF2Reducer::tagTF2DescEffectKillstreaker description
       expect( description._sisbftags ).toContain jasmine.objectContaining
@@ -91,7 +91,7 @@ describe 'reducers/tags/tf2', () ->
 
   describe '.tagTF2DescEffectSheen()', () ->
     it 'it should detect sheen effect', () ->
-      description = __mock__[ 'tags/tf2/description/effect/sheen/manndarin' ]
+      description = __mock__( 'tags/tf2/description/effect/sheen/manndarin' )
 
       TagsTF2Reducer::tagTF2DescEffectSheen description
       expect( description._sisbftags ).toContain jasmine.objectContaining
@@ -100,7 +100,7 @@ describe 'reducers/tags/tf2', () ->
 
   describe '.tagTF2DescEffectUnusual()', () ->
     it 'it should detect unusual effect', () ->
-      description = __mock__[ 'tags/tf2/description/effect/unusual/searing plasma' ]
+      description = __mock__( 'tags/tf2/description/effect/unusual/searing plasma' )
 
       TagsTF2Reducer::tagTF2DescEffectUnusual description
       expect( description._sisbftags ).toContain jasmine.objectContaining
@@ -109,7 +109,7 @@ describe 'reducers/tags/tf2', () ->
 
   describe '.tagTF2DescMedal()', () ->
     it 'it should detect medal number', () ->
-      description = __mock__[ 'tags/tf2/description/medal/7534' ]
+      description = __mock__( 'tags/tf2/description/medal/7534' )
 
       TagsTF2Reducer::tagTF2DescMedal description
       expect( description._sisbftags ).toContain jasmine.objectContaining

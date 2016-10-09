@@ -1,13 +1,13 @@
 describe 'reducers/filters', () ->
   beforeEach () ->
-    @mockState = _.cloneDeep __mock__[ 'filters/state/initial' ]
+    @mockState = __mock__( 'filters/state/initial' )
 
   afterEach () ->
     @mockState = null
 
   describe '.reset()', () ->
     beforeEach () ->
-      @mockAction = __mock__[ 'common/action/init' ]
+      @mockAction = __mock__( 'common/action/init' )
       @testState = FiltersReducer::reset @mockState, @mockAction
 
     afterEach () ->
@@ -32,8 +32,8 @@ describe 'reducers/filters', () ->
   describe '.push()', () ->
     beforeEach () ->
       @idleOptions = FiltersReducer::idleOptions
-      FiltersReducer::idleOptions = __mock__[ 'filters/function/push/idle' ]
-      _.each __mock__[ 'filters/function/push/options' ], ( data ) =>
+      FiltersReducer::idleOptions = __mock__( 'filters/function/push/idle' )
+      _.each __mock__( 'filters/function/push/options' ), ( data ) =>
         @testState = FiltersReducer::push @mockState, data[ 0 ], data[ 1 ], data[ 2 ]
 
     afterEach () ->
@@ -66,40 +66,40 @@ describe 'reducers/filters', () ->
     it 'it should not .push() filter if tag is disclosed ( ._filter: true )', () ->
       spyOn FiltersReducer::, 'push'
 
-      FiltersReducer::process @mockState, __mock__[ 'filters/function/process/true' ]
+      FiltersReducer::process @mockState, __mock__( 'filters/function/process/true' )
       expect( FiltersReducer::push ).toHaveBeenCalled()
 
     it 'it should not .push() filter if tag is disclosed ( ._filter: undefined )', () ->
       spyOn FiltersReducer::, 'push'
 
-      FiltersReducer::process @mockState, __mock__[ 'filters/function/process/undefined' ]
+      FiltersReducer::process @mockState, __mock__( 'filters/function/process/undefined' )
       expect( FiltersReducer::push ).toHaveBeenCalled()
 
     it 'it should .push() filter if tag is not disclosed ( ._filter: false )', () ->
       spyOn FiltersReducer::, 'push'
 
-      FiltersReducer::process @mockState, __mock__[ 'filters/function/process/false' ]
+      FiltersReducer::process @mockState, __mock__( 'filters/function/process/false' )
       expect( FiltersReducer::push ).not.toHaveBeenCalled()
 
     it 'it should support tag color', () ->
       spyOn FiltersReducer::, 'push'
 
-      FiltersReducer::process @mockState, __mock__[ 'filters/function/process/color/ffffff' ]
+      FiltersReducer::process @mockState, __mock__( 'filters/function/process/color/ffffff' )
       expect( FiltersReducer::push ).toHaveBeenCalledWith @mockState, 'Tradable', 'Tradable', 'ffffff'
 
     it 'it should return new state', () ->
-      testState = FiltersReducer::process @mockState, __mock__[ 'filters/functionProcessTrue' ]
+      testState = FiltersReducer::process @mockState, __mock__( 'filters/functionProcessTrue' )
       expect( testState ).toEqual( @mockState )
 
   describe '.filter()', () ->
     it 'it should not treat failed backpacks', () ->
-      @mockAction = __mock__[ 'filters/action/PERSON_LOADED/failure' ]
+      @mockAction = __mock__( 'filters/action/PERSON_LOADED/failure' )
 
       testState = FiltersReducer::filter @mockState, @mockAction
       expect( @mockState[ 'Clean' ] ).not.toBeDefined()
 
     beforeEach () ->
-      @mockAction = __mock__[ 'filters/action/PERSON_LOADED/success' ]
+      @mockAction = __mock__( 'filters/action/PERSON_LOADED/success' )
       @testState = FiltersReducer::filter @mockState, @mockAction
 
     afterEach () ->
@@ -117,7 +117,7 @@ describe 'reducers/filters', () ->
 
   describe '.select()', () ->
     beforeEach () ->
-      @mockAction = __mock__[ 'filters/action/FILTERS_SELECTED/initial/third' ]
+      @mockAction = __mock__( 'filters/action/FILTERS_SELECTED/initial/third' )
       @testState = FiltersReducer::select @mockState, @mockAction
 
     afterEach () ->
@@ -133,8 +133,8 @@ describe 'reducers/filters', () ->
 
   describe '.remove()', () ->
     beforeEach () ->
-      @mockState.initial = __mock__[ 'filters/state/selected/second' ]
-      @mockAction = __mock__[ 'filters/action/FILTERS_REMOVED/initial/second' ]
+      @mockState.initial = __mock__( 'filters/state/selected/second' )
+      @mockAction = __mock__( 'filters/action/FILTERS_REMOVED/initial/second' )
       @testState = FiltersReducer::remove @mockState, @mockAction
 
     afterEach () ->
@@ -156,20 +156,20 @@ describe 'reducers/filters', () ->
       @testFiltersReducer = null
 
     it 'it should set initial state', () ->
-      mockAction = __mock__[ 'common/action/test' ]
+      mockAction = __mock__( 'common/action/test' )
 
       testState = @testFiltersReducer undefined, mockAction
       expect( testState ).toBeDefined()
 
     it 'it should return new state', () ->
-      mockAction = __mock__[ 'common/action/test' ]
+      mockAction = __mock__( 'common/action/test' )
 
       testState = @testFiltersReducer @mockState, mockAction
       expect( testState ).toEqual( @mockState )
 
     describe '@@redux/INIT', () ->
       it 'it should reset state', () ->
-        mockAction = __mock__[ 'common/action/init' ]
+        mockAction = __mock__( 'common/action/init' )
 
         @testFiltersReducer @mockState, mockAction
         _.each @mockState, ( filter ) =>
@@ -179,7 +179,7 @@ describe 'reducers/filters', () ->
 
     describe 'SETTINGS_CHANGED', () ->
       it 'it should reset state', () ->
-        mockAction = __mock__[ 'filters/action/SETTINGS_CHANGED/730_4' ]
+        mockAction = __mock__( 'filters/action/SETTINGS_CHANGED/730_4' )
 
         @testFiltersReducer @mockState, mockAction
         _.each @mockState, ( filter ) =>
@@ -189,7 +189,7 @@ describe 'reducers/filters', () ->
 
     describe 'PERSON_LOADED', () ->
       it 'it should treat backpacks to filters', () ->
-        mockAction = __mock__[ 'filters/action/PERSON_LOADED/success' ]
+        mockAction = __mock__( 'filters/action/PERSON_LOADED/success' )
 
         @testFiltersReducer @mockState, mockAction
         expect( @mockState[ 'Tradable' ] ).toBeDefined()
@@ -197,7 +197,7 @@ describe 'reducers/filters', () ->
 
     describe 'FILTERS_SELECTED', () ->
       it 'it should select option in filter', () ->
-        mockAction = __mock__[ 'filters/action/FILTERS_SELECTED/initial/third' ]
+        mockAction = __mock__( 'filters/action/FILTERS_SELECTED/initial/third' )
 
         @testFiltersReducer @mockState, mockAction
         expect( @mockState[ 'initial' ].selected ).toContain jasmine.objectContaining
@@ -205,8 +205,8 @@ describe 'reducers/filters', () ->
 
     describe 'FILTERS_REMOVED', () ->
       it 'it should remove selected option in filter', () ->
-        @mockState.initial = __mock__[ 'filters/state/selected/second' ]
-        mockAction = __mock__[ 'filters/action/FILTERS_REMOVED/initial/second' ]
+        @mockState.initial = __mock__( 'filters/state/selected/second' )
+        mockAction = __mock__( 'filters/action/FILTERS_REMOVED/initial/second' )
 
         @testFiltersReducer @mockState, mockAction
         expect( @mockState[ 'initial' ].selected ).not.toContain jasmine.objectContaining
@@ -214,8 +214,8 @@ describe 'reducers/filters', () ->
 
     describe 'FILTERS_REPLACED', () ->
       it 'it should replace selected option in filter', () ->
-        @mockState.initial = __mock__[ 'filters/state/selected/second' ]
-        mockAction = __mock__[ 'filters/action/FILTERS_REPLACED/initial/second-third' ]
+        @mockState.initial = __mock__( 'filters/state/selected/second' )
+        mockAction = __mock__( 'filters/action/FILTERS_REPLACED/initial/second-third' )
 
         @testFiltersReducer @mockState, mockAction
 
@@ -228,7 +228,7 @@ describe 'reducers/filters', () ->
     it 'it should return .reducer()', () ->
       spyOn FiltersReducer::, 'reducer'
 
-      mockAction = __mock__[ 'common/action/test' ]
+      mockAction = __mock__( 'common/action/test' )
       testFiltersReducer = new FiltersReducer
       testFiltersReducer undefined, mockAction
       expect( FiltersReducer::reducer ).toHaveBeenCalledWith undefined, mockAction

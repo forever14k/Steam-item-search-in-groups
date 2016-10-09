@@ -1,6 +1,6 @@
 describe 'reducers/tags/_base', () ->
   beforeEach () ->
-    @mockState = _.cloneDeep __mock__[ 'tags/_base/state/initial' ]
+    @mockState = __mock__( 'tags/_base/state/initial' )
 
   afterEach () ->
     @mockState = null
@@ -24,7 +24,7 @@ describe 'reducers/tags/_base', () ->
 
   describe '.process()', () ->
     it 'it should not treat failed backpacks', () ->
-      description = __mock__[ 'tags/_base/action/PERSON_LOADED/failure' ]
+      description = __mock__( 'tags/_base/action/PERSON_LOADED/failure' )
       spyOn TagsBaseReducer::, 'invoke'
 
       TagsBaseReducer::process @mockState, description
@@ -32,7 +32,7 @@ describe 'reducers/tags/_base', () ->
 
     describe 'it should treat success backpacks', () ->
       beforeEach () ->
-        mockAction = __mock__[ 'tags/_base/action/PERSON_LOADED/success' ]
+        mockAction = __mock__( 'tags/_base/action/PERSON_LOADED/success' )
         spyOn TagsBaseReducer::, 'isAppId'
           .and
           .callThrough()
@@ -58,7 +58,7 @@ describe 'reducers/tags/_base', () ->
       TagsBaseReducer::middlewares = @middlewares
 
     it 'it should invoke all .middlewares[]', () ->
-      description = __mock__[ 'tags/_base/description/empty' ]
+      description = __mock__( 'tags/_base/description/empty' )
       _.each TagsBaseReducer::middlewares, ( middleware, index ) ->
         spyOn TagsBaseReducer::middlewares, index
 
@@ -68,8 +68,8 @@ describe 'reducers/tags/_base', () ->
 
   describe '.insert()', () ->
     beforeEach () ->
-      @description = _.cloneDeep __mock__[ 'tags/_base/description/empty' ]
-      @tag = __mock__[ 'tags/_base/tags/tradable' ]
+      @description = __mock__( 'tags/_base/description/empty' )
+      @tag = __mock__( 'tags/_base/tags/tradable' )
 
       TagsBaseReducer::insert @description, @tag
 
@@ -85,7 +85,7 @@ describe 'reducers/tags/_base', () ->
 
   describe '.isAppId()', () ->
     beforeEach () ->
-      @description = __mock__[ 'tags/_base/description/appid/570' ]
+      @description = __mock__( 'tags/_base/description/appid/570' )
 
     afterEach () ->
       @description = null
@@ -95,46 +95,46 @@ describe 'reducers/tags/_base', () ->
       expect( isAppId ).toBe( true )
 
     it 'it should return true if appId equal description.appid', () ->
-      @mockState = __mock__[ 'tags/_base/state/570' ]
+      @mockState = __mock__( 'tags/_base/state/570' )
 
       isAppId = TagsBaseReducer::isAppId @description, @mockState.appId
       expect( isAppId ).toBe( true )
 
     it 'it should return false if appId not equal description.appid', () ->
-      @mockState = __mock__[ 'tags/_base/state/730' ]
+      @mockState = __mock__( 'tags/_base/state/730' )
 
       isAppId = TagsBaseReducer::isAppId @description, @mockState.appId
       expect( isAppId ).toBe( false )
 
   describe '.isHaveDescriptions()', () ->
     it 'it should return true if description have descriptions', () ->
-      description = __mock__[ 'tags/_base/description/descriptions/1' ]
+      description = __mock__( 'tags/_base/description/descriptions/1' )
 
       isHaveDescriptions = TagsBaseReducer::isHaveDescriptions description
       expect( isHaveDescriptions ).toBe( true )
 
     it 'it should return false if description have descriptions', () ->
-      description = __mock__[ 'tags/_base/description/empty' ]
+      description = __mock__( 'tags/_base/description/empty' )
 
       isHaveDescriptions = TagsBaseReducer::isHaveDescriptions description
       expect( isHaveDescriptions ).toBe( false )
 
   describe '.isHaveFraudWarnings()', () ->
     it 'it should return true if description have fraudwarnings', () ->
-      description = __mock__[ 'tags/_base/description/fraudwarnings/1' ]
+      description = __mock__( 'tags/_base/description/fraudwarnings/1' )
 
       isHaveFraudWarnings = TagsBaseReducer::isHaveFraudWarnings description
       expect( isHaveFraudWarnings ).toBe( true )
 
     it 'it should return false if description have fraudwarnings', () ->
-      description = __mock__[ 'tags/_base/description/empty' ]
+      description = __mock__( 'tags/_base/description/empty' )
 
       isHaveFraudWarnings = TagsBaseReducer::isHaveFraudWarnings description
       expect( isHaveFraudWarnings ).toBe( false )
 
   describe '.tagDesc()', () ->
     beforeEach () ->
-      @description = _.cloneDeep __mock__[ 'tags/_base/description/descriptions/heroic/rapier' ]
+      @description = __mock__( 'tags/_base/description/descriptions/heroic/rapier' )
       @config =
         regex: /\<font\scolor\=\#999999\>(.*)\sof\s(.*)\spurchased\sa\sRapier\sagainst\s(.*)\son\s(\w{3})\s(\d{2})\,\s(\d{4})\s\((\d{1,2}\:\d{1,2}\:\d{1,2})\)(\.|\!|)<\/font\>/i
         option: 'Heroic event'
@@ -191,20 +191,20 @@ describe 'reducers/tags/_base', () ->
       @testTagsBaseReducer = null
 
     it 'it should set initial state', () ->
-      mockAction = __mock__[ 'common/action/test' ]
+      mockAction = __mock__( 'common/action/test' )
 
       testState = @testTagsBaseReducer undefined, mockAction
       expect( testState ).toBeDefined()
 
     it 'it should return new state', () ->
-      mockAction = __mock__[ 'common/action/test' ]
+      mockAction = __mock__( 'common/action/test' )
 
       testState = @testTagsBaseReducer @mockState, mockAction
       expect( testState ).toEqual( @mockState )
 
     describe 'PERSON_LOADED', () ->
       it 'it should insert process descriptions through middlewares', () ->
-        mockAction = __mock__[ 'tags/_base/action/PERSON_LOADED/success' ]
+        mockAction = __mock__( 'tags/_base/action/PERSON_LOADED/success' )
         spyOn TagsBaseReducer::, 'invoke'
 
         @testTagsBaseReducer @mockState, mockAction
@@ -214,7 +214,7 @@ describe 'reducers/tags/_base', () ->
     it 'it should return .reducer()', () ->
       spyOn TagsBaseReducer::, 'reducer'
 
-      mockAction = __mock__[ 'common/action/test' ]
+      mockAction = __mock__( 'common/action/test' )
       testTagsBaseReducer = new TagsBaseReducer
       testTagsBaseReducer undefined, mockAction
       expect( TagsBaseReducer::reducer ).toHaveBeenCalledWith undefined, mockAction

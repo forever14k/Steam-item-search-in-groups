@@ -19,6 +19,7 @@ module.exports = (config) ->
       'source/coffee/views/*.coffee'
       'source/coffee/actions/*.coffee'
       'source/coffee/reducers/**/*.coffee'
+      'tests/mocks/__mock__.coffee'
       'tests/mocks/**/*.json'
       'tests/**/*.coffee'
     ]
@@ -28,7 +29,7 @@ module.exports = (config) ->
       'tests/mocks/**/*.json': [ 'json_fixtures' ]
     jsonFixturesPreprocessor:
       stripPrefix: 'tests/mocks/'
-      variableName: '__mock__'
+      variableName: '___mock___'
     reporters: [ 'verbose', 'kjhtml' ]
     port: 9876
     colors: true

@@ -1,7 +1,7 @@
 describe 'reducers/tags/csgo', () ->
   describe '.tagCSGODescStickers()', () ->
     it 'it should detect stickers', () ->
-      description = __mock__[ 'tags/csgo/description/stickers/4']
+      description = __mock__( 'tags/csgo/description/stickers/4')
 
       TagsCSGOReducer::tagCSGODescStickers description
       expect( description._sisbftags ).toContain jasmine.objectContaining
