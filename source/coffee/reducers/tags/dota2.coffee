@@ -189,11 +189,13 @@ class TagsDOTA2Reducer extends TagsBaseReducer
 
     if not name? and not value?
       autograph = gem[ 2 ].match REGEX_AUTOGRAPHRUNE
+      if autograph?
+        autograph = gem[ 1 ].match REGEX_AUTOGRAPHED
 
     if autograph?
       tag =
         category_name: OPTION_AUTOGRAPHRUNE
-        name: gem[ 1 ]
+        name: autograph[ 2 ]
     else
       if name?
         tag =

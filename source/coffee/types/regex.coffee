@@ -5,6 +5,7 @@ REGEX_RENAMED = /^(\'\'.*\'\')$/i
 REGEX_NAMETAG = /^Name\sTag\:\s(\'\'.*\'\')$/i
 REGEX_GIFTED = /Gift\sfrom:\s(.*)/i
 REGEX_CRAFTED = /Crafted\sby\s(.*)/i
+REGEX_AUTOGRAPHED = /Autograph(ed|)\sby\s(.*)/i
 REGEX_STRANGE = /\((.*):\s(\d+)\)/i
 REGEX_STRANGE_KILLS = /^\s+Kills:\s(\d+)/i
 REGEX_PAINT = /Paint\sColor:\s(.*)/i
@@ -17,7 +18,7 @@ REGEX_UNUSUAL = /Unusual\sEffect:\s(.*)/i
 REGEX_MEDAL = /Medal\sno\.\s(\d+)/i
 REGEX_DEDICATION = /^Dedication:\s(.*)$/i
 REGEX_EVENT_DOTA2 = /((New\sBloom|Diretide|Frostivus|The\sInternational|Sithil\'s\sSummer\sStash|The\sCOmpendium\sFantasy\sChallenge)\s(\d{4}))/i
-REGEX_NICKNAME_DOTA2 = /\d{4}\sPlayer\sCard\:\s(.*)/i
+REGEX_NICKNAME_DOTA2 = /Player\sCard\:\s(.*)/i
 REGEX_PLAYER_DOTA2 = /name\=\"player_card_info.*\>Name:\s([^\<\>]+)/i
 REGEX_TEAM_DOTA2 = /name\=\"player_card_info.*\>Team:\s([^\<\>]+)/i
 REGEX_HEROIC_DATE = /(\w{3})\s(\d{2})\,\s(\d{4})\s\((\d{1,2}\:\d{1,2}\:\d{1,2})\)(\.|\!|)/i

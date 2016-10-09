@@ -402,7 +402,6 @@ describe 'reducers/tags/dota2', () ->
       gem = __mock__[ 'tags/dota2/description/gem/track/value/matched/barracks destroyed' ]
 
       TagsDOTA2Reducer::tagDOTA2DescGem description, gem
-      # console.log description
       expect( description._sisbftags ).toContain jasmine.objectContaining
         category_name: 'Track'
         name: 'Barracks Destroyed'
@@ -414,7 +413,7 @@ describe 'reducers/tags/dota2', () ->
       TagsDOTA2Reducer::tagDOTA2DescGem description, gem
       expect( description._sisbftags ).toContain jasmine.objectContaining
         category_name: 'Autograph Rune'
-        name: 'Autographed by Andrey \'Dread\' Golubev'
+        name: 'Andrey \'Dread\' Golubev'
 
     it 'it should detect others gems', () ->
       description = __mock__[ 'tags/dota2/description/gem/kinetic/sylvan cascade' ]
