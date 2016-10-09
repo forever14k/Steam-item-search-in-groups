@@ -1,0 +1,31 @@
+{
+  "name": "Steam item search between friends.",
+  "version": "1.2.0",
+  "content_scripts": [
+    {
+      "css": [
+        "css/app.css"
+      ],
+      "js": [
+        "js/app.js"
+      ],
+      "matches": [
+        "http://steamcommunity.com/*/friends*",
+        "https://steamcommunity.com/*/friends*"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "static/img/icon16.png",
+    "48": "static/img/icon48.png",
+    "128": "static/img/icon128.png"
+  },
+  "manifest_version": 2,
+  "permissions": [
+    "tabs",
+    "http://steamcommunity.com/*",
+    "http://api.steampowered.com/*"
+  ],
+  "update_url": "https://clients2.google.com/service/update2/crx",
+  "web_accessible_resources": []
+}

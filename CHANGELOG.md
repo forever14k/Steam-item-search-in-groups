@@ -1,0 +1,82 @@
+1.2.0 / 2016-06-28
+==================
+- Major Update
+  - Reworked code base
+  - Extensibility
+  - Bundling
+  - No more eye bleeding
+- Now using
+  - CoffeeScript, Jade, Stylus
+  - Redux
+  - Async\Queue, Lodash
+  - Grunt
+
+1.1.6 / 2016-07-02
+==================
+- Fixed crash if items don't have description.
+
+1.1.5 / 2016-06-02
+==================
+- Using https protocol (if requested over https).
+
+1.1.4 / 2015-09-16
+==================
+- Increased Steam calls timeout due to Steam updates (4300ms).
+
+1.1.3 / 2015-01-07
+==================
+- Increased Steam calls timeout due to Steam updates (2100ms).
+
+1.1.2 / 2014-09-05
+==================
+- Fixed Slot filters not showing.
+
+1.1.1
+==================
+- Fixed not showing results if item don't had tags.
+
+1.1.0
+==================
+- Reworked previous change for smoother experience.
+
+1.0.9
+==================
+- Steam now limits API call per minute, so if Steam blocked us - we wait one minute for gaining access.
+
+1.0.8
+==================
+- Fixed incidental error. :)
+
+1.0.7
+==================
+- Added UI for filters.
+- Filters in input box is no longer available.
+
+1.0.6
+==================
+- Fixed URL pattern match caused extension don't work if no slash in the end of URL.
+
+1.0.5
+==================
+- Fixed incidental error.
+
+1.0.4
+==================
+- Fixed unusual tooltips for Team Fortress 2.
+
+1.0.3
+==================
+- Enabled unusual tooltips.
+- Added gems support.
+- Updated tournament tooltips.
+- Added rarity filters for community inventories (753,6).
+- Updated qualities for Dota 2 (Vintage -> Elder, Tournament ->Heroic, Haunted -> Cursed, Strange -> Inscribed).
+
+1.0.2
+==================
+- Fixed quality and rarity filters.
+- Disabled unusual tooltips for now (gems update).
+
+1.0.1
+==================
+- Added Counter-Strike: Global Offensive filters such as: exterior:<exterior>, category:<category>, quality:<quality>.
