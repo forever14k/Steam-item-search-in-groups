@@ -17,6 +17,7 @@ class BackpacksView extends BaseView
     steamId32 = $user.attr 'data-steamid32'
     $profile = $ "[data-miniprofile=#{steamId32}]"
     $profile
+      .first()
       .clone()
       .appendTo $user
 
