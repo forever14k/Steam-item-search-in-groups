@@ -103,6 +103,7 @@ module.exports = (grunt)->
           'temp/css/app.css': [
             'temp/css/libs/*.css',
             'temp/css/styles/*.css'
+            'temp/css/styles/**/*.css'
           ]
           'temp/js/app.js': [
             'temp/js/libs/jquery.js',
@@ -111,7 +112,9 @@ module.exports = (grunt)->
             'temp/js/templates/**/*.js',
             'temp/js/scripts/*.js'
             'temp/js/scripts/types/*.js'
+            'temp/js/scripts/hooks/*.js'
             'temp/js/scripts/views/*.js'
+            'temp/js/scripts/views/**/*.js'
             'temp/js/scripts/actions/*.js'
             'temp/js/scripts/reducers/**/*.js'
             '!temp/js/scripts/state.js', 'temp/js/scripts/state.js'
