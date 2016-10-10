@@ -1,7 +1,7 @@
 {
   "name": "Steam-item-search-between-friends",
   "version": "1.2.0",
-  "description": "This extension allows to find items you looking for in all friends inventories on the same time.(On steam friends page e.g. http://steamcommunity.com/my/friends)",
+  "description": "This extension allows to find items you looking for in all friends inventories on the same time.",
   "main": "build/js/app.js",
   "scripts": {
     "test": "karma start karma.conf.coffee --browsers PhantomJS --reporters progress --single-run"
