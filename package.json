@@ -1,18 +1,18 @@
 {
-  "name": "Steam-item-search-between-friends",
+  "name": "Steam-item-search-in-groups",
   "version": "1.2.0",
-  "description": "This extension allows to find items you looking for in all friends inventories on the same time.(On steam friends page e.g. http://steamcommunity.com/my/friends)",
+  "description": "This extension allows to find items you looking for in Steam group members inventories.",
   "main": "build/js/app.js",
   "scripts": {
     "test": "karma start karma.conf.coffee --browsers PhantomJS --reporters progress --single-run"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:forever14k/Steam-item-search-between-friends.git"
+    "url": "git+ssh://git@github.com:forever14k/Steam-item-search-in-groups.git"
   },
   "author": "14k",
   "license": "ISC",
-  "homepage": "https://github.com/forever14k/Steam-item-search-between-friends/",
+  "homepage": "https://github.com/forever14k/Steam-item-search-in-groups/",
   "devDependencies": {
     "coffee-script": "^1.11.0",
     "grunt": "^1.0.1",
