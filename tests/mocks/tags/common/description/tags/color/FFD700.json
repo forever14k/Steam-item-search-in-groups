@@ -1,0 +1,11 @@
+{
+    "tags": [{
+        "name": "Souvenir",
+        "color": "FFD700",
+        "category_name": "Category"
+    }, {
+        "name": "Restricted",
+        "color": "8847ff",
+        "category_name": "Quality"
+    }]
+}
