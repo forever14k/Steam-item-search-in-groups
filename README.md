@@ -1,5 +1,5 @@
 # Steam item search in groups
-This extension allows to find items you looking for in steam group members inventories.(On Steam group members page e.g. https://steamcommunity.com/groups/dota2lounge#members)
+This extension allows to find items you looking for in Steam group members inventories. (On Steam group members page e.g. https://steamcommunity.com/groups/dota2lounge#members)
 
 ## Extension allows filtering results like:
 * **Quality** - Unique, Limited, Genuine, Vintage, Unusual, Heroic, etc..
