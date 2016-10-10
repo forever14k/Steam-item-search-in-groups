@@ -14,7 +14,12 @@ class BaseView
   subscribe: () ->
     @state.subscribe @onStateChange.bind @
 
+  delegateWindowEvents: () ->
+    $ window
+      .on 'message', @onWindowMessage.bind @
+
   onStateChange: _.noop
+  onWindowMessage: _.noop
 
   updateSelectors: () ->
     @$el = $ @el
@@ -24,3 +29,4 @@ class BaseView
   constructor: ( @state ) ->
     @subscribe()
     @updateSelectors()
+    @delegateWindowEvents()
