@@ -1,5 +1,5 @@
 # Steam item search between friends
-This extension allows to find items you looking for in all friends inventories on the same time.(On Steam friends page e.g. https://steamcommunity.com/my/friends)
+This extension allows to find items you looking for in all friends inventories on the same time. (On Steam friends page e.g. https://steamcommunity.com/my/friends)
 
 ## Extension allows filtering results like:
 * **Quality** - Unique, Limited, Genuine, Vintage, Unusual, Heroic, etc..
@@ -17,7 +17,7 @@ This extension allows to find items you looking for in all friends inventories o
 4. Refresh or open now steam friends page in chrome.
 5. **Thats it.** Now extension grab updated ids and show them up in input boxes. You can now load inventories and search items you looking for.
 
-In my opinion, steam trading system lack of such a functionality.
+In my opinion, Steam trading system lack of such a functionality.
 
 ## **How To:** Install from Chrome Web Store (using Chrome).
 1. Open [extension page in Chrome Web Store](https://chrome.google.com/webstore/detail/steam-item-search-between/ajlddciniccidokpjhppahkoefohkchg).
