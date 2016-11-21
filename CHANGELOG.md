@@ -1,3 +1,7 @@
+1.2.1 / 2016-11-22
+==================
+- Added market_name fallback using name
+
 1.2.0 / 2016-06-28
 ==================
 - Major Update

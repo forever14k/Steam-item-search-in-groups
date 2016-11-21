@@ -39,6 +39,8 @@ class BackpacksReducer
           tagColor = _.find description._sisbftags, category_name: OPTION_COLOR
           color = tagColor.color if tagColor
 
+          description.market_name = description.name if description?.market_name?.length is 0 and description?.name?.length isnt 0
+
           state.descriptions[ descriptionId ] = description
 
           state.items.push
