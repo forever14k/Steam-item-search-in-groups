@@ -17,6 +17,8 @@
         },
         "rgDescriptions": {
             "0_14000": {
+                "name": "sisbf",
+                "market_name": "",
                 "_sisbftags": [{
                     "category_name": "Color",
                     "name": "ffffff",

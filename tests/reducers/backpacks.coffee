@@ -74,6 +74,9 @@ describe 'reducers/backpacks', () ->
     it 'it should push item description to .descriptions', () ->
       expect( @mockState.descriptions[ '0_14000' ] ).toBeDefined()
 
+    it 'it should fallback description market_name with name', () ->
+      expect( @mockState.descriptions[ '0_14000' ].market_name ).toBe( 'sisbf' )
+
     it 'it should push item asset to .items', () ->
       expect( @mockState.items ).toContain jasmine.objectContaining
         itemId: '14000'
