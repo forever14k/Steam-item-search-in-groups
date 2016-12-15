@@ -1,5 +1,5 @@
 StateReducers = Redux.combineReducers
-  Debug: new DebugReducer
+  # Debug: new DebugReducer
   Settings: new MenuReducer
   Persons: new PersonsReducer
   Tags: Redux.combineReducers
