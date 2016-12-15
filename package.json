@@ -1,6 +1,6 @@
 {
   "name": "Steam-item-search-in-groups",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "This extension allows to find items you looking for in Steam group members inventories.",
   "main": "build/js/app.js",
   "scripts": {
