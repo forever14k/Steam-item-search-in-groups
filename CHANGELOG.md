@@ -1,5 +1,11 @@
 1.2.1 / 2016-11-22
 ==================
+- Adjust Steam request per minute limit. Now its 2, was 13.
+- Added console info message
+- Disabled Debug
+
+1.2.1 / 2016-11-22
+==================
 - Added market_name fallback using name
 
 1.2.0 / 2016-06-28
