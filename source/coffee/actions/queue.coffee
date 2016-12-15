@@ -2,7 +2,7 @@ class Queue extends BaseView
 
   state: null
   queue: null
-  delay: 4300
+  delay: ( ( 1000 * 60 ) / QUEUE_RPM)
   worker: 1
 
   onStateChange: () ->
