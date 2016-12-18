@@ -58,7 +58,7 @@ class PersonsReducer
         @unshift state, action
       when PERSON_LOADING, PERSON_ERROR
         @statePerson state, action
-      when PERSON_LOADED
+      when PERSON_LOADED, PERSON_EMPTY, PERSON_BUSY
         @increment state
         @statePerson state, action
     return state
