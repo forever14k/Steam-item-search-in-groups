@@ -10,7 +10,7 @@ class AdaptationReducer
 
       backpack.rgInventory = {}
       _.each backpack.assets, ( asset, assetIndex ) =>
-        asset.id = asset.assetid
+        asset.id = asset.assetid if asset?.assetid?
         backpack.rgInventory[ asset.id ] = asset
 
       backpack.rgDescriptions = {}
