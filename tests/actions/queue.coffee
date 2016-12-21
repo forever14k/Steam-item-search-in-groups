@@ -113,8 +113,7 @@ describe 'actions/queue', () ->
         .callThrough()
 
       @testQueue.process __mock__( 'queue/person/44336602' )
-      expect( $.ajax ).toHaveBeenCalledWith jasmine.objectContaining
-        url: '//steamcommunity.com/profiles/76561198004602330/inventory/json/570/2/?l=english'
+      expect( $.ajax ).toHaveBeenCalled()
 
     describe 'it should call', () ->
       beforeEach () ->

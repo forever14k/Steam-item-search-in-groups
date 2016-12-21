@@ -1,3 +1,13 @@
+1.3.1 / 2016-12-21
+==================
+- Fixed search text replaced when inventories load too fast.
+
+1.3.0 / 2016-12-19
+==================
+- Change Steam inventory end point.
+- Adust Steam request per minute limit. Now its 150, was 2.
+- Minor fixes, such as gems regexes.
+
 1.2.2 / 2016-12-15
 ==================
 - Adjust Steam request per minute limit. Now its 2, was 13.
