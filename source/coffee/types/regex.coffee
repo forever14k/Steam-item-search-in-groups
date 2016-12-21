@@ -36,8 +36,8 @@ REGEX_HEROIC_AEGISSNATCH = /\<font\scolor\=\#999999\>(.*)\sof\s(.*)\sunexpectedl
 REGEX_HEROIC_EARLYROSHAN = /\<font\scolor\=\#999999\>(.*)\sof\s(.*)\sgot\san\searly\sRoshan\sagainst\s(.*)\son\s(\w{3})\s(\d{2})\,\s(\d{4})\s\((\d{1,2}\:\d{1,2}\:\d{1,2})\)(\.|\!|)<\/font\>/i
 REGEX_HEROIC_RAPIER = /\<font\scolor\=\#999999\>(.*)\sof\s(.*)\spurchased\sa\sRapier\sagainst\s(.*)\son\s(\w{3})\s(\d{2})\,\s(\d{4})\s\((\d{1,2}\:\d{1,2}\:\d{1,2})\)(\.|\!|)<\/font\>/i
 REGEX_HEROIC_5ECHOSLAM = /\<font\scolor\=\#999999\>(.*)\sof\s(.*)\sperformed\sa\s5\sman\sEcho\sSlam\sagainst\s(.*)\son\s(\w{3})\s(\d{2})\,\s(\d{4})\s\((\d{1,2}\:\d{1,2}\:\d{1,2})\)(\.|\!|)<\/font\>/i
-REGEX_GEMS = /\<span\sstyle\=\"font\-size\:\s18px\;\scolor\:\srgb\(\d+\,\s\d+\,\s\d+\)\"\>([^\<\>]+)\<\/span\>\<br\>\<span\sstyle\=\"font\-size\:\s12px\"\>([^\<\>]+)\<\/span\>/ig
-REGEX_GEM = /\<span\sstyle\=\"font\-size\:\s18px\;\scolor\:\srgb\(\d+\,\s\d+\,\s\d+\)\"\>([^\<\>]+)\<\/span\>\<br\>\<span\sstyle\=\"font\-size\:\s12px\"\>([^\<\>]+)\<\/span\>/i
+REGEX_GEMS = /\<span\sstyle\=\"font\-size\:\s18px\;\swhite\-space\:\snormal\;\scolor\:\srgb\(\d+\,\s\d+\,\s\d+\)\"\>([^\<\>]+)\<\/span\>\<br\>\<span\sstyle\=\"font\-size\:\s12px\"\>([^\<\>]+)\<\/span\>/ig
+REGEX_GEM = /\<span\sstyle\=\"font\-size\:\s18px\;\swhite\-space\:\snormal\;\scolor\:\srgb\(\d+\,\s\d+\,\s\d+\)\"\>([^\<\>]+)\<\/span\>\<br\>\<span\sstyle\=\"font\-size\:\s12px\"\>([^\<\>]+)\<\/span\>/i
 REGEX_TRACK = /(.*):\s(\d+)/i
 REGEX_AUTOGRAPHRUNE = /Autograph\sRune/i
 REGEX_STICKERS = /name\=\"sticker_info.*\>Sticker\:\s([^\<\>]+)/i

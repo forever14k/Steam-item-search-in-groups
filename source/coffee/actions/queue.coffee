@@ -30,11 +30,20 @@ class Queue extends BaseView
 
   onError: ( request, status, error ) ->
     person = request.person
-
-    @queue.unshift person
-    @state.dispatch
-      type: PERSON_ERROR
-      person: person
+    switch request.status
+      when 403
+        @state.dispatch
+          type: PERSON_EMPTY
+          person: person
+      when 500
+        @state.dispatch
+          type: PERSON_BUSY
+          person: person
+      else
+        @queue.unshift person
+        @state.dispatch
+          type: PERSON_ERROR
+          person: person
 
   imitation: ( person ) ->
     request =
@@ -52,7 +61,7 @@ class Queue extends BaseView
 
     request = $.ajax
       method: 'GET'
-      url: "//steamcommunity.com/profiles/#{person.steamId64}/inventory/json/#{state.appid}/#{state.contextid}/?l=english"
+      url: "//steamcommunity.com/inventory/#{person.steamId64}/#{state.appid}/#{state.contextid}?l=english&count=5000"
       dataType: 'json'
       success: @onLoaded.bind @
       error: @onError.bind @
