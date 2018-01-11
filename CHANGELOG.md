@@ -1,3 +1,7 @@
+1.3.2 / 2018-01-11
+==================
+- Adjust Steam request per minute limit. Now its 30, was 150.
+
 1.3.1 / 2016-12-21
 ==================
 - Fixed search text replaced when inventories load too fast.
