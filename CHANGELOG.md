@@ -1,3 +1,7 @@
+1.3.3 / 2018-08-01
+==================
+- Change title and description as requested by chrome web store dev. support.
+
 1.3.2 / 2018-01-11
 ==================
 - Adjust Steam request per minute limit. Now its 30, was 150.
